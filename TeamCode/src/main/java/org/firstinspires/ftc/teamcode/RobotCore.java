@@ -28,6 +28,8 @@ public class RobotCore extends OpMode{
     DcMotor leftRear=null;
     DcMotor rightRear=null;
 
+    Servo plane;
+
     //IMU variables
     BNO055IMU inertiaMeasure;
     //heading
@@ -44,6 +46,8 @@ public class RobotCore extends OpMode{
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
+
+        plane = hardwareMap.get(Servo.class, "plane");
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
