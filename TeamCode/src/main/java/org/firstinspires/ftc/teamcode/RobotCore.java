@@ -23,6 +23,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RobotCore extends OpMode{
 
     //variables for motors and servos
+    DcMotor test = null;
     DcMotor leftFront=null; //Currently Slide
     DcMotor rightFront=null;
     DcMotor leftRear=null;
@@ -46,6 +47,7 @@ public class RobotCore extends OpMode{
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
+        test = hardwareMap.get(DcMotor.class, "test");
 
         plane = hardwareMap.get(Servo.class, "plane");
 

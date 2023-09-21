@@ -67,5 +67,15 @@ public class DebugTele extends RobotCore {
         plane.setPosition(0.7);
     }
 
+    if (gamepad1.x){
+        test.setPower(1);
+    } else if (gamepad1.x){
+        test.setPower(-1);
+    } else {
+        test.setPower(0);
+    }
+
+
+
     }
 }
