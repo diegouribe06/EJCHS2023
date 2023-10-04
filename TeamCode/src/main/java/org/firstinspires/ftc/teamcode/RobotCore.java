@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,7 +30,7 @@ public class RobotCore extends OpMode{
     DcMotor leftRear=null;
     DcMotor rightRear=null;
 
-    Servo plane;
+    CRServo plane;
 
     //IMU variables
     BNO055IMU inertiaMeasure;
@@ -49,12 +50,14 @@ public class RobotCore extends OpMode{
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
         test = hardwareMap.get(DcMotor.class, "test");
 
-        plane = hardwareMap.get(Servo.class, "plane");
+        plane = hardwareMap.get(CRServo.class, "plane");
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
         leftRear.setDirection((DcMotor.Direction.REVERSE));
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        test.setDirection(DcMotor.Direction.REVERSE);
+
     }
 
     //These methods are to be overridden in the classes

@@ -22,7 +22,7 @@ public class DebugTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
-        plane.setPosition(0);
+        //plane.setPosition(0);
     }
 
     public void loop(){
@@ -64,11 +64,12 @@ public class DebugTele extends RobotCore {
     telemetry.addData("left encoder:", rightFront.getCurrentPosition());
     telemetry.addData("right encoder:", leftRear.getCurrentPosition());
     if (gamepad1.a){
-        plane.setPosition(0.7);
+        //plane.setPosition(0.7);
     }
 
     if (gamepad1.x){
         test.setPower(1);
+        plane.setPower(1);
     } else if (gamepad1.x){
         test.setPower(-1);
     } else {
