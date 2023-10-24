@@ -23,6 +23,9 @@ public class MainTele extends RobotCore {
     public void init(){super.init();}
 
     public void loop(){
+        /**
+         * Driving Stuff
+         */
         //Sets the x and y vars to controller inputs
         x1 = gamepad1.left_stick_x;
         x2 = gamepad1.right_stick_x;
@@ -55,6 +58,16 @@ public class MainTele extends RobotCore {
             rightFront.setPower(0);
             leftRear.setPower(0);
             rightRear.setPower(0);
+        }
+        /**
+         * Accessory Controls
+         */
+        if (gamepad1.left_stick_button){
+            intake.setPower(-1);
+            intake2.setPower(1);
+        } else {
+            intake.setPower(0);
+            intake2.setPower(0);
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
@@ -21,6 +22,8 @@ public class DebugTele extends RobotCore {
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
+        northTower.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        southTower.setMode(DcMotor.RunMode.RESET_ENCODERS);
         super.init();
         //plane.setPosition(0);
     }
@@ -63,18 +66,29 @@ public class DebugTele extends RobotCore {
     telemetry.addData("front encoder:", leftFront.getCurrentPosition());
     telemetry.addData("left encoder:", rightFront.getCurrentPosition());
     telemetry.addData("right encoder:", leftRear.getCurrentPosition());
-    if (gamepad1.a){
-        //plane.setPosition(0.7);
+
+    if(gamepad1.dpad_up){
+        northTower.setPower(0.3);
+    }
+    else if (gamepad1.dpad_down){
+        northTower.setPower(-0.3);
+    }
+    else{
+        northTower.setPower(0);
     }
 
-    if (gamepad1.x){
-        test.setPower(1);
+    southTower.setTargetPosition(northTower.getCurrentPosition());
+    southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    southTower.setPower(1);
+
+    if (gamepad1.a){
         plane.setPower(1);
-    } else if (gamepad1.x){
-        test.setPower(-1);
+        intake.setPower(1);
     } else {
-        test.setPower(0);
+        plane.setPower(0);
+        intake.setPower(0);
     }
+    //plane.setPosition(0);
 
 
 

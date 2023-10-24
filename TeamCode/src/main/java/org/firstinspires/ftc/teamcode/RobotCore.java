@@ -24,14 +24,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RobotCore extends OpMode{
 
     //variables for motors and servos
-    DcMotor test = null;
+    DcMotor northTower = null;
+
+    DcMotor southTower = null;
     DcMotor leftFront=null; //Currently Slide
     DcMotor rightFront=null;
     DcMotor leftRear=null;
     DcMotor rightRear=null;
+    DcMotor intake = null;
 
     CRServo plane;
-
+    Servo southHook;
+    Servo extender;
+    Servo clawPivot;
+    Servo pickup;
+    DcMotor launcher;
+    CRServo intake2;
     //IMU variables
     BNO055IMU inertiaMeasure;
     //heading
@@ -48,16 +56,27 @@ public class RobotCore extends OpMode{
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
-        test = hardwareMap.get(DcMotor.class, "test");
 
-        plane = hardwareMap.get(CRServo.class, "plane");
+        //Control Hub Devices
+        southHook = hardwareMap.get(Servo.class, "southHook");
+        extender = hardwareMap.get(Servo.class, "extender");
+        clawPivot = hardwareMap.get(Servo.class, "clawPivot");
+        pickup = hardwareMap.get(Servo.class, "pickup");
+
+        //Expansion Hub Devices
+        northTower = hardwareMap.get(DcMotor.class, "northTower");
+        southTower = hardwareMap.get(DcMotor.class, "southTower");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        launcher = hardwareMap.get(DcMotor.class, "launcher");
+        intake2 = hardwareMap.get(CRServo.class, "intake2");
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
         leftRear.setDirection((DcMotor.Direction.REVERSE));
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        test.setDirection(DcMotor.Direction.REVERSE);
 
+        northTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     //These methods are to be overridden in the classes
