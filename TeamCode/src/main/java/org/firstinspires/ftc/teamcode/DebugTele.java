@@ -63,33 +63,34 @@ public class DebugTele extends RobotCore {
 //            rightRear.setPower(0);
 //        }
 
-    telemetry.addData("front encoder:", leftFront.getCurrentPosition());
-    telemetry.addData("left encoder:", rightFront.getCurrentPosition());
-    telemetry.addData("right encoder:", leftRear.getCurrentPosition());
-
-    if(gamepad1.dpad_up){
-        northTower.setPower(0.3);
-    }
-    else if (gamepad1.dpad_down){
-        northTower.setPower(-0.3);
-    }
-    else{
-        northTower.setPower(0);
-    }
-
-    southTower.setTargetPosition(northTower.getCurrentPosition());
-    southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    southTower.setPower(1);
-
-    if (gamepad1.a){
-        plane.setPower(1);
-        intake.setPower(1);
-    } else {
-        plane.setPower(0);
-        intake.setPower(0);
-    }
-    //plane.setPosition(0);
-
+//    telemetry.addData("front encoder:", leftFront.getCurrentPosition());
+//    telemetry.addData("left encoder:", rightFront.getCurrentPosition());
+//    telemetry.addData("right encoder:", leftRear.getCurrentPosition());
+//
+//    if(gamepad1.dpad_up){
+//        northTower.setPower(0.3);
+//    }
+//    else if (gamepad1.dpad_down){
+//        northTower.setPower(-0.3);
+//    }
+//    else{
+//        northTower.setPower(0);
+//    }
+//
+//    southTower.setTargetPosition(northTower.getCurrentPosition());
+//    southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//    southTower.setPower(1);
+//
+//    if (gamepad1.a){
+//        plane.setPower(1);
+//        intake.setPower(1);
+//    } else {
+//        plane.setPower(0);
+//        intake.setPower(0);
+//    }
+//    //plane.setPosition(0);
+//
+//
 
 
     }

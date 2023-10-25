@@ -35,7 +35,8 @@ public class RobotCore extends OpMode{
 
     CRServo plane;
     Servo southHook;
-    Servo extender;
+    Servo northHook;
+    CRServo extender;
     Servo clawPivot;
     Servo pickup;
     DcMotor launcher;
@@ -59,9 +60,10 @@ public class RobotCore extends OpMode{
 
         //Control Hub Devices
         southHook = hardwareMap.get(Servo.class, "southHook");
-        extender = hardwareMap.get(Servo.class, "extender");
+        extender = hardwareMap.get(CRServo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
         pickup = hardwareMap.get(Servo.class, "pickup");
+        northHook = hardwareMap.get(Servo.class, "northHook");
 
         //Expansion Hub Devices
         northTower = hardwareMap.get(DcMotor.class, "northTower");

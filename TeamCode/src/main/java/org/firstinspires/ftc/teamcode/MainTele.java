@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
@@ -62,12 +63,76 @@ public class MainTele extends RobotCore {
         /**
          * Accessory Controls
          */
+        //Player 1
+        //Intake Controls
         if (gamepad1.left_stick_button){
             intake.setPower(-1);
             intake2.setPower(1);
         } else {
             intake.setPower(0);
             intake2.setPower(0);
+        }
+
+        //Hook Controls
+        //Setting the hooks down
+        if (gamepad1.a){
+            southHook.setPosition(0);
+        }
+        if (gamepad1.b){
+            southHook.setPosition(0);
+        }
+
+        //Putting the hooks up
+        if (gamepad1.x){
+            southHook.setPosition(0.4);
+        }
+
+        if (gamepad1.y){
+            northHook.setPosition(0.4);
+        }
+
+        if (gamepad1.right_bumper){
+            launcher.setPower(1);
+        } else {
+            launcher.setPower(0);
+        }
+
+        //Player 2
+        //Tower Controls
+        if (gamepad2.dpad_up){
+            northTower.setPower(0.7);
+        } else if (gamepad2.dpad_down){
+            northTower.setPower(-0.7);
+        } else {
+            northTower.setPower(0);
+        }
+        southTower.setTargetPosition(northTower.getCurrentPosition());
+        southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        southTower.setPower(northTower.getPower());
+
+        //Extender Controls
+        if (gamepad2.right_stick_y > 0.1){
+            extender.setPower(1);
+        } else if (gamepad2.right_stick_y < 0.1){
+            extender.setPower(-1);
+        } else {
+            extender.setPower(0);
+        }
+
+        //Grabber Controls
+        if (gamepad2.a){
+            pickup.setPosition(0);
+        }
+        if (gamepad2.b){
+            pickup.setPosition(0.5);
+        }
+
+        //Grabber Pivot Controls
+        if (gamepad2.x){
+            clawPivot.setPosition(0);
+        }
+        if (gamepad2.y){
+            clawPivot.setPosition(0.2);
         }
     }
 }
