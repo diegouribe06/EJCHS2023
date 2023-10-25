@@ -92,6 +92,8 @@ public class DebugTele extends RobotCore {
 //
 //
 
+        telemetry.addData("North Tower Value: ", northTower.getCurrentPosition());
+        telemetry.addData("South Tower Value: ", southTower.getCurrentPosition());
 
     }
 }

@@ -44,16 +44,18 @@ public class MainTele extends RobotCore {
             leftFront.setPower(lf * 0.75);
             rightFront.setPower(rf * 0.75);
             leftRear.setPower(lr * 0.75);
+//            leftRear.setPower(lr);
+//            rightRear.setPower(rr);
             rightRear.setPower(rr * 0.75);
         }
 
-        if (gamepad1.y) {
-            leftFront.setPower(lf);
-            rightFront.setPower(rf);
-            leftRear.setPower(lr);
-            rightRear.setPower(rr);
-        }
-        //turns the motors off when no input
+//        if (gamepad1.y) {
+//            leftFront.setPower(lf);
+//            rightFront.setPower(rf);
+//            leftRear.setPower(lr);
+//            rightRear.setPower(rr);
+//        }
+//        //turns the motors off when no input
         else {
             leftFront.setPower(0);
             rightFront.setPower(0);
@@ -77,20 +79,15 @@ public class MainTele extends RobotCore {
         //Setting the hooks down
         if (gamepad1.a){
             southHook.setPosition(0);
-        }
-        if (gamepad1.b){
-            southHook.setPosition(0);
-        }
+            northHook.setPosition(0);
 
+        }
         //Putting the hooks up
         if (gamepad1.x){
-            southHook.setPosition(0.4);
+            southHook.setPosition(1);
+            northHook.setPosition(1);
         }
-
-        if (gamepad1.y){
-            northHook.setPosition(0.4);
-        }
-
+        //epstein didnt kill himself
         if (gamepad1.right_bumper){
             launcher.setPower(1);
         } else {
@@ -101,19 +98,25 @@ public class MainTele extends RobotCore {
         //Tower Controls
         if (gamepad2.dpad_up){
             northTower.setPower(0.7);
+            southTower.setPower(0.7);
         } else if (gamepad2.dpad_down){
             northTower.setPower(-0.7);
+            southTower.setPower(-0.7);
+
         } else {
             northTower.setPower(0);
+            southTower.setPower(0);
+
         }
-        southTower.setTargetPosition(northTower.getCurrentPosition());
-        southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        southTower.setPower(northTower.getPower());
+//        southTower.setTargetPosition(northTower.getCurrentPosition());
+//        southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        southTower.setPower(1);
 
         //Extender Controls
-        if (gamepad2.right_stick_y > 0.1){
+        telemetry.addData("right stick pos", gamepad2.right_stick_y);
+        if (gamepad2.right_stick_y > 0){
             extender.setPower(1);
-        } else if (gamepad2.right_stick_y < 0.1){
+        } else if (gamepad2.right_stick_y < 0){
             extender.setPower(-1);
         } else {
             extender.setPower(0);
@@ -123,7 +126,7 @@ public class MainTele extends RobotCore {
         if (gamepad2.a){
             pickup.setPosition(0);
         }
-        if (gamepad2.b){
+        else if (gamepad2.b){
             pickup.setPosition(0.5);
         }
 

@@ -79,6 +79,12 @@ public class RobotCore extends OpMode{
 
         northTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        northHook.setDirection(Servo.Direction.REVERSE);
+        southHook.setDirection(Servo.Direction.REVERSE);
+
+        clawPivot.setDirection(Servo.Direction.REVERSE);
+
     }
 
     //These methods are to be overridden in the classes
