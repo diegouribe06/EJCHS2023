@@ -37,10 +37,10 @@ public class MainTele extends RobotCore {
     boolean hookDeploy;
     boolean intakeToggle;
     boolean droneLaunch;
-    boolean extendDropper;
-    boolean retractDropper;
-    boolean closeDropperDoor;
-    boolean openDropperDoor;
+    boolean extendBucket;
+    boolean retractBucket;
+    boolean closeBucketDoor;
+    boolean openBucketDoor;
 
     //Hardware
     Servo autoGrabberx = null;
@@ -90,14 +90,10 @@ public class MainTele extends RobotCore {
             leftRear.setPower(0);
             rightRear.setPower(0);
         }
-
-
-
     }
 
     private void updateControls(){
         //Gets the latest values from the gamepad buttons
-
         moveX = gamepad1.left_stick_x;
         moveY = gamepad1.left_stick_y;
         turnX = gamepad1.right_stick_x;
@@ -107,9 +103,38 @@ public class MainTele extends RobotCore {
         hookDeploy = gamepad1.b;
         intakeToggle = gamepad1.x;
         droneLaunch = gamepad1.y;
-        extendDropper = gamepad1.dpad_up;
-        retractDropper = gamepad1.dpad_down;
-        openDropperDoor = gamepad1.dpad_right;
-        closeDropperDoor = gamepad1.dpad_left;
+        extendBucket = gamepad1.dpad_up;
+        retractBucket = gamepad1.dpad_down;
+        openBucketDoor = gamepad1.dpad_right;
+        closeBucketDoor = gamepad1.dpad_left;
     }
+    private void openBucketDoor(){
+
+    }
+    private void closeBucketDoor(){
+
+    }
+    private void extendBucket(){
+
+    }
+    private void retractBucket(){
+
+    }
+
+    private void intakeOn(){
+
+    }
+
+    private void intakeOff(){
+
+    }
+
+    private void rotateClockwise(){
+
+    }
+
+    private void rotateCounterClockwise(){
+
+    }
+
 }
