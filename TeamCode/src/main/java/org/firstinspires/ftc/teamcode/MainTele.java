@@ -24,8 +24,8 @@ public class MainTele extends RobotCore {
     boolean droneLaunch;
     boolean extendDropper;
     boolean retractDropper;
-    boolean closeDropper;
-    boolean openDropper;
+    boolean closeDropperDoor;
+    boolean openDropperDoor;
 
     //Hardware
     Servo autoGrabberx = null;
@@ -33,12 +33,13 @@ public class MainTele extends RobotCore {
     Servo bucketPush = null;
     Servo droneShoot = null;
     Servo hook = null;
-    Servo bucketArmList = null;
+    Servo bucketArmLift = null;
     Servo bucketTilt = null;
     Servo bucketDoor = null;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
+
 
     }
 
@@ -59,7 +60,7 @@ public class MainTele extends RobotCore {
         droneLaunch = gamepad1.y;
         extendDropper = gamepad1.dpad_up;
         retractDropper = gamepad1.dpad_down;
-        openDropper = gamepad1.dpad_right;
-        closeDropper = gamepad1.dpad_left;
+        openDropperDoor = gamepad1.dpad_right;
+        closeDropperDoor = gamepad1.dpad_left;
     }
 }
