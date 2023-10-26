@@ -137,4 +137,14 @@ public class MainTele extends RobotCore {
 
     }
 
+    private void getAllServoPositions(){
+        telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
+        telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
+        telemetry.addData(" intake Servo Position", intakeServo.getPosition());
+        telemetry.addData(" drone Servo Position", droneServo.getPosition());
+        telemetry.addData(" bucketRotator Servo Position", bucketRotate.getPosition());
+        telemetry.addData(" bucketDoor Servo Position", bucketDoor.getPosition());
+
+    }
+
 }

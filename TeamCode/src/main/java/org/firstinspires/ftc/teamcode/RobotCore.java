@@ -23,15 +23,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RobotCore extends OpMode{
 
     //variables for motors and servos
-    DcMotor leftFront=null;
-    DcMotor rightFront=null;
-    DcMotor leftRear=null;
-    DcMotor rightRear=null;
+    DcMotor lf = null;
+    DcMotor rf = null;
+    DcMotor lr =null;
+    DcMotor rr =null;
     Servo autoArm = null;
     Servo autoClaw = null;
     Servo intakeServo = null;
     Servo droneServo = null;
-    Servo bucketBucket = null;
+    Servo bucketRotate = null;
     Servo bucketDoor = null;
 
     //IMU variables
@@ -46,10 +46,10 @@ public class RobotCore extends OpMode{
     @Override
     public void init(){
         //initialize drive motors
-        leftFront=hardwareMap.get(DcMotor.class, "leftFront");
-        rightFront=hardwareMap.get(DcMotor.class, "rightFront");
-        leftRear=hardwareMap.get(DcMotor.class, "leftRear");
-        rightRear=hardwareMap.get(DcMotor.class, "rightRear");
+        lf=hardwareMap.get(DcMotor.class, "leftFront");
+        rf=hardwareMap.get(DcMotor.class, "rightFront");
+        lr=hardwareMap.get(DcMotor.class, "leftRear");
+        rr=hardwareMap.get(DcMotor.class, "rightRear");
 
         //Initialize Servos
         autoArm = hardwareMap.get(Servo.class, "autoArm");
@@ -60,15 +60,15 @@ public class RobotCore extends OpMode{
         intakeServo.setDirection(Servo.Direction.FORWARD);
         droneServo = hardwareMap.get(Servo.class, "droneServo");
         droneServo.setDirection(Servo.Direction.FORWARD);
-        bucketBucket = hardwareMap.get(Servo.class, "bucketBucket");
-        bucketBucket.setDirection(Servo.Direction.FORWARD);
+        bucketRotate = hardwareMap.get(Servo.class, "bucketBucket");
+        bucketRotate.setDirection(Servo.Direction.FORWARD);
         bucketDoor = hardwareMap.get(Servo.class, "bucketDoor");
         bucketDoor.setDirection(Servo.Direction.FORWARD);
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
-        leftRear.setDirection((DcMotor.Direction.REVERSE));
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        lr.setDirection((DcMotor.Direction.REVERSE));
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     //These methods are to be overridden in the classes
