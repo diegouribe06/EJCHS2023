@@ -24,7 +24,6 @@ public class MainTele extends RobotCore {
     double moveX;
     double turnX;
     double moveY;
-
     //total power to the motors
     double lf;
     double rf;
@@ -51,6 +50,10 @@ public class MainTele extends RobotCore {
     Servo bucketArmLift = null;
     Servo bucketTilt = null;
     Servo bucketDoor = null;
+
+    //General Variables
+    boolean isIntakeOn;
+
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
@@ -91,14 +94,54 @@ public class MainTele extends RobotCore {
             leftRear.setPower(0);
             rightRear.setPower(0);
         }
+
+        //Basic robot functions
+        if(clockwiseTurn){
+            rotateClockwise();
+        }
+
+        if(counterClockwiseTurn){
+            rotateCounterClockwise();
+        }
+
+        if(openBucketDoor){
+            openBucketDoor();
+        }
+
+        if(closeBucketDoor){
+            closeBucketDoor();
+        }
+
+        if(extendBucket){
+            extendBucket();
+        }
+
+        if(retractBucket){
+            retractBucket();
+        }
+
+        if(intakeToggle && !isIntakeOn){
+            intakeOn();
+        }
+
+        if (!intakeToggle && isIntakeOn){
+            intakeOff();
+        }
+
+        if(droneLaunch){
+            launchDrone();
+        }
+
+
     }
 
     private void updateControls(){
         //Gets the latest values from the gamepad buttons
+        //Sticks
         moveX = gamepad1.left_stick_x;
         moveY = gamepad1.left_stick_y;
         turnX = gamepad1.right_stick_x;
-
+        //Buttons
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
         hookDeploy = gamepad1.b;
@@ -123,11 +166,12 @@ public class MainTele extends RobotCore {
     }
 
     private void intakeOn(){
+        isIntakeOn = true;
 
     }
 
     private void intakeOff(){
-
+        isIntakeOn = false;
     }
 
     private void rotateClockwise(){
@@ -135,6 +179,9 @@ public class MainTele extends RobotCore {
     }
 
     private void rotateCounterClockwise(){
+
+    }
+    private void launchDrone(){
 
     }
 
