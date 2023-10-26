@@ -13,10 +13,25 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="MainTele", group = "17421 OpModes")
 public class MainTele extends RobotCore {
+
+    //Motor Initialization
+    DcMotor leftFront;
+    DcMotor leftRear;
+    DcMotor rightRear;
+    DcMotor rightFront;
+
+    //Controller Inputs
+    double moveX;
+    double turnX;
+    double moveY;
+
+    //total power to the motors
+    double lf;
+    double rf;
+    double lr;
+    double rr;
+
     //Controls
-    float moveX;
-    float moveY;
-    float turnX;
     boolean clockwiseTurn;
     boolean counterClockwiseTurn;
     boolean hookDeploy;
@@ -38,21 +53,55 @@ public class MainTele extends RobotCore {
     Servo bucketDoor = null;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
-        super.init();
+        super.init();;
 
 
     }
 
     public void loop() {
         updateControls();
+        /**
+         * Equations for robot movement
+         */
+        //equations to set the power
+        lf = moveY + moveX + turnX;
+        rf = moveY - moveX - turnX;
+        lr = moveY - moveX + turnX;
+        rr = moveY + moveX - turnX;
+        /**
+         * Setting motor power
+         *///driving movements
+        if (gamepad1.a && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+            leftFront.setPower(lf * 0.420);
+            rightFront.setPower(rf * 0.420);
+            leftRear.setPower(lr * 0.420);
+            rightRear.setPower(rr * 0.420);
+        }
+        else
+        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+            leftFront.setPower(lf * 0.69);
+            rightFront.setPower(rf * 0.69);
+            leftRear.setPower(lr * 0.69);
+            rightRear.setPower(rr * 0.69);
+        }
+        else {
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftRear.setPower(0);
+            rightRear.setPower(0);
+        }
+
+
 
     }
 
     private void updateControls(){
         //Gets the latest values from the gamepad buttons
+
         moveX = gamepad1.left_stick_x;
         moveY = gamepad1.left_stick_y;
         turnX = gamepad1.right_stick_x;
+
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
         hookDeploy = gamepad1.b;
