@@ -60,6 +60,7 @@ public class MainTele extends RobotCore {
 
     public void loop() {
         updateControls();
+        printAllServoPositions();
         /**
          * Equations for robot movement
          */
@@ -137,7 +138,7 @@ public class MainTele extends RobotCore {
 
     }
 
-    private void getAllServoPositions(){
+    private void printAllServoPositions(){
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Position", intakeServo.getPosition());
