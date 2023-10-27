@@ -58,25 +58,48 @@ public class MainTele extends RobotCore {
         /**
          * Setting motor power
          *///driving movements
-        if (gamepad1.a && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+            leftFront.setPower(lf * 0.9);
+            rightFront.setPower(rf * 0.9);
+            leftRear.setPower(lr * 0.9);
+            rightRear.setPower(rr * 0.9);
+        }
+
+        else if (gamepad1.a && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             leftFront.setPower(lf * 0.420);
             rightFront.setPower(rf * 0.420);
             leftRear.setPower(lr * 0.420);
             rightRear.setPower(rr * 0.420);
         }
-        else
-        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
-            leftFront.setPower(lf * 0.69);
-            rightFront.setPower(rf * 0.69);
-            leftRear.setPower(lr * 0.69);
-            rightRear.setPower(rr * 0.69);
-        }
+
         else {
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftRear.setPower(0);
             rightRear.setPower(0);
         }
+        if (gamepad2.dpad_up){
+            extendBucket();
+        }
+        else{
+            armMotor.setPower(0);
+        }
+        if (gamepad2.dpad_down){
+            retractBucket();
+        }
+        else{
+            armMotor.setPower(0);
+        }
+         if(gamepad2.x){
+             intakeMotor.setPower(1);
+         }
+         else
+             intakeMotor.setPower(0);
+
+
+
+
+
 
         //Basic robot functions
         if(clockwiseTurn){
@@ -142,10 +165,10 @@ public class MainTele extends RobotCore {
 
     }
     private void extendBucket(){
-
+        armMotor.setPower(-0.5);
     }
     private void retractBucket(){
-
+        armMotor.setPower(0.5);
     }
 
     private void intakeOn(){

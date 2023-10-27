@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -27,10 +28,12 @@ public class RobotCore extends OpMode{
     DcMotor leftRear = null;
     DcMotor rightRear = null;
     DcMotor rightFront = null;
+    DcMotor armMotor = null;
+    DcMotor intakeMotor = null;
 
     Servo autoArm = null;
     Servo autoClaw = null;
-    Servo intakeServo = null;
+    CRServo intakeServo = null;
     Servo droneServo = null;
     Servo bucketRotate = null;
     Servo bucketDoor = null;
@@ -51,14 +54,16 @@ public class RobotCore extends OpMode{
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
         //Initialize Servos
         autoArm = hardwareMap.get(Servo.class, "autoArm");
         autoArm.setDirection(Servo.Direction.FORWARD);
         autoClaw = hardwareMap.get(Servo.class, "autoClaw");
         autoClaw.setDirection(Servo.Direction.FORWARD);
-        intakeServo = hardwareMap.get(Servo.class, "intakeServo");
-        intakeServo.setDirection(Servo.Direction.FORWARD);
+        intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
+        intakeServo.setDirection(CRServo.Direction.FORWARD);
         droneServo = hardwareMap.get(Servo.class, "droneServo");
         droneServo.setDirection(Servo.Direction.FORWARD);
         bucketRotate = hardwareMap.get(Servo.class, "bucketBucket");
