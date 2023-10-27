@@ -48,7 +48,7 @@ public class MainTele extends RobotCore {
        // printAllServoPositions();
         /**
          * Equations for robot movement
-         */
+
         //equations to set the power
         lf = moveY + moveX + turnX;
         rf = moveY - moveX - turnX;
@@ -56,7 +56,7 @@ public class MainTele extends RobotCore {
         rr = moveY + moveX - turnX;
         /**
          * Setting motor power
-         *///driving movements
+         //driving movements
         if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.9f);
         }
@@ -64,7 +64,7 @@ public class MainTele extends RobotCore {
         if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.420f);
         }
-
+         */
         if (extendBucket){
             extendBucket();
         }
