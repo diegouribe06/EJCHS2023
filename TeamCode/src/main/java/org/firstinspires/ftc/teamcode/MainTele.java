@@ -40,8 +40,6 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
-
-
     }
 
     public void loop() {
@@ -78,26 +76,23 @@ public class MainTele extends RobotCore {
             leftRear.setPower(0);
             rightRear.setPower(0);
         }
-        if (gamepad2.dpad_up){
+        if (extendBucket){
             extendBucket();
         }
         else{
             armMotor.setPower(0);
         }
-        if (gamepad2.dpad_down){
+        if (retractBucket){
             retractBucket();
         }
         else{
             armMotor.setPower(0);
         }
-         if(gamepad2.x){
+         if(intakeToggle){
              intakeMotor.setPower(1);
          }
          else
              intakeMotor.setPower(0);
-
-
-
 
 
 
@@ -137,8 +132,6 @@ public class MainTele extends RobotCore {
         if(droneLaunch){
             launchDrone();
         }
-
-
     }
 
     private void updateControls(){
