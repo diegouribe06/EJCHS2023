@@ -23,10 +23,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RobotCore extends OpMode{
 
     //variables for motors and servos
-    DcMotor lf = null;
-    DcMotor rf = null;
-    DcMotor lr =null;
-    DcMotor rr =null;
+    DcMotor leftFront = null;
+    DcMotor leftRear = null;
+    DcMotor rightRear = null;
+    DcMotor rightFront = null;
+
     Servo autoArm = null;
     Servo autoClaw = null;
     Servo intakeServo = null;
@@ -46,10 +47,10 @@ public class RobotCore extends OpMode{
     @Override
     public void init(){
         //initialize drive motors
-        lf=hardwareMap.get(DcMotor.class, "leftFront");
-        rf=hardwareMap.get(DcMotor.class, "rightFront");
-        lr=hardwareMap.get(DcMotor.class, "leftRear");
-        rr=hardwareMap.get(DcMotor.class, "rightRear");
+        leftFront=hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront=hardwareMap.get(DcMotor.class, "rightFront");
+        leftRear=hardwareMap.get(DcMotor.class, "leftRear");
+        rightRear=hardwareMap.get(DcMotor.class, "rightRear");
 
         //Initialize Servos
         autoArm = hardwareMap.get(Servo.class, "autoArm");
@@ -67,8 +68,8 @@ public class RobotCore extends OpMode{
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
-        lr.setDirection((DcMotor.Direction.REVERSE));
-        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection((DcMotor.Direction.REVERSE));
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     //These methods are to be overridden in the classes

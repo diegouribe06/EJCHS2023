@@ -13,13 +13,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="MainTele", group = "17421 OpModes")
 public class MainTele extends RobotCore {
-
-    //Motor Initialization
-    DcMotor leftFront;
-    DcMotor leftRear;
-    DcMotor rightRear;
-    DcMotor rightFront;
-
     //Controller Inputs
     double moveX;
     double turnX;
@@ -41,16 +34,6 @@ public class MainTele extends RobotCore {
     boolean closeBucketDoor;
     boolean openBucketDoor;
 
-    //Hardware
-    Servo autoGrabberx = null;
-    Servo autoGrabbery = null;
-    Servo bucketPush = null;
-    Servo droneShoot = null;
-    Servo hook = null;
-    Servo bucketArmLift = null;
-    Servo bucketTilt = null;
-    Servo bucketDoor = null;
-
     //General Variables
     boolean isIntakeOn;
 
@@ -63,7 +46,7 @@ public class MainTele extends RobotCore {
 
     public void loop() {
         updateControls();
-        printAllServoPositions();
+       // printAllServoPositions();
         /**
          * Equations for robot movement
          */
@@ -185,6 +168,7 @@ public class MainTele extends RobotCore {
 
     }
 
+    /*
     private void printAllServoPositions(){
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
@@ -194,5 +178,5 @@ public class MainTele extends RobotCore {
         telemetry.addData(" bucketDoor Servo Position", bucketDoor.getPosition());
 
     }
-
+*/
 }
