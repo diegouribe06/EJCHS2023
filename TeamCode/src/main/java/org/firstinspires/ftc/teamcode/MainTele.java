@@ -45,7 +45,7 @@ public class MainTele extends RobotCore {
 
     public void loop() {
         updateControls();
-       // printAllServoPositions();
+       printAllServoPositions();
         /**
          * Equations for robot movement
 
@@ -149,6 +149,7 @@ public class MainTele extends RobotCore {
     }
     private void extendBucket(){
         armMotor.setPower(-0.5);
+
     }
     private void retractBucket(){
         armMotor.setPower(0.5);
@@ -175,15 +176,15 @@ public class MainTele extends RobotCore {
 
     }
 
-    /*
+
     private void printAllServoPositions(){
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
-        telemetry.addData(" intake Servo Position", intakeServo.getPosition());
+        telemetry.addData(" intake Servo Power", intakeServo.getPower());
         telemetry.addData(" drone Servo Position", droneServo.getPosition());
         telemetry.addData(" bucketRotator Servo Position", bucketRotate.getPosition());
         telemetry.addData(" bucketDoor Servo Position", bucketDoor.getPosition());
 
     }
-*/
+
 }
