@@ -24,6 +24,7 @@ public class MainTele extends RobotCore {
     double rr;
 
     //Controls
+    boolean slowDown;
     boolean clockwiseTurn;
     boolean counterClockwiseTurn;
     boolean hookDeploy;
@@ -57,25 +58,13 @@ public class MainTele extends RobotCore {
          * Setting motor power
          *///driving movements
         if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
-            leftFront.setPower(lf * 0.9);
-            rightFront.setPower(rf * 0.9);
-            leftRear.setPower(lr * 0.9);
-            rightRear.setPower(rr * 0.9);
+            move(0.9f);
         }
 
-        else if (gamepad1.a && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
-            leftFront.setPower(lf * 0.420);
-            rightFront.setPower(rf * 0.420);
-            leftRear.setPower(lr * 0.420);
-            rightRear.setPower(rr * 0.420);
+        if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+            move(0.420f);
         }
 
-        else {
-            leftFront.setPower(0);
-            rightFront.setPower(0);
-            leftRear.setPower(0);
-            rightRear.setPower(0);
-        }
         if (extendBucket){
             extendBucket();
         }
@@ -85,16 +74,9 @@ public class MainTele extends RobotCore {
         if (retractBucket){
             retractBucket();
         }
-        else{
+        else {
             armMotor.setPower(0);
         }
-         if(intakeToggle){
-             intakeMotor.setPower(1);
-         }
-         else
-             intakeMotor.setPower(0);
-
-
 
         //Basic robot functions
         if(clockwiseTurn){
@@ -111,14 +93,6 @@ public class MainTele extends RobotCore {
 
         if(closeBucketDoor){
             closeBucketDoor();
-        }
-
-        if(extendBucket){
-            extendBucket();
-        }
-
-        if(retractBucket){
-            retractBucket();
         }
 
         if(intakeToggle && !isIntakeOn){
@@ -141,6 +115,7 @@ public class MainTele extends RobotCore {
         moveY = gamepad1.left_stick_y;
         turnX = gamepad1.right_stick_x;
         //Buttons
+        slowDown = gamepad1.a;
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
         hookDeploy = gamepad1.b;
@@ -150,6 +125,21 @@ public class MainTele extends RobotCore {
         retractBucket = gamepad1.dpad_down;
         openBucketDoor = gamepad1.dpad_right;
         closeBucketDoor = gamepad1.dpad_left;
+    }
+
+    private void move(float speed){
+        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+            leftFront.setPower(lf * speed);
+            rightFront.setPower(rf * speed);
+            leftRear.setPower(lr * speed);
+            rightRear.setPower(rr * speed);
+        }
+        else{
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftRear.setPower(0);
+            rightRear.setPower(0);
+        }
     }
     private void openBucketDoor(){
 
@@ -166,11 +156,12 @@ public class MainTele extends RobotCore {
 
     private void intakeOn(){
         isIntakeOn = true;
-
+        intakeMotor.setPower(1);
     }
 
     private void intakeOff(){
         isIntakeOn = false;
+        intakeMotor.setPower(0);
     }
 
     private void rotateClockwise(){
