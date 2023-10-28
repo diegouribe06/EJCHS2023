@@ -168,7 +168,7 @@ public class MainTele extends RobotCore {
     private void intakeOn(){
 
         intakeMotor.setPower(1);
-        intakeServo.setPower(1);
+        intakeServo.setPower(-1);
     }
 
     private void intakeOff(){
