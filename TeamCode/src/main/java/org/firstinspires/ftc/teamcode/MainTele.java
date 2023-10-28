@@ -105,7 +105,7 @@ public class MainTele extends RobotCore {
         if(intakeOn){
             intakeOn();
         }
-        else if(intakeOn && intakeReverse){
+        else if(intakeReverse){
             intakeReverse();
         }
         else{
@@ -172,12 +172,12 @@ public class MainTele extends RobotCore {
 
     private void intakeOn(){
 
-        intakeMotor.setPower(2);
+        intakeMotor.setPower(1);
         intakeServo.setPower(-1);
     }
 
     private void intakeReverse(){
-        intakeMotor.setPower(-2);
+        intakeMotor.setPower(-1);
         intakeServo.setPower(1);
     }
 
