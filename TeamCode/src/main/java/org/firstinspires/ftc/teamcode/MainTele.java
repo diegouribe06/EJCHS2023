@@ -104,8 +104,7 @@ public class MainTele extends RobotCore {
         if(intakeToggle){
             intakeOn();
         }
-
-        if (!intakeToggle){
+        else{
             intakeOff();
         }
 
