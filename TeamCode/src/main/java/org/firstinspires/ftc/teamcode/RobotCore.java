@@ -37,6 +37,7 @@ public class RobotCore extends OpMode{
     Servo droneServo = null;
     Servo bucketRotate = null;
     Servo bucketDoor = null;
+    Servo bucketArm = null;
 
     //IMU variables
     BNO055IMU inertiaMeasure;
@@ -70,6 +71,8 @@ public class RobotCore extends OpMode{
         bucketRotate.setDirection(Servo.Direction.FORWARD);
         bucketDoor = hardwareMap.get(Servo.class, "bucketDoor");
         bucketDoor.setDirection(Servo.Direction.FORWARD);
+        bucketArm = hardwareMap.get(Servo.class, "bucketArm");
+        bucketArm.setDirection(Servo.Direction.FORWARD);
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
