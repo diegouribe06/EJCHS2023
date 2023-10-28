@@ -127,7 +127,7 @@ public class MainTele extends RobotCore {
         extendBucket = gamepad2.dpad_up;
         retractBucket = gamepad2.dpad_down;
         rotateBucketUp = gamepad2.dpad_right;
-        rotateBucketDown = gamepad2.dpad_left;
+        rotateBucketUp = gamepad2.dpad_left;
         toggleBucketDoor = gamepad2.a;
     }
 
