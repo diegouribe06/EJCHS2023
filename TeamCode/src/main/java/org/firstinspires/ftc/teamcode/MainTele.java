@@ -27,7 +27,8 @@ public class MainTele extends RobotCore {
     boolean clockwiseTurn;
     boolean counterClockwiseTurn;
     boolean hookDeploy;
-    boolean intakeToggle;
+    boolean intakeOn;
+    boolean intakeReverse;
     boolean droneLaunch;
     boolean extendBucket;
     boolean retractBucket;
@@ -101,8 +102,11 @@ public class MainTele extends RobotCore {
             closeBucketDoor();
         }
 
-        if(intakeToggle){
+        if(intakeOn){
             intakeOn();
+        }
+        else if(intakeOn && intakeReverse){
+            intakeReverse();
         }
         else{
             intakeOff();
@@ -128,7 +132,8 @@ public class MainTele extends RobotCore {
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
         hookDeploy = gamepad2.b;
-        intakeToggle = gamepad2.x;
+        intakeOn = gamepad2.x;
+        intakeReverse = gamepad2.left_bumper;
         droneLaunch = gamepad2.y;
         extendBucket = gamepad2.dpad_up;
         retractBucket = gamepad2.dpad_down;
@@ -171,9 +176,12 @@ public class MainTele extends RobotCore {
         intakeServo.setPower(-1);
     }
 
-    private void intakeOff(){        if (!intakeToggle){
-            intakeOff();
-        }
+    private void intakeReverse(){
+        intakeMotor.setPower(-2);
+        intakeServo.setPower(1);
+    }
+
+    private void intakeOff(){
         intakeMotor.setPower(0);
         intakeServo.setPower(0);
     }
