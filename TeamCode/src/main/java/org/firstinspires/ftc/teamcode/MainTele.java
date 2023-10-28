@@ -67,26 +67,43 @@ public class MainTele extends RobotCore {
          */
         //Player 1
         //Intake Controls
-        if (gamepad1.left_stick_button){
+        if (gamepad1.dpad_left){
             intake.setPower(-1);
             intake2.setPower(1);
-        } else {
+        }
+        else if (gamepad1.dpad_right){
+            intake.setPower(1);
+            intake2.setPower(-1);
+        }
+        else {
             intake.setPower(0);
             intake2.setPower(0);
         }
 
-        //Hook Controls
-        //Setting the hooks down
+        //Chicken Controls
+        //Setting the Chicken up
+        if (gamepad1.b){
+            chicken.setPosition(0.5);
+        }
+        //Putting the Chicken down
         if (gamepad1.a){
-            southHook.setPosition(0);
-            northHook.setPosition(0);
+            chicken.setPosition(1);
+        }
+        //Using the Chicken to lock the slide
+        if (gamepad1.left_bumper){
+            chicken.setPosition(0);
+        }
 
-        }
-        //Putting the hooks up
+        //Beak Controls
+        //Close the beak
         if (gamepad1.x){
-            southHook.setPosition(1);
-            northHook.setPosition(1);
+            beak.setPosition(0);
         }
+        if (gamepad1.y){
+            beak.setPosition(0.1);
+        }
+
+        //Launcher Controls
         //epstein didnt kill himself
         if (gamepad1.right_bumper){
             launcher.setPower(1);
@@ -94,18 +111,19 @@ public class MainTele extends RobotCore {
             launcher.setPower(0);
         }
 
+
         //Player 2
         //Tower Controls
-        if (gamepad2.dpad_up){
+        if (gamepad2.dpad_down){
             northTower.setPower(0.7);
             southTower.setPower(0.7);
-        } else if (gamepad2.dpad_down){
+        } else if (gamepad2.dpad_up){
             northTower.setPower(-0.7);
             southTower.setPower(-0.7);
 
         } else {
-            northTower.setPower(0);
-            southTower.setPower(0);
+            northTower.setPower(-0.01);
+            southTower.setPower(-0.01);
 
         }
 //        southTower.setTargetPosition(northTower.getCurrentPosition());
@@ -115,19 +133,18 @@ public class MainTele extends RobotCore {
         //Extender Controls
         telemetry.addData("right stick pos", gamepad2.right_stick_y);
         if (gamepad2.right_stick_y > 0){
-            extender.setPower(1);
-        } else if (gamepad2.right_stick_y < 0){
             extender.setPower(-1);
+        } else if (gamepad2.right_stick_y < 0){
+            extender.setPower(1);
         } else {
             extender.setPower(0);
         }
 
         //Grabber Controls
         if (gamepad2.a){
-            pickup.setPosition(0);
-        }
-        else if (gamepad2.b){
-            pickup.setPosition(0.5);
+            pickup.setPosition(0.3);
+        } else if (gamepad2.b){
+            pickup.setPosition(0.8);
         }
 
         //Grabber Pivot Controls
@@ -135,7 +152,7 @@ public class MainTele extends RobotCore {
             clawPivot.setPosition(0);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.2);
+            clawPivot.setPosition(0.22);
         }
     }
 }

@@ -32,10 +32,10 @@ public class RobotCore extends OpMode{
     DcMotor leftRear=null;
     DcMotor rightRear=null;
     DcMotor intake = null;
+    Servo beak;
+    Servo chicken;
 
     CRServo plane;
-    Servo southHook;
-    Servo northHook;
     CRServo extender;
     Servo clawPivot;
     Servo pickup;
@@ -59,11 +59,9 @@ public class RobotCore extends OpMode{
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
 
         //Control Hub Devices
-        southHook = hardwareMap.get(Servo.class, "southHook");
         extender = hardwareMap.get(CRServo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
         pickup = hardwareMap.get(Servo.class, "pickup");
-        northHook = hardwareMap.get(Servo.class, "northHook");
 
         //Expansion Hub Devices
         northTower = hardwareMap.get(DcMotor.class, "northTower");
@@ -71,6 +69,8 @@ public class RobotCore extends OpMode{
         intake = hardwareMap.get(DcMotor.class, "intake");
         launcher = hardwareMap.get(DcMotor.class, "launcher");
         intake2 = hardwareMap.get(CRServo.class, "intake2");
+        beak = hardwareMap.get(Servo.class, "beak");
+        chicken = hardwareMap.get(Servo.class, "chicken");
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
 
@@ -80,10 +80,7 @@ public class RobotCore extends OpMode{
         northTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        northHook.setDirection(Servo.Direction.REVERSE);
-        southHook.setDirection(Servo.Direction.REVERSE);
-
-        clawPivot.setDirection(Servo.Direction.REVERSE);
+        //clawPivot.setDirection(Servo.Direction.REVERSE);
 
     }
 
