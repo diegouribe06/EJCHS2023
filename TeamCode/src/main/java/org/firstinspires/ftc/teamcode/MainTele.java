@@ -31,11 +31,11 @@ public class MainTele extends RobotCore {
     boolean droneLaunch;
     boolean extendBucket;
     boolean retractBucket;
-    boolean closeBucketDoor;
-    boolean openBucketDoor;
 
-    //General Variables
-    boolean isIntakeOn;
+    boolean rotateBucketUp;
+    boolean rotateBucketDown;
+    boolean toggleBucketDoor;
+
 
     //Constants
     final float bucketRotateRest = 0;
@@ -51,14 +51,15 @@ public class MainTele extends RobotCore {
        printAllServoPositions();
         /**
          * Equations for robot movement
-
+        */
         //equations to set the power
         lf = moveY + moveX + turnX;
         rf = moveY - moveX - turnX;
         lr = moveY - moveX + turnX;
         rr = moveY + moveX - turnX;
-        /**
-         * Setting motor power
+
+         //* Setting motor power
+
          //driving movements
         if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.9f);
@@ -67,7 +68,7 @@ public class MainTele extends RobotCore {
         if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.420f);
         }
-         */
+
         if (extendBucket){
             extendBucket();
         }
@@ -90,19 +91,18 @@ public class MainTele extends RobotCore {
             rotateCounterClockwise();
         }
 
-        if(openBucketDoor){
+        if(toggleBucketDoor){
             openBucketDoor();
         }
-
-        if(closeBucketDoor){
+        else{
             closeBucketDoor();
         }
 
-        if(intakeToggle && !isIntakeOn){
+        if(intakeToggle){
             intakeOn();
         }
 
-        if (!intakeToggle && isIntakeOn){
+        if (!intakeToggle){
             intakeOff();
         }
 
@@ -121,13 +121,14 @@ public class MainTele extends RobotCore {
         slowDown = gamepad1.a;
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
-        hookDeploy = gamepad1.b;
-        intakeToggle = gamepad1.x;
-        droneLaunch = gamepad1.y;
-        extendBucket = gamepad1.dpad_up;
-        retractBucket = gamepad1.dpad_down;
-        openBucketDoor = gamepad1.dpad_right;
-        closeBucketDoor = gamepad1.dpad_left;
+        hookDeploy = gamepad2.b;
+        intakeToggle = gamepad2.x;
+        droneLaunch = gamepad2.y;
+        extendBucket = gamepad2.dpad_up;
+        retractBucket = gamepad2.dpad_down;
+        rotateBucketUp = gamepad2.dpad_right;
+        rotateBucketDown = gamepad2.dpad_left;
+        toggleBucketDoor = gamepad2.a;
     }
 
     private void move(float speed){
@@ -159,12 +160,11 @@ public class MainTele extends RobotCore {
     }
 
     private void intakeOn(){
-        isIntakeOn = true;
+
         intakeMotor.setPower(1);
     }
 
     private void intakeOff(){
-        isIntakeOn = false;
         intakeMotor.setPower(0);
     }
 
