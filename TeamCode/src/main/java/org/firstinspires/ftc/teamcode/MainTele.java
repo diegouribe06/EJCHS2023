@@ -35,18 +35,17 @@ public class MainTele extends RobotCore {
 
     boolean rotateBucketUp;
     boolean rotateBucketDown;
+    float rotateBucketArm;
     boolean toggleBucketDoor;
 
 
     //Constants
     final float bucketRotateRest = 0;
-    final float bucketRotateEnd = 0.5f;
     final float bucketArmRest = 0f;
-    final float bucketArmEnd = 0f;
     final float bucketDoorRest = 0f;
     final float bucketDoorEnd = 0.5f;
     final float droneServoRest = 0f;
-    final float droneServoEnd = 0f;
+    final float droneServoEnd = 0.5f;
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -102,6 +101,20 @@ public class MainTele extends RobotCore {
             closeBucketDoor();
         }
 
+        if(rotateBucketUp){
+            bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
+        }
+        if(rotateBucketDown){
+            bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
+        }
+
+        if(rotateBucketArm > 0){
+            bucketArm.setPosition(bucketArm.getPosition() + 0.05);
+        }
+        if (rotateBucketArm < 0){
+            bucketArm.setPosition(bucketArm.getPosition() - 0.05);
+        }
+
         if(intakeOn){
             intakeOn();
         }
@@ -115,10 +128,11 @@ public class MainTele extends RobotCore {
         if(droneLaunch){
             launchDrone();
         }
+
     }
 
     public void stop(){
-
+        fullStop();
     }
 
     private void updateControls(){
@@ -139,6 +153,7 @@ public class MainTele extends RobotCore {
         retractBucket = gamepad2.dpad_down;
         rotateBucketUp = gamepad2.dpad_right;
         rotateBucketDown = gamepad2.dpad_left;
+        rotateBucketArm = gamepad2.right_stick_y;
         toggleBucketDoor = gamepad2.a;
     }
 
@@ -157,10 +172,10 @@ public class MainTele extends RobotCore {
         }
     }
     private void openBucketDoor(){
-        bucketDoor.setPosition(0.5);
+        bucketDoor.setPosition(bucketDoorRest);
     }
     private void closeBucketDoor(){
-        bucketDoor.setPosition(0);
+        bucketDoor.setPosition(bucketDoorEnd);
     }
     private void extendBucket(){
         armMotor.setPower(-0.5);
@@ -202,6 +217,14 @@ public class MainTele extends RobotCore {
         bucketRotate.setPosition(bucketRotateRest);
         bucketDoor.setPosition(bucketDoorRest);
         bucketArm.setPosition(bucketArmRest);
+    }
+
+    private void fullStop(){
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        resetServosToRest();
     }
 
     private void printAllServoPositions(){
