@@ -55,7 +55,7 @@ public class RobotCore extends OpMode{
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        armMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
         //Initialize Servos
