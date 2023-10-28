@@ -40,6 +40,12 @@ public class MainTele extends RobotCore {
     //Constants
     final float bucketRotateRest = 0;
     final float bucketRotateEnd = 0.5f;
+    final float bucketArmRest = 0f;
+    final float bucketArmEnd = 0f;
+    final float bucketDoorRest = 0f;
+    final float bucketDoorEnd = 0;
+    final float droneServoRest = 0f;
+    final float droneServoEnd = 0f;
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -72,10 +78,7 @@ public class MainTele extends RobotCore {
         if (extendBucket){
             extendBucket();
         }
-        else{
-            armMotor.setPower(0);
-        }
-        if (retractBucket){
+        else if (retractBucket){
             retractBucket();
         }
         else {
@@ -109,6 +112,10 @@ public class MainTele extends RobotCore {
         if(droneLaunch){
             launchDrone();
         }
+    }
+
+    public void stop(){
+
     }
 
     private void updateControls(){
@@ -146,10 +153,10 @@ public class MainTele extends RobotCore {
         }
     }
     private void openBucketDoor(){
-
+        bucketDoor.setPosition(0.5);
     }
     private void closeBucketDoor(){
-
+        bucketDoor.setPosition(0);
     }
     private void extendBucket(){
         armMotor.setPower(-0.5);
@@ -179,6 +186,12 @@ public class MainTele extends RobotCore {
 
     }
 
+    private void resetServosToRest(){
+        droneServo.setPosition(droneServoRest);
+        bucketRotate.setPosition(bucketRotateRest);
+        bucketDoor.setPosition(bucketDoorRest);
+        bucketArm.setPosition(bucketArmRest);
+    }
 
     private void printAllServoPositions(){
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
