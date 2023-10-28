@@ -50,6 +50,7 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
+        resetServosToRest();
     }
 
     public void loop() {
@@ -70,9 +71,11 @@ public class MainTele extends RobotCore {
         if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.9f);
         }
-
-        if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+        else if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.420f);
+        }
+        else{
+            move(0);
         }
 
         if (extendBucket){
@@ -109,10 +112,10 @@ public class MainTele extends RobotCore {
         }
 
         if(rotateBucketArm > 0){
-            bucketArm.setPosition(bucketArm.getPosition() + 0.05);
+            bucketArm.setPosition(bucketArm.getPosition() + 0.01);
         }
         if (rotateBucketArm < 0){
-            bucketArm.setPosition(bucketArm.getPosition() - 0.05);
+            bucketArm.setPosition(bucketArm.getPosition() - 0.01);
         }
 
         if(intakeOn){
@@ -146,8 +149,8 @@ public class MainTele extends RobotCore {
         clockwiseTurn = gamepad1.right_bumper;
         counterClockwiseTurn = gamepad1.left_bumper;
         hookDeploy = gamepad2.b;
-        intakeOn = gamepad2.x;
-        intakeReverse = gamepad2.left_bumper;
+        intakeOn = gamepad1.right_bumper;
+        intakeReverse = gamepad1.left_bumper;
         droneLaunch = gamepad2.y;
         extendBucket = gamepad2.dpad_up;
         retractBucket = gamepad2.dpad_down;
