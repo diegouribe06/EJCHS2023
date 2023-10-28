@@ -43,7 +43,7 @@ public class MainTele extends RobotCore {
     final float bucketArmRest = 0f;
     final float bucketArmEnd = 0f;
     final float bucketDoorRest = 0f;
-    final float bucketDoorEnd = 0;
+    final float bucketDoorEnd = 0.5f;
     final float droneServoRest = 0f;
     final float droneServoEnd = 0f;
 
@@ -183,7 +183,7 @@ public class MainTele extends RobotCore {
 
     }
     private void launchDrone(){
-
+        droneServo.setPosition(droneServoEnd);
     }
 
     private void resetServosToRest(){
