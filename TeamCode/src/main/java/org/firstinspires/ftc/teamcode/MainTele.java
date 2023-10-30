@@ -169,12 +169,10 @@ public class MainTele extends RobotCore {
     }
 
     private void move(float speed){
-        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
-            leftFront.setPower(lf * speed);
-            rightFront.setPower(rf * speed);
-            leftRear.setPower(lr * speed);
-            rightRear.setPower(rr * speed);
-        }
+        leftFront.setPower(lf * speed);
+        rightFront.setPower(rf * speed);
+        leftRear.setPower(lr * speed);
+        rightRear.setPower(rr * speed);
     }
 
     private void resetServosToRest(){
