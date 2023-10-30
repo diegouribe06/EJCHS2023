@@ -41,14 +41,6 @@ public class MainTele extends RobotCore {
     boolean toggleBucketDoor;
 
 
-    //Constants
-    final float bucketRotateRest = 0;
-    final float bucketArmRest = 0f;
-    final float bucketDoorRest = 0f;
-    final float bucketDoorEnd = 0.5f;
-    final float droneServoRest = 0f;
-    final float droneServoEnd = 0.5f;
-
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
@@ -81,10 +73,10 @@ public class MainTele extends RobotCore {
         }
 
         if (extendBucket){
-            extendBucket();
+            armMotor.setPower(-0.5);
         }
         else if (retractBucket){
-            retractBucket();
+            armMotor.setPower(0.5);
         }
         else {
             armMotor.setPower(0);
@@ -92,18 +84,18 @@ public class MainTele extends RobotCore {
 
         //Basic robot functions
         if(clockwiseTurn){
-            rotateClockwise();
+
         }
 
         if(counterClockwiseTurn){
-            rotateCounterClockwise();
+
         }
 
         if(toggleBucketDoor){
-            openBucketDoor();
+            bucketDoor.setPosition(0);
         }
         else{
-            closeBucketDoor();
+            bucketDoor.setPosition(0.5);
         }
 
         if(rotateBucketUp){
@@ -121,17 +113,20 @@ public class MainTele extends RobotCore {
         }
 
         if(intakeOn){
-            intakeOn();
+            intakeMotor.setPower(1);
+            intakeServo.setPower(-1);
         }
         else if(intakeReverse){
-            intakeReverse();
+            intakeMotor.setPower(-1);
+            intakeServo.setPower(-1);
         }
         else{
-            intakeOff();
+            intakeMotor.setPower(0);
+            intakeServo.setPower(0);
         }
 
         if(droneLaunch){
-            launchDrone();
+            droneServo.setPosition(0.5f);
         }
 
     }
@@ -176,51 +171,12 @@ public class MainTele extends RobotCore {
             rightRear.setPower(0);
         }
     }
-    private void openBucketDoor(){
-        bucketDoor.setPosition(bucketDoorRest);
-    }
-    private void closeBucketDoor(){
-        bucketDoor.setPosition(bucketDoorEnd);
-    }
-    private void extendBucket(){
-        armMotor.setPower(-0.5);
-
-    }
-    private void retractBucket(){
-        armMotor.setPower(0.5);
-    }
-
-    private void intakeOn(){
-        intakeMotor.setPower(1);
-        intakeServo.setPower(-1);
-    }
-
-    private void intakeReverse(){
-        intakeMotor.setPower(-1);
-        intakeServo.setPower(-1);
-    }
-
-    private void intakeOff(){
-        intakeMotor.setPower(0);
-        intakeServo.setPower(0);
-    }
-
-    private void rotateClockwise(){
-
-    }
-
-    private void rotateCounterClockwise(){
-
-    }
-    private void launchDrone(){
-        droneServo.setPosition(droneServoEnd);
-    }
 
     private void resetServosToRest(){
-        droneServo.setPosition(droneServoRest);
-        bucketRotate.setPosition(bucketRotateRest);
-        bucketDoor.setPosition(bucketDoorRest);
-        bucketArm.setPosition(bucketArmRest);
+        droneServo.setPosition(0);
+        bucketRotate.setPosition(0);
+        bucketDoor.setPosition(0);
+        bucketArm.setPosition(0);
     }
 
     private void fullStop(){
