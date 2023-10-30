@@ -4,12 +4,14 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
  */
+
 @TeleOp(name="MainTele", group = "17421 OpModes")
 public class MainTele extends RobotCore {
     //Controller Inputs
@@ -50,7 +52,7 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
-        resetServosToRest();
+        //resetServosToRest();
     }
 
     public void loop() {
@@ -111,11 +113,11 @@ public class MainTele extends RobotCore {
             bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
         }
 
-        if(rotateBucketArm > 0){
-            bucketArm.setPosition(bucketArm.getPosition() + 0.01);
+        if(rotateBucketArm > 0.2){
+            bucketArm.setPosition(1);
         }
-        if (rotateBucketArm < 0){
-            bucketArm.setPosition(bucketArm.getPosition() - 0.01);
+        if (rotateBucketArm < -0.2){
+            bucketArm.setPosition(0.28);
         }
 
         if(intakeOn){
@@ -189,14 +191,13 @@ public class MainTele extends RobotCore {
     }
 
     private void intakeOn(){
-
         intakeMotor.setPower(1);
         intakeServo.setPower(-1);
     }
 
     private void intakeReverse(){
         intakeMotor.setPower(-1);
-        intakeServo.setPower(1);
+        intakeServo.setPower(-1);
     }
 
     private void intakeOff(){
