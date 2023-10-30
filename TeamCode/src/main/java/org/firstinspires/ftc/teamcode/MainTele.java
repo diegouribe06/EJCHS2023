@@ -24,6 +24,9 @@ public class MainTele extends RobotCore {
     double lr;
     double rr;
 
+    //tracking
+    float robotRotation = 0;
+
     //Controls
     boolean slowDown;
     boolean clockwiseTurn;
@@ -64,13 +67,22 @@ public class MainTele extends RobotCore {
          //driving movements
         if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.9f);
+            if (turnX > 0.1 || turnX < 0.1){
+                robotRotation += 0.9;
+            }
         }
         else if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
             move(0.420f);
+            if (turnX > 0.1 || turnX < 0.1){
+                robotRotation += 0.42;
+            }
         }
         else{
             move(0);
         }
+
+        telemetry.addData("Robot Rotation ", robotRotation);
+
 
         if (extendBucket){
             armMotor.setPower(-0.5);
