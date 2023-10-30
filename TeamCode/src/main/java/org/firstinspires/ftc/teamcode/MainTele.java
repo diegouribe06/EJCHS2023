@@ -58,7 +58,7 @@ public class MainTele extends RobotCore {
         //* Setting motor power
 
         //driving movements
-        if (Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
+        if (slowDownInput && ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1)) {
             move(0.9f);
             if (turnX > 0.1) {
                 robotRotation += 0.9;
@@ -66,7 +66,7 @@ public class MainTele extends RobotCore {
             if (turnX < 0.1) {
                 robotRotation -= 0.9;
             }
-        } else if (slowDownInput && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
+        } else if ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
             move(0.420f);
             if (turnX > 0.1) {
                 robotRotation += 0.42;
@@ -83,7 +83,7 @@ public class MainTele extends RobotCore {
 
 
         if (extendBucketInput) {
-            armMotor.setPower(-0.5);
+            armMotor.setPower(0.5);
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             } else if (retractBucketInput) {
