@@ -1,20 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
+
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
  */
 
 @TeleOp(name="MainTele", group = "17421 OpModes")
 public class MainTele extends RobotCore {
-    //Controller Inputs
+    //Movement Inputs
     double moveX;
     double turnX;
     double moveY;
@@ -28,20 +22,19 @@ public class MainTele extends RobotCore {
     float robotRotation = 0;
 
     //Controls
-    boolean slowDown;
-    boolean clockwiseTurn;
-    boolean counterClockwiseTurn;
-    boolean hookDeploy;
-    boolean intakeOn;
-    boolean intakeReverse;
-    boolean droneLaunch;
-    boolean extendBucket;
-    boolean retractBucket;
-
-    boolean rotateBucketUp;
-    boolean rotateBucketDown;
-    float rotateBucketArm;
-    boolean toggleBucketDoor;
+    boolean slowDownInput;
+    boolean clockwiseInput;
+    boolean counterClockwiseInput;
+    boolean hookDeployInput;
+    boolean intakeOnInput;
+    boolean intakeReverseInput;
+    boolean droneLaunchInput;
+    boolean extendBucketInput;
+    boolean retractBucketInput;
+    boolean rotateBucketUpInput;
+    boolean rotateBucketDownInput;
+    float rotateBucketArmInput;
+    boolean toggleBucketDoorInput;
 
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
@@ -52,101 +45,101 @@ public class MainTele extends RobotCore {
 
     public void loop() {
         updateControls();
-       printAllServoPositions();
+        printAllServoPositions();
         /**
          * Equations for robot movement
-        */
+         */
         //equations to set the power
         lf = moveY + moveX + turnX;
         rf = moveY - moveX - turnX;
         lr = moveY - moveX + turnX;
         rr = moveY + moveX - turnX;
 
-         //* Setting motor power
+        //* Setting motor power
 
-         //driving movements
-        if(Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+        //driving movements
+        if (Math.abs(moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
             move(0.9f);
-            if (turnX > 0.1){
+            if (turnX > 0.1) {
                 robotRotation += 0.9;
             }
-            if(turnX < 0.1){
+            if (turnX < 0.1) {
                 robotRotation -= 0.9;
             }
-        }
-        else if ( slowDown && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1){
+        } else if (slowDownInput && (moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
             move(0.420f);
-            if (turnX > 0.1){
-                robotRotation += 0.42 ;
+            if (turnX > 0.1) {
+                robotRotation += 0.42;
             }
-            if(turnX < 0.1){
+            if (turnX < 0.1) {
                 robotRotation -= 0.42;
             }
-        }
-        else{
+        } else {
             move(0);
         }
+
 
         telemetry.addData("Robot Rotation ", robotRotation);
 
 
-        if (extendBucket){
+        if (extendBucketInput) {
             armMotor.setPower(-0.5);
-        }
-        else if (retractBucket){
-            armMotor.setPower(0.5);
-        }
-        else {
-            armMotor.setPower(0);
-        }
+            if (bucketRotate.getPosition() < 0.45) {
+                bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
+            } else if (retractBucketInput) {
+                armMotor.setPower(0.5);
+                if (bucketRotate.getPosition() > 0.05) {
+                    bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
+                }
+            } else {
+                armMotor.setPower(0);
+            }
 
-        //Basic robot functions
-        if(clockwiseTurn){
+            //Basic robot functions
+            if (clockwiseInput) {
+
+            }
+
+            if (counterClockwiseInput) {
+
+            }
+
+            if (toggleBucketDoorInput) {
+                bucketDoor.setPosition(0);
+            } else {
+                bucketDoor.setPosition(0.5);
+            }
+
+            if (rotateBucketUpInput) {
+                bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
+            }
+            if (rotateBucketDownInput) {
+                bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
+            }
+
+            if (rotateBucketArmInput > 0.2) {
+                bucketArm.setPosition(1);
+            }
+            if (rotateBucketArmInput < -0.2) {
+                bucketArm.setPosition(0.28);
+            }
+
+            if (intakeOnInput) {
+                intakeMotor.setPower(1);
+                intakeServo.setPower(-1);
+            } else if (intakeReverseInput) {
+                intakeMotor.setPower(-1);
+                intakeServo.setPower(-1);
+            } else {
+                intakeMotor.setPower(0);
+                intakeServo.setPower(0);
+            }
+
+            if (droneLaunchInput) {
+                droneServo.setPosition(0.5f);
+            }
 
         }
-
-        if(counterClockwiseTurn){
-
-        }
-
-        if(toggleBucketDoor){
-            bucketDoor.setPosition(0);
-        }
-        else{
-            bucketDoor.setPosition(0.5);
-        }
-
-        if(rotateBucketUp){
-            bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
-        }
-        if(rotateBucketDown){
-            bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
-        }
-
-        if(rotateBucketArm > 0.2){
-            bucketArm.setPosition(1);
-        }
-        if (rotateBucketArm < -0.2){
-            bucketArm.setPosition(0.28);
-        }
-
-        if(intakeOn){
-            intakeMotor.setPower(1);
-            intakeServo.setPower(-1);
-        }
-        else if(intakeReverse){
-            intakeMotor.setPower(-1);
-            intakeServo.setPower(-1);
-        }
-        else{
-            intakeMotor.setPower(0);
-            intakeServo.setPower(0);
-        }
-
-        if(droneLaunch){
-            droneServo.setPosition(0.5f);
-        }
-
     }
 
     public void stop(){
@@ -160,19 +153,19 @@ public class MainTele extends RobotCore {
         moveY = gamepad1.left_stick_y;
         turnX = gamepad1.right_stick_x;
         //Buttons
-        slowDown = gamepad1.a;
-        clockwiseTurn = gamepad1.right_bumper;
-        counterClockwiseTurn = gamepad1.left_bumper;
-        hookDeploy = gamepad2.b;
-        intakeOn = gamepad1.right_bumper;
-        intakeReverse = gamepad1.left_bumper;
-        droneLaunch = gamepad2.y;
-        extendBucket = gamepad2.dpad_up;
-        retractBucket = gamepad2.dpad_down;
-        rotateBucketUp = gamepad2.dpad_right;
-        rotateBucketDown = gamepad2.dpad_left;
-        rotateBucketArm = gamepad2.right_stick_y;
-        toggleBucketDoor = gamepad2.a;
+        slowDownInput = gamepad1.a;
+        clockwiseInput = gamepad1.right_bumper;
+        counterClockwiseInput = gamepad1.left_bumper;
+        hookDeployInput = gamepad2.b;
+        intakeOnInput = gamepad1.right_bumper;
+        intakeReverseInput = gamepad1.left_bumper;
+        droneLaunchInput = gamepad2.y;
+        extendBucketInput = gamepad2.dpad_up;
+        retractBucketInput = gamepad2.dpad_down;
+        rotateBucketUpInput = gamepad2.dpad_right;
+        rotateBucketDownInput = gamepad2.dpad_left;
+        rotateBucketArmInput = gamepad2.right_stick_y;
+        toggleBucketDoorInput = gamepad2.a;
     }
 
     private void move(float speed){
