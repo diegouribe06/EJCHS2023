@@ -83,7 +83,7 @@ public class MainTele extends RobotCore {
 
 
         if (extendBucketInput) {
-            armMotor.setPower(0.5);
+            armMotor.setTargetPosition(5);
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             } else if (retractBucketInput) {
@@ -92,7 +92,8 @@ public class MainTele extends RobotCore {
                     bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
                 }
             } else {
-                armMotor.setPower(0);
+
+                armMotor.setTargetPosition(0);
             }
 
             //Basic robot functions
