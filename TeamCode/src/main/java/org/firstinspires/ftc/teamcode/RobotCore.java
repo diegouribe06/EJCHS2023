@@ -56,7 +56,7 @@ public class RobotCore extends OpMode{
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
         slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
-        slideMotor.setTargetPosition(0);
+        slideMotor.setTargetPosition(1);
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
