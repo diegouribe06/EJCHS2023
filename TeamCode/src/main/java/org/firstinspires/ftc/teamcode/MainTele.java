@@ -83,17 +83,17 @@ public class MainTele extends RobotCore {
 
 
         if (extendBucketInput) {
-            armMotor.setTargetPosition(5);
+            slideMotor.setTargetPosition(5);
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             } else if (retractBucketInput) {
-                armMotor.setPower(0.5);
+                slideMotor.setPower(0);
                 if (bucketRotate.getPosition() > 0.05) {
                     bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
                 }
             } else {
 
-                armMotor.setTargetPosition(0);
+                slideMotor.setTargetPosition(0);
             }
 
             //Basic robot functions
