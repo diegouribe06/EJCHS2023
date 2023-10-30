@@ -175,12 +175,6 @@ public class MainTele extends RobotCore {
             leftRear.setPower(lr * speed);
             rightRear.setPower(rr * speed);
         }
-        else{
-            leftFront.setPower(0);
-            rightFront.setPower(0);
-            leftRear.setPower(0);
-            rightRear.setPower(0);
-        }
     }
 
     private void resetServosToRest(){
