@@ -70,7 +70,7 @@ public class RobotCore extends OpMode{
         intakeServo.setDirection(CRServo.Direction.FORWARD);
         droneServo = hardwareMap.get(Servo.class, "droneServo");
         droneServo.setDirection(Servo.Direction.FORWARD);
-        bucketRotate = hardwareMap.get(Servo.class, "bucketBucket");
+        bucketRotate = hardwareMap.get(Servo.class, "bucketRotate");
         bucketRotate.setDirection(Servo.Direction.FORWARD);
         bucketDoor = hardwareMap.get(Servo.class, "bucketDoor");
         bucketDoor.setDirection(Servo.Direction.FORWARD);
