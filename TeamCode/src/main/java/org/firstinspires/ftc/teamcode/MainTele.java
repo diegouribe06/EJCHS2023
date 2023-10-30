@@ -40,10 +40,10 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
-        //resetServosToRest();
     }
 
     public void loop() {
+        telemetry.addData("Slide Position", slideMotor.getCurrentPosition());
         updateControls();
         printAllServoPositions();
         /**
@@ -82,12 +82,12 @@ public class MainTele extends RobotCore {
         telemetry.addData("Robot Rotation ", robotRotation);
 
 
-        if (extendBucketInput) {
-            slideMotor.setTargetPosition(5);
+            if (extendBucketInput) {
+            slideMotor.setTargetPosition(-1899);
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             } else if (retractBucketInput) {
-                slideMotor.setPower(0);
+                slideMotor.setTargetPosition(10);
                 if (bucketRotate.getPosition() > 0.05) {
                     bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
                 }
@@ -95,6 +95,7 @@ public class MainTele extends RobotCore {
 
                 slideMotor.setTargetPosition(0);
             }
+        }
 
             //Basic robot functions
             if (clockwiseInput) {
@@ -137,11 +138,11 @@ public class MainTele extends RobotCore {
             }
 
             if (droneLaunchInput) {
-                droneServo.setPosition(0.5f);
+                droneServo.setPosition(0f);
             }
 
         }
-    }
+
 
     public void stop(){
         fullStop();
