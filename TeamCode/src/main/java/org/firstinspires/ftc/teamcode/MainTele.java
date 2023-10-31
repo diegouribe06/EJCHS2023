@@ -114,10 +114,11 @@ public class MainTele extends RobotCore {
 
             }
 
-            if(toggleBucketDoorInput){;
+
+            if(toggleBucketDoorInput){; // no random semi-colons ~ NW
                 if(bucketDoorClosed) {
                     bucketDoorClosed = false;
-                    bucketDoor.setPosition(0.925);
+                    bucketDoor.setPosition(0.925); // Maybe try flipping these? like set the position first then change the variable value ~ NW
                 } else if (!bucketDoorClosed){
                     bucketDoorClosed = true;
                     bucketDoor.setPosition(0.75);
