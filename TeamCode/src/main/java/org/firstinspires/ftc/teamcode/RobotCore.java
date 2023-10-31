@@ -25,7 +25,6 @@ public class RobotCore extends OpMode{
 
     //variables for motors and servos
     DcMotor northTower = null;
-
     DcMotor southTower = null;
     DcMotor leftFront=null; //Currently Slide
     DcMotor rightFront=null;

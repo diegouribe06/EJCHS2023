@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
  */
@@ -40,23 +39,17 @@ public class MainTele extends RobotCore {
 
         //sets the power of the drive motors
 
-        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1){
+        if (gamepad1.b && Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
             leftFront.setPower(lf * 0.75);
             rightFront.setPower(rf * 0.75);
             leftRear.setPower(lr * 0.75);
-//            leftRear.setPower(lr);
-//            rightRear.setPower(rr);
             rightRear.setPower(rr * 0.75);
-        }
-
-//        if (gamepad1.y) {
-//            leftFront.setPower(lf);
-//            rightFront.setPower(rf);
-//            leftRear.setPower(lr);
-//            rightRear.setPower(rr);
-//        }
-//        //turns the motors off when no input
-        else {
+        } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
+            leftFront.setPower(lf * 0.25);
+            rightFront.setPower(rf * 0.25);
+            leftRear.setPower(lr * 0.25);
+            rightRear.setPower(rr * 0.25);
+        } else {
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftRear.setPower(0);
@@ -67,11 +60,11 @@ public class MainTele extends RobotCore {
          */
         //Player 1
         //Intake Controls
-        if (gamepad1.dpad_left){
+        if (gamepad1.left_bumper){
             intake.setPower(-1);
             intake2.setPower(1);
         }
-        else if (gamepad1.dpad_right){
+        else if (gamepad1.right_bumper){
             intake.setPower(1);
             intake2.setPower(-1);
         }
@@ -82,15 +75,15 @@ public class MainTele extends RobotCore {
 
         //Chicken Controls
         //Setting the Chicken up
-        if (gamepad1.b){
+        if (gamepad1.dpad_left){
             chicken.setPosition(0.5);
         }
         //Putting the Chicken down
-        if (gamepad1.a){
+        if (gamepad1.dpad_down){
             chicken.setPosition(1);
         }
         //Using the Chicken to lock the slide
-        if (gamepad1.left_bumper){
+        if (gamepad1.dpad_right){
             chicken.setPosition(0);
         }
 
@@ -105,7 +98,7 @@ public class MainTele extends RobotCore {
 
         //Launcher Controls
         //epstein didnt kill himself
-        if (gamepad1.right_bumper){
+        if (gamepad1.dpad_up){
             launcher.setPower(1);
         } else {
             launcher.setPower(0);
