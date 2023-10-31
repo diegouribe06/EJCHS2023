@@ -37,6 +37,7 @@ public class MainTele extends RobotCore {
     float rotateBucketArmInput;
     boolean toggleBucketDoorInput;
 
+    boolean bucketDoorClosed;
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -113,12 +114,16 @@ public class MainTele extends RobotCore {
 
             }
 
-            if (toggleBucketDoorInput) {
-                bucketDoor.setPosition(0.925);
-            }
-            else {
+            if(toggleBucketDoorInput){;
+                if(bucketDoorClosed) {
+                    bucketDoorClosed = false;
+                    bucketDoor.setPosition(0.925);
+                } else if (!bucketDoorClosed){
+                    bucketDoorClosed = true;
                     bucketDoor.setPosition(0.75);
                 }
+            }
+
 
 
             if (rotateBucketUpInput) {

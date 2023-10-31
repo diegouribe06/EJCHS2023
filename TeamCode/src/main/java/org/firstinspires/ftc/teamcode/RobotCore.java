@@ -29,7 +29,7 @@ public class RobotCore extends OpMode{
     DcMotor rightRear = null;
     DcMotor rightFront = null;
     DcMotor intakeMotor = null;
-    DcMotor slideMotor;
+    DcMotor slideMotor = null;
     Servo autoArm = null;
     Servo autoClaw = null;
     CRServo intakeServo = null;
