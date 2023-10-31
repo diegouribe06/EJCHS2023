@@ -82,20 +82,19 @@ public class MainTele extends RobotCore {
         telemetry.addData("Robot Rotation ", robotRotation);
 
 
-            if (extendBucketInput) {
+        if (extendBucketInput) {
             slideMotor.setTargetPosition(-1899);
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
-            } else if (retractBucketInput) {
+            }
+
+            if (retractBucketInput) {
                 slideMotor.setTargetPosition(10);
                 if (bucketRotate.getPosition() > 0.05) {
                     bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
                 }
-            } else {
-
-                slideMotor.setTargetPosition(0);
             }
-        }
+
 
             //Basic robot functions
             if (clockwiseInput) {
@@ -142,6 +141,7 @@ public class MainTele extends RobotCore {
             }
 
         }
+    }
 
 
     public void stop(){
