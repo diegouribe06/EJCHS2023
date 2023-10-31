@@ -106,7 +106,7 @@ public class MainTele extends RobotCore {
             }
 
             if (toggleBucketDoorInput) {
-                bucketDoor.setPosition(0);
+                bucketDoor.setPosition(1);
             } else {
                 bucketDoor.setPosition(0.5);
             }
