@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
@@ -40,6 +41,7 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
+
     }
 
     public void loop() {
@@ -81,20 +83,25 @@ public class MainTele extends RobotCore {
 
         telemetry.addData("Robot Rotation ", robotRotation);
 
-
         if (extendBucketInput) {
-            slideMotor.setTargetPosition(-1899);
+            if(slideMotor.getCurrentPosition() > 100){
+                slideMotor.setPower(-0.5);
+            }
+            if (bucketRotate.getPosition() > 0.05) {
+                bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
+            }
+        }
+
+        if (retractBucketInput) {
+            if(slideMotor.getCurrentPosition() < -1594){
+                slideMotor.setPower(0.5);
+            }
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
             }
         }
 
-        if (retractBucketInput) {
-            slideMotor.setTargetPosition(10);
-            if (bucketRotate.getPosition() > 0.05) {
-                bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
-            }
-        }
+
 
 
             //Basic robot functions
@@ -107,12 +114,12 @@ public class MainTele extends RobotCore {
             }
 
             if (toggleBucketDoorInput) {
-                if (bucketDoor.getPosition() != 0.85) {
-                    bucketDoor.setPosition(0.85);
-                } else {
-                    bucketDoor.setPosition(0.5);
-                }
+                bucketDoor.setPosition(0.925);
             }
+            else {
+                    bucketDoor.setPosition(0.75);
+                }
+
 
             if (rotateBucketUpInput) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
@@ -143,8 +150,9 @@ public class MainTele extends RobotCore {
                 droneServo.setPosition(0f);
             }
 
-            }
-        }
+    }
+
+
 
 
     public void stop(){
