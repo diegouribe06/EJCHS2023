@@ -85,15 +85,16 @@ public class MainTele extends RobotCore {
         if (extendBucketInput) {
             slideMotor.setTargetPosition(-1899);
             if (bucketRotate.getPosition() < 0.45) {
-                bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
+                bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
             }
+        }
 
-            if (retractBucketInput) {
-                slideMotor.setTargetPosition(10);
-                if (bucketRotate.getPosition() > 0.05) {
-                    bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
-                }
+        if (retractBucketInput) {
+            slideMotor.setTargetPosition(10);
+            if (bucketRotate.getPosition() > 0.05) {
+                bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
             }
+        }
 
 
             //Basic robot functions
@@ -111,39 +112,39 @@ public class MainTele extends RobotCore {
                 } else {
                     bucketDoor.setPosition(0.5);
                 }
+            }
 
-                if (rotateBucketUpInput) {
-                    bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
-                }
-                if (rotateBucketDownInput) {
-                    bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
-                }
+            if (rotateBucketUpInput) {
+                bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
+            }
+            if (rotateBucketDownInput) {
+                bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
+            }
 
-                if (rotateBucketArmInput > 0.2) {
-                    bucketArm.setPosition(1);
-                }
-                if (rotateBucketArmInput < -0.2) {
-                    bucketArm.setPosition(0.28);
-                }
+            if (rotateBucketArmInput > 0.2) {
+                bucketArm.setPosition(1);
+            }
+            if (rotateBucketArmInput < -0.2) {
+                bucketArm.setPosition(0.28);
+            }
 
-                if (intakeOnInput) {
-                    intakeMotor.setPower(1);
-                    intakeServo.setPower(-1);
-                } else if (intakeReverseInput) {
-                    intakeMotor.setPower(-1);
-                    intakeServo.setPower(-1);
-                } else {
-                    intakeMotor.setPower(0);
-                    intakeServo.setPower(0);
-                }
+            if (intakeOnInput) {
+                intakeMotor.setPower(1);
+                intakeServo.setPower(-1);
+            } else if (intakeReverseInput) {
+                intakeMotor.setPower(-1);
+                intakeServo.setPower(-1);
+            } else {
+                intakeMotor.setPower(0);
+                intakeServo.setPower(0);
+            }
 
-                if (droneLaunchInput) {
-                    droneServo.setPosition(0f);
-                }
+            if (droneLaunchInput) {
+                droneServo.setPosition(0f);
+            }
 
             }
         }
-    }
 
 
     public void stop(){
