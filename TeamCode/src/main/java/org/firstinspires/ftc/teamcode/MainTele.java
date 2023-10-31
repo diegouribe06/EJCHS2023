@@ -87,7 +87,6 @@ public class MainTele extends RobotCore {
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             }
-        }
 
             if (retractBucketInput) {
                 slideMotor.setTargetPosition(10);
@@ -95,6 +94,7 @@ public class MainTele extends RobotCore {
                     bucketRotate.setPosition(bucketRotate.getPosition() - 0.01);
                 }
             }
+        }
 
 
             //Basic robot functions
@@ -107,10 +107,12 @@ public class MainTele extends RobotCore {
             }
 
             if (toggleBucketDoorInput) {
-                bucketDoor.setPosition(0.85);
-            } else {
-                bucketDoor.setPosition(0.5);
-            }
+                if(bucketDoor.getPosition() != 0.85) {
+                    bucketDoor.setPosition(0.85);
+                }
+                else {
+                    bucketDoor.setPosition(0.5);
+                }
 
             if (rotateBucketUpInput) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
@@ -141,6 +143,7 @@ public class MainTele extends RobotCore {
                 droneServo.setPosition(0f);
             }
 
+        }
     }
 
 
@@ -167,7 +170,13 @@ public class MainTele extends RobotCore {
         rotateBucketUpInput = gamepad2.dpad_right;
         rotateBucketDownInput = gamepad2.dpad_left;
         rotateBucketArmInput = gamepad2.right_stick_y;
-        toggleBucketDoorInput = gamepad2.a;
+        if(!gamepad2.a && toggleBucketDoorInput){
+            toggleBucketDoorInput = false;
+        }
+        if(gamepad2.a && toggleBucketDoorInput){
+            toggleBucketDoorInput = true;
+        }
+
     }
 
     private void move(float speed){
