@@ -87,6 +87,7 @@ public class MainTele extends RobotCore {
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.01);
             }
+        }
 
             if (retractBucketInput) {
                 slideMotor.setTargetPosition(10);
@@ -106,7 +107,7 @@ public class MainTele extends RobotCore {
             }
 
             if (toggleBucketDoorInput) {
-                bucketDoor.setPosition(1);
+                bucketDoor.setPosition(0.85);
             } else {
                 bucketDoor.setPosition(0.5);
             }
@@ -140,7 +141,6 @@ public class MainTele extends RobotCore {
                 droneServo.setPosition(0f);
             }
 
-        }
     }
 
 
