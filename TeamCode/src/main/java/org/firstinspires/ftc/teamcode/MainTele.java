@@ -62,7 +62,7 @@ public class MainTele extends RobotCore {
 
         //driving movements
         if (slowDownInput && ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1)) {
-            move(0.9f);
+            move(0.420f);
             if (turnX > 0.1) {
                 robotRotation += 0.9;
             }
@@ -70,7 +70,7 @@ public class MainTele extends RobotCore {
                 robotRotation -= 0.9;
             }
         } else if ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
-            move(0.420f);
+            move(0.9f);
             if (turnX > 0.1) {
                 robotRotation += 0.42;
             }
@@ -155,9 +155,6 @@ public class MainTele extends RobotCore {
             }
 
     }
-
-
-
 
     public void stop(){
         fullStop();
