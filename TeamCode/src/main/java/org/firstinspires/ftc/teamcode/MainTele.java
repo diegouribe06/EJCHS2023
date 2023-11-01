@@ -48,7 +48,7 @@ public class MainTele extends RobotCore {
     public void loop() {
         telemetry.addData("Slide Position", slideMotor.getCurrentPosition());
         updateControls();
-        printAllServoPositions();
+        printDebugData();
         /**
          * Equations for robot movement
          */
@@ -101,8 +101,6 @@ public class MainTele extends RobotCore {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
             }
         }
-
-
 
 
             //Basic robot functions
@@ -210,7 +208,24 @@ public class MainTele extends RobotCore {
         resetServosToRest();
     }
 
-    private void printAllServoPositions(){
+    private void printDebugData(){
+        telemetry.speak("----Controller Inputs----");
+        telemetry.addData("Move X", moveX);
+        telemetry.addData("Move Y", moveY);
+        telemetry.addData("Turn X", turnX);
+        telemetry.addData("SlowDown",slowDownInput);
+        telemetry.addData("ClockWise",clockwiseInput);
+        telemetry.addData("CounterClockWise", counterClockwiseInput);
+        telemetry.addData("Hook Deploy", hookDeployInput);
+        telemetry.addData("Intake On", intakeOnInput);
+        telemetry.addData("Intake Reverse", intakeReverseInput);
+        telemetry.addData("Drone Launch", droneLaunchInput);
+        telemetry.addData("Extend Slide", extendBucketInput);
+        telemetry.addData("Retract Slide", retractBucketInput);
+        telemetry.addData("Bucket Arm", rotateBucketArmInput);
+        telemetry.addData("Bucket Door",toggleBucketDoorInput);
+
+        telemetry.speak("----Robot Hardwawre----");
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Power", intakeServo.getPower());
