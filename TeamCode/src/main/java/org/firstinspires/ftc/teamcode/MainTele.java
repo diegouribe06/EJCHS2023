@@ -21,23 +21,9 @@ public class MainTele extends RobotCore {
 
     //tracking
     float robotRotation = 0;
-
-    //Controls
-    boolean slowDownInput;
-    boolean clockwiseInput;
-    boolean counterClockwiseInput;
-    boolean hookDeployInput;
-    boolean intakeOnInput;
-    boolean intakeReverseInput;
-    boolean droneLaunchInput;
-    boolean extendBucketInput;
-    boolean retractBucketInput;
-    boolean rotateBucketUpInput;
-    boolean rotateBucketDownInput;
-    float rotateBucketArmInput;
-    boolean toggleBucketDoorInput;
-
     boolean bucketDoorClosed;
+
+
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -46,48 +32,48 @@ public class MainTele extends RobotCore {
     }
 
     public void loop() {
-        telemetry.addData("Slide Position", slideMotor.getCurrentPosition());
-        updateControls();
         printDebugData();
         /**
          * Equations for robot movement
          */
+        //equations to set the power
+        moveX = gamepad1.left_stick_x;
+        turnX = gamepad1.right_stick_x;
+        moveY = -gamepad1.left_stick_y;
+
         //equations to set the power
         lf = moveY + moveX + turnX;
         rf = moveY - moveX - turnX;
         lr = moveY - moveX + turnX;
         rr = moveY + moveX - turnX;
 
-        //* Setting motor power
-
-        //driving movements
-
-        if ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
-            move(0.9f);
-            if (turnX > 0.1) {
-                robotRotation += 0.42;
-            }
-            if (turnX < 0.1) {
-                robotRotation -= 0.42;
-            }
-        } else {
-            move(0);
+        //sets the power of the drive motors
+        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1){
+            leftFront.setPower(lf * 0.5);
+            rightFront.setPower(rf * 0.5);
+            leftRear.setPower(lr * 0.5);
+            rightRear.setPower(rr * 0.5);
+        }
+        else{
+            leftFront.setPower(0);
+            rightFront.setPower(0);
+            leftRear.setPower(0);
+            rightRear.setPower(0);
         }
 
-
-        telemetry.addData("Robot Rotation ", robotRotation);
-
-        if (extendBucketInput) {
-            if(slideMotor.getCurrentPosition() > 100){
-                slideMotor.setPower(-0.5);
+        //Extends the slide
+        if (gamepad2.dpad_up) {
+            if(slideMotor.getCurrentPosition() > -1900){
+                slideMotor.setPower(0.5);
             }
             if (bucketRotate.getPosition() > 0.05) {
                 bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
             }
         }
 
-        if (retractBucketInput) {
-            if(slideMotor.getCurrentPosition() < -1594){
+        //Retracts the slide
+        if (gamepad2.dpad_down) {
+            if(slideMotor.getCurrentPosition() < 0){
                 slideMotor.setPower(0.5);
             }
             if (bucketRotate.getPosition() < 0.45) {
@@ -95,18 +81,9 @@ public class MainTele extends RobotCore {
             }
         }
 
-
             //Basic robot functions
-            if (clockwiseInput) {
-
-            }
-
-            if (counterClockwiseInput) {
-
-            }
-
-
-            if(toggleBucketDoorInput){
+            //Toggles the bucket door
+            if(gamepad2.a){
                 if(bucketDoorClosed) {
                     bucketDoor.setPosition(0.925);
                     bucketDoorClosed = false;
@@ -117,26 +94,27 @@ public class MainTele extends RobotCore {
                 }
             }
 
-
-
-            if (rotateBucketUpInput) {
+            //Rotates the bucket itself
+            if (gamepad2.dpad_right) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
             }
-            if (rotateBucketDownInput) {
+            if (gamepad2.dpad_left) {
                 bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
             }
 
-            if (rotateBucketArmInput > 0.2) {
+            //Powers the intake
+            if (gamepad2.right_stick_y > 0.2) {
                 bucketArm.setPosition(1);
             }
-            if (rotateBucketArmInput < -0.2) {
+            if (gamepad2.right_stick_y < -0.2) {
                 bucketArm.setPosition(0.28);
             }
 
-            if (intakeOnInput) {
+            //Powers the intake but reverses it
+            if (gamepad2.right_bumper) {
                 intakeMotor.setPower(1);
                 intakeServo.setPower(-1);
-            } else if (intakeReverseInput) {
+            } else if (gamepad1.left_bumper) {
                 intakeMotor.setPower(-1);
                 intakeServo.setPower(-1);
             } else {
@@ -144,7 +122,8 @@ public class MainTele extends RobotCore {
                 intakeServo.setPower(0);
             }
 
-            if (droneLaunchInput) {
+            //launches drone
+            if (gamepad2.y) {
                 droneServo.setPosition(0f);
             }
 
@@ -154,77 +133,27 @@ public class MainTele extends RobotCore {
         fullStop();
     }
 
-    private void updateControls(){
-        //Gets the latest values from the gamepad buttons
-        //Sticks
-        moveX = gamepad1.left_stick_x;
-        moveY = gamepad1.left_stick_y;
-        turnX = gamepad1.right_stick_x;
-        //Buttons
-        slowDownInput = gamepad1.a;
-        clockwiseInput = gamepad1.right_bumper;
-        counterClockwiseInput = gamepad1.left_bumper;
-        hookDeployInput = gamepad2.b;
-        intakeOnInput = gamepad1.right_bumper;
-        intakeReverseInput = gamepad1.left_bumper;
-        droneLaunchInput = gamepad2.y;
-        extendBucketInput = gamepad2.dpad_up;
-        retractBucketInput = gamepad2.dpad_down;
-        rotateBucketUpInput = gamepad2.dpad_right;
-        rotateBucketDownInput = gamepad2.dpad_left;
-        rotateBucketArmInput = gamepad2.right_stick_y;
-        toggleBucketDoorInput = gamepad2.a;
-
-    }
-
-    private void move(float speed){
-        if (slowDownInput){
-            leftFront.setPower(lf * (speed / 2));
-            rightFront.setPower(rf * (speed / 2));
-            leftRear.setPower(lr * (speed / 2));
-            rightRear.setPower(rr * (speed / 2));
-        }
-        else {
-            leftFront.setPower(lf * speed);
-            rightFront.setPower(rf * speed);
-            leftRear.setPower(lr * speed);
-            rightRear.setPower(rr * speed);
-        }
-    }
-
-    private void resetServosToRest(){
+    //Sets the power or position of all motors and servos to 0
+    private void fullStop(){
+        leftFront.setPower(0);
+        leftRear.setPower(0);
+        rightFront.setPower(0);
+        rightRear.setPower(0);
         droneServo.setPosition(0);
         bucketRotate.setPosition(0);
         bucketDoor.setPosition(0);
         bucketArm.setPosition(0);
     }
 
-    private void fullStop(){
-        leftFront.setPower(0);
-        leftRear.setPower(0);
-        rightFront.setPower(0);
-        rightRear.setPower(0);
-        resetServosToRest();
-    }
-
+    //Prints different info for debugging
     private void printDebugData(){
-        telemetry.speak("----Controller Inputs----");
+        telemetry.addLine("----Controller Inputs----");
         telemetry.addData("Move X", moveX);
         telemetry.addData("Move Y", moveY);
         telemetry.addData("Turn X", turnX);
-        telemetry.addData("SlowDown",slowDownInput);
-        telemetry.addData("ClockWise",clockwiseInput);
-        telemetry.addData("CounterClockWise", counterClockwiseInput);
-        telemetry.addData("Hook Deploy", hookDeployInput);
-        telemetry.addData("Intake On", intakeOnInput);
-        telemetry.addData("Intake Reverse", intakeReverseInput);
-        telemetry.addData("Drone Launch", droneLaunchInput);
-        telemetry.addData("Extend Slide", extendBucketInput);
-        telemetry.addData("Retract Slide", retractBucketInput);
-        telemetry.addData("Bucket Arm", rotateBucketArmInput);
-        telemetry.addData("Bucket Door",toggleBucketDoorInput);
 
-        telemetry.speak("----Robot Hardwawre----");
+        telemetry.addLine("----Robot Hardwawre----");
+        telemetry.addData("Slide Position", slideMotor.getCurrentPosition());
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Power", intakeServo.getPower());
