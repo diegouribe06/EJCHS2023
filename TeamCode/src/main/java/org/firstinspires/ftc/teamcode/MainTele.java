@@ -61,15 +61,8 @@ public class MainTele extends RobotCore {
         //* Setting motor power
 
         //driving movements
-        if (slowDownInput && ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1)) {
-            move(0.420f);
-            if (turnX > 0.1) {
-                robotRotation += 0.9;
-            }
-            if (turnX < 0.1) {
-                robotRotation -= 0.9;
-            }
-        } else if ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
+
+        if ((moveX) > 0.1 || Math.abs(moveY) > 0.1 || Math.abs(turnX) > 0.1) {
             move(0.9f);
             if (turnX > 0.1) {
                 robotRotation += 0.42;
@@ -184,10 +177,18 @@ public class MainTele extends RobotCore {
     }
 
     private void move(float speed){
-        leftFront.setPower(lf * speed);
-        rightFront.setPower(rf * speed);
-        leftRear.setPower(lr * speed);
-        rightRear.setPower(rr * speed);
+        if (slowDownInput){
+            leftFront.setPower(lf * (speed / 2));
+            rightFront.setPower(rf * (speed / 2));
+            leftRear.setPower(lr * (speed / 2));
+            rightRear.setPower(rr * (speed / 2));
+        }
+        else {
+            leftFront.setPower(lf * speed);
+            rightFront.setPower(rf * speed);
+            leftRear.setPower(lr * speed);
+            rightRear.setPower(rr * speed);
+        }
     }
 
     private void resetServosToRest(){
