@@ -113,10 +113,9 @@ public class MainTele extends RobotCore {
         } else if (gamepad2.dpad_up){
             northTower.setPower(-0.7);
             southTower.setPower(-0.7);
-
         } else {
-            northTower.setPower(-0.01);
-            southTower.setPower(-0.01);
+            northTower.setPower(-0.005);
+            southTower.setPower(-0.005);
 
         }
 //        southTower.setTargetPosition(northTower.getCurrentPosition());
