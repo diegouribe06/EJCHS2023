@@ -93,7 +93,7 @@ public class MainTele extends RobotCore {
             beak.setPosition(0);
         }
         if (gamepad1.y){
-            beak.setPosition(0.1);
+            beak.setPosition(0.25);
         }
 
         //Launcher Controls
