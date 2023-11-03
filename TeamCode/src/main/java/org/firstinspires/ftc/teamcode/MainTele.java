@@ -64,11 +64,12 @@ public class MainTele extends RobotCore {
         //Extends the slide
         if (gamepad2.dpad_up) {
             if(slideMotor.getCurrentPosition() > -1900){
-                slideMotor.setPower(0.5);
+                slideMotor.setPower(-0.5);
             }
             if (bucketRotate.getPosition() > 0.05) {
                 bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
             }
+            bucketArm.setPosition(-0.3);
         }
 
         //Retracts the slide
@@ -79,6 +80,7 @@ public class MainTele extends RobotCore {
             if (bucketRotate.getPosition() < 0.45) {
                 bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
             }
+            bucketArm.setPosition(0);
         }
 
             //Basic robot functions
@@ -111,7 +113,7 @@ public class MainTele extends RobotCore {
             }
 
             //Powers the intake but reverses it
-            if (gamepad2.right_bumper) {
+            if (gamepad1.right_bumper) {
                 intakeMotor.setPower(1);
                 intakeServo.setPower(-1);
             } else if (gamepad1.left_bumper) {
