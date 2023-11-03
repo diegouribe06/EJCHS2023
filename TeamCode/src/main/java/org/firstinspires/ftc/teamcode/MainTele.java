@@ -39,7 +39,7 @@ public class MainTele extends RobotCore {
         //equations to set the power
         moveX = gamepad1.left_stick_x;
         turnX = gamepad1.right_stick_x;
-        moveY = -gamepad1.left_stick_y;
+        moveY = gamepad1.left_stick_y;
 
         //equations to set the power
         lf = moveY + moveX + turnX;
