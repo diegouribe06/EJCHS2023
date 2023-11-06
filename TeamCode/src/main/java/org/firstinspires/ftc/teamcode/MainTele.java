@@ -63,13 +63,14 @@ public class MainTele extends RobotCore {
 
         //Extends the slide
         if (gamepad2.dpad_up) {
-            if(slideMotor.getCurrentPosition() > -1900){
+            if(slideMotor.getCurrentPosition() > -1900) {
                 slideMotor.setPower(-0.5);
             }
-            if (bucketRotate.getPosition() > 0.05) {
-                bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
+
+            if(slideMotor.getCurrentPosition() < -1000){
+                bucketArm.setPosition(0.8);
+                bucketRotate.setPosition(-0.25);
             }
-            bucketArm.setPosition(-0.3);
         }
 
         //Retracts the slide
@@ -77,15 +78,14 @@ public class MainTele extends RobotCore {
             if(slideMotor.getCurrentPosition() < 0){
                 slideMotor.setPower(0.5);
             }
-            if (bucketRotate.getPosition() < 0.45) {
-                bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
-            }
-            bucketArm.setPosition(0);
+
+            bucketRotate.setPosition(-0.25);
+            bucketArm.setPosition(0.3);
         }
 
-            //Basic robot functions
-            //Toggles the bucket door
-            if(gamepad2.a){
+        //Basic robot functions
+        //Toggles the bucket door
+        if(gamepad2.a){
                 if(bucketDoorClosed) {
                     bucketDoor.setPosition(0.925);
                     bucketDoorClosed = false;
@@ -145,6 +145,9 @@ public class MainTele extends RobotCore {
         bucketRotate.setPosition(0);
         bucketDoor.setPosition(0);
         bucketArm.setPosition(0);
+        if(slideMotor.getCurrentPosition() < 0){
+            slideMotor.setPower(0.5);
+        }
     }
 
     //Prints different info for debugging
