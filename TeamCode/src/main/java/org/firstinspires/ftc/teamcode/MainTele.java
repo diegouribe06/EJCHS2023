@@ -22,6 +22,8 @@ public class MainTele extends RobotCore {
     //tracking
     float robotRotation = 0;
     boolean bucketDoorClosed;
+    boolean isExtending;
+    boolean isRetracting;
 
 
 
@@ -63,17 +65,26 @@ public class MainTele extends RobotCore {
 
         //Extends the slide
         if (gamepad2.dpad_up) {
+            isExtending = true;
+            isRetracting = false;
+        }
+
+        if(gamepad2.dpad_down){
+            isExtending = false;
+            isRetracting = true;
+        }
+        if(isExtending && !isRetracting){
             if(slideMotor.getCurrentPosition() > -1900) {
                 slideMotor.setPower(-0.5);
             }
 
             if(slideMotor.getCurrentPosition() < -1000){
                 bucketArm.setPosition(0.8);
-                bucketRotate.setPosition(-0.25);
+                bucketRotate.setPosition(0.25);
             }
         }
         //Retracts the slide
-        if (gamepad2.dpad_down) {
+        if (!isExtending && isRetracting) {
             if(slideMotor.getCurrentPosition() < -192){
                 slideMotor.setPower(0.5);
             }
