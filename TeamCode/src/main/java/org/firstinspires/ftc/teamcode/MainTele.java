@@ -72,11 +72,13 @@ public class MainTele extends RobotCore {
                 bucketRotate.setPosition(-0.25);
             }
         }
-
         //Retracts the slide
         if (gamepad2.dpad_down) {
-            if(slideMotor.getCurrentPosition() < 0){
+            if(slideMotor.getCurrentPosition() < -192){
                 slideMotor.setPower(0.5);
+            }
+            else{
+                slideMotor.setPower(0);
             }
 
             bucketRotate.setPosition(-0.25);
@@ -91,8 +93,8 @@ public class MainTele extends RobotCore {
                     bucketDoorClosed = false;
                      // Maybe try flipping these? like set the position first then change the variable value ~ NW
                 } else if (!bucketDoorClosed){
-                    bucketDoorClosed = true;
                     bucketDoor.setPosition(0.75);
+                    bucketDoorClosed = true;
                 }
             }
 
