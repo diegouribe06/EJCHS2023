@@ -99,7 +99,7 @@ public class MainTele extends RobotCore {
         //Launcher Controls
         //epstein didnt kill himself
         if (gamepad1.dpad_up){
-            launcher.setPower(1);
+            launcher.setPower(0.5);
         } else {
             launcher.setPower(0);
         }
