@@ -114,6 +114,7 @@ public class MainTele extends RobotCore {
             northTower.setPower(-0.7);
             southTower.setPower(-0.7);
         } else {
+            // Constant powers
             northTower.setPower(-0.005);
             southTower.setPower(-0.005);
 
