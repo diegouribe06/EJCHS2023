@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
  */
-@Disabled
+
 @TeleOp(name="DebugTele", group = "Linear Opmode")
 public class DebugTele extends RobotCore {
     //Controller Inputs
@@ -27,10 +27,8 @@ public class DebugTele extends RobotCore {
     }
 
     public void loop(){
-        if (gamepad2.a){
-            pickup.setPosition(0);
-        } else if (gamepad2.b){
-            pickup.setPosition(1);
-        }
+        telemetry.addData("leftEncoder", leftFront.getCurrentPosition());
+        telemetry.addData("rightEncoder", rightFront.getCurrentPosition());
+        telemetry.addData("frontEncoder with lr", leftRear.getCurrentPosition());
     }
 }
