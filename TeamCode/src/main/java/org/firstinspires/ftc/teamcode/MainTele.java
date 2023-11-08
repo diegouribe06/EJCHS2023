@@ -82,7 +82,7 @@ public class MainTele extends RobotCore {
 
             if(slideMotor.getCurrentPosition() < -1000){
                 bucketArm.setPosition(0.8);
-                bucketRotate.setPosition(0.25);
+                bucketRotate.setPosition(0);
             }
         }
         //Retracts the slide
@@ -94,24 +94,30 @@ public class MainTele extends RobotCore {
                 slideMotor.setPower(0);
             }
 
-            bucketRotate.setPosition(-0.25);
-            bucketArm.setPosition(0.3);
+            bucketRotate.setPosition(0.15);
+            bucketArm.setPosition(0.07);
         }
 
         //Basic robot functions
         //Toggles the bucket door
-        if(gamepad2.a){
-                if(bucketDoorClosed && bucketDoor.getPosition() < 0.76 || !firstDoor) {
-                    bucketDoor.setPosition(0.925);
-                    bucketDoorClosed = false;
-                    firstDoor = true;
-                     // Maybe try flipping these? like set the position first then change the variable value ~ NW
-                } else if (!bucketDoorClosed && bucketDoor.getPosition() > 0.92 || !firstDoor){
-                    bucketDoor.setPosition(0.75);
-                    bucketDoorClosed = true;
-                    firstDoor = true;
-                }
-            }
+//        if(gamepad2.a){
+//                if(bucketDoorClosed && bucketDoor.getPosition() < 0.76 || !firstDoor) {
+//                    bucketDoor.setPosition(0.925);
+//                    bucketDoorClosed = false;
+//                    firstDoor = true;
+//                     // Maybe try flipping these? like set the position first then change the variable value ~ NW
+//                } else if (!bucketDoorClosed && bucketDoor.getPosition() > 0.92 || !firstDoor){
+//                    bucketDoor.setPosition(0.75);
+//                    bucketDoorClosed = true;
+//                    firstDoor = true;
+//                }
+//            }
+
+        if (gamepad2.a) {
+            bucketDoor.setPosition(0.925);
+        } else if (gamepad2.b) {
+            bucketDoor.setPosition(0.75);
+        }
 
             //Rotates the bucket itself
             if (gamepad2.dpad_right) {
@@ -126,7 +132,7 @@ public class MainTele extends RobotCore {
                 bucketArm.setPosition(1);
             }
             if (gamepad2.right_stick_y < -0.2) {
-                bucketArm.setPosition(0.28);
+                bucketArm.setPosition(0);
             }
 
             //Powers the intake but reverses it
