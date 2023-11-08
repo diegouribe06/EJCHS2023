@@ -24,6 +24,7 @@ public class MainTele extends RobotCore {
     boolean bucketDoorClosed;
     boolean isExtending;
     boolean isRetracting;
+    boolean firstDoor = false;
 
 
 
@@ -73,6 +74,7 @@ public class MainTele extends RobotCore {
             isExtending = false;
             isRetracting = true;
         }
+
         if(isExtending && !isRetracting){
             if(slideMotor.getCurrentPosition() > -1900) {
                 slideMotor.setPower(-0.5);
@@ -99,13 +101,15 @@ public class MainTele extends RobotCore {
         //Basic robot functions
         //Toggles the bucket door
         if(gamepad2.a){
-                if(bucketDoorClosed && bucketDoor.getPosition() < 0.76) {
+                if(bucketDoorClosed && bucketDoor.getPosition() < 0.76 || !firstDoor) {
                     bucketDoor.setPosition(0.925);
                     bucketDoorClosed = false;
+                    firstDoor = true;
                      // Maybe try flipping these? like set the position first then change the variable value ~ NW
-                } else if (!bucketDoorClosed && bucketDoor.getPosition() > 0.92){
+                } else if (!bucketDoorClosed && bucketDoor.getPosition() > 0.92 || !firstDoor){
                     bucketDoor.setPosition(0.75);
                     bucketDoorClosed = true;
+                    firstDoor = true;
                 }
             }
 
