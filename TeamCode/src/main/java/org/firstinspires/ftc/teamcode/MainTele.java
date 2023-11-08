@@ -99,11 +99,11 @@ public class MainTele extends RobotCore {
         //Basic robot functions
         //Toggles the bucket door
         if(gamepad2.a){
-                if(bucketDoorClosed) {
+                if(bucketDoorClosed && bucketDoor.getPosition() < 0.76) {
                     bucketDoor.setPosition(0.925);
                     bucketDoorClosed = false;
                      // Maybe try flipping these? like set the position first then change the variable value ~ NW
-                } else if (!bucketDoorClosed){
+                } else if (!bucketDoorClosed && bucketDoor.getPosition() > 0.92){
                     bucketDoor.setPosition(0.75);
                     bucketDoorClosed = true;
                 }
@@ -111,10 +111,10 @@ public class MainTele extends RobotCore {
 
             //Rotates the bucket itself
             if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(bucketRotate.getPosition() + 0.05);
+                bucketRotate.setPosition(0.5);
             }
             if (gamepad2.dpad_left) {
-                bucketRotate.setPosition(bucketRotate.getPosition() - 0.05);
+                bucketRotate.setPosition(0);
             }
 
             //Powers the intake
