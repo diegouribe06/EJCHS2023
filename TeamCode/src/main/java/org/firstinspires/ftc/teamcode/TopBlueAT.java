@@ -13,4 +13,10 @@ public class TopBlueAT extends OpMode {
     public void loop(){
 
     }
+
+    public void moveLeft(double inches){
+        if(inches > 0){
+
+        }
+    }
 }

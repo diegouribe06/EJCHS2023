@@ -25,9 +25,6 @@ public class MainTele extends RobotCore {
     boolean isExtending;
     boolean isRetracting;
     boolean firstDoor = false;
-
-
-
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
@@ -81,7 +78,7 @@ public class MainTele extends RobotCore {
             }
 
             if(slideMotor.getCurrentPosition() < -1000){
-                bucketArm.setPosition(0.8);
+                bucketArm.setPosition(0.5);
                 bucketRotate.setPosition(0);
             }
         }
@@ -110,6 +107,7 @@ public class MainTele extends RobotCore {
             if (gamepad2.dpad_right) {
                 bucketRotate.setPosition(0.5);
             }
+
             if (gamepad2.dpad_left) {
                 bucketRotate.setPosition(0);
             }
