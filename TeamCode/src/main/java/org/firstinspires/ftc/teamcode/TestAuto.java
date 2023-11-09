@@ -56,7 +56,7 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "Concept: AprilTag Switchable Cameras", group = "Concept")
+@Autonomous(name = "RedAuto", group = "Concept")
 //@Disabled
 public class TestAuto extends LinearOpMode {
 
@@ -90,13 +90,16 @@ public class TestAuto extends LinearOpMode {
         //Build trajectories here to preserve resources at start
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(0, 0, 0);
+        Pose2d startPose = new Pose2d(11.6, -70, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence auto = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(15, 0))
-                .turn(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(0, 0), 0)
+                .forward(23)
+                .waitSeconds(2)
+                .splineTo(new Vector2d(44, -40), Math.toRadians(0))
+                .waitSeconds(4)
+                .lineTo(new Vector2d(36, -40))
+                .splineToConstantHeading(new Vector2d(60, -74), Math.toRadians(0))
                 .build();
 
         waitForStart();
