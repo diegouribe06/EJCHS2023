@@ -134,7 +134,7 @@ public class MainTele extends RobotCore {
 
             //launches drone
             if (gamepad2.y) {
-                droneServo.setPosition(0f);
+                droneServo.setPosition(0.5);
             }
 
     }
