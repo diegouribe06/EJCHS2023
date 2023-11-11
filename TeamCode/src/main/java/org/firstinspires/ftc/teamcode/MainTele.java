@@ -28,11 +28,10 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();;
-
     }
 
     public void loop() {
-        printDebugData();
+        printDebugData();file:///home/deeric/StudioProjects/EJCHS2023/MeepMeepTesting/src/main/java
         /**
          * Equations for robot movement
          */
@@ -134,7 +133,14 @@ public class MainTele extends RobotCore {
 
             //launches drone
             if (gamepad2.y) {
-                droneServo.setPosition(0.5);
+                if(droneServo.getPosition() == 0){
+                    droneServo.setPosition(0.5);
+                }
+
+                if(droneServo.getPosition() == 0.5){
+                    droneServo.setPosition(0);
+                }
+
             }
 
     }
