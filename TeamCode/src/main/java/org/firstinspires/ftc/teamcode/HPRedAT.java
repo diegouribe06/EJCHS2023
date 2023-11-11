@@ -14,8 +14,8 @@ public class HPRedAT extends LinearOpMode {
     public void runOpMode(){
         drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
-                .strafeRight(108)
-                .back(148)
+                .strafeRight(3)
+                .back(3)
                 .build();
         waitForStart();
         drive.followTrajectorySequence(trajectory);

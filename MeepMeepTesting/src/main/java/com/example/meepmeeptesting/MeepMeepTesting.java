@@ -19,11 +19,11 @@ public class MeepMeepTesting {
                 );
 
         // There's also FIELD_CENTERSTAGE_JUICE_LIGHT and FIELD_CENTERSTAGE_OFFICIAL
-       /*meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
+       meepMeep.setBackground(MeepMeep.Background.FIELD_CENTERSTAGE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
                 .start();
-        */
+
     }
 }
