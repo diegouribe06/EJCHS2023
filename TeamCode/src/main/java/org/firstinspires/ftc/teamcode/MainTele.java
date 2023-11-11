@@ -31,7 +31,7 @@ public class MainTele extends RobotCore {
     }
 
     public void loop() {
-        printDebugData();file:///home/deeric/StudioProjects/EJCHS2023/MeepMeepTesting/src/main/java
+        printDebugData();
         /**
          * Equations for robot movement
          */
@@ -83,7 +83,7 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < -192){
+            if(slideMotor.getCurrentPosition() < -50){
                 slideMotor.setPower(0.5);
             }
             else{
@@ -171,7 +171,7 @@ public class MainTele extends RobotCore {
         telemetry.addData("Move Y", moveY);
         telemetry.addData("Turn X", turnX);
 
-        telemetry.addLine("----Robot Hardwawre----");
+        telemetry.addLine("----Robot Hardware----");
         telemetry.addData("Slide Position", slideMotor.getCurrentPosition());
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());

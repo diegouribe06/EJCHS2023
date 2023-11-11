@@ -17,7 +17,8 @@ public class TopBlueAT extends LinearOpMode {
     public void runOpMode(){
         drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
-                .back(24)
+                .strafeRight(15)
+                .back(52)
                 .build();
         waitForStart();
         drive.followTrajectorySequence(trajectory);
