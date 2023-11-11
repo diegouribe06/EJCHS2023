@@ -32,20 +32,13 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.VisionPortal.CameraState;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
@@ -58,8 +51,9 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "RedAuto", group = "Concept", preselectTeleOp = "MainTele")
-public class TestAuto extends LinearOpMode {
+@Autonomous(name = "BlueAuto", group = "Concept", preselectTeleOp = "MainTele")
+//@Disabled
+public class BlueAuto extends LinearOpMode {
 
     /**
      * Variables used for switching cameras.
@@ -107,38 +101,34 @@ public class TestAuto extends LinearOpMode {
         //Build trajectories here to preserve resources at start
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPose = new Pose2d(11.6, -70, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(11.6, 70, Math.toRadians(270));
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence auto = drive.trajectorySequenceBuilder(startPose)
-                .addDisplacementMarker(3, () -> {
+                .addTemporalMarker(() -> {
                     northTower.setTargetPosition(-1000);
                     southTower.setTargetPosition(-1000);
                     northTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    northTower.setPower(-1);
-                    southTower.setPower(-1);
+                    northTower.setPower(1);
+                    southTower.setPower(1);
+                })
+                .UNSTABLE_addDisplacementMarkerOffset(6, () -> {
+                    clawPivot.setPosition(.32);
+                    extender.setPosition(0.5);
                 })
                 .forward(23)
-                .addDisplacementMarker(8, () -> {
-                    extender.setPosition(0.5);
-                    clawPivot.setPosition(0.32);
-                })
-                .lineToLinearHeading(new Pose2d(50, -40, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(51, 40, Math.toRadians(180)))
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
-                    pickup.setPosition(0.7);
+                    pickup.setPosition(0.6);
                 })
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
-                    clawPivot.setPosition(0);
-                    pickup.setPosition(0.3);
-                })
-                .UNSTABLE_addDisplacementMarkerOffset(5, () -> {
                     extender.setPosition(0);
                 })
-                .lineTo(new Vector2d(35, -64))
-                .addTemporalMarker(() -> {
+                .UNSTABLE_addDisplacementMarkerOffset(5, () -> {
+                    clawPivot.setPosition(0);
                     northTower.setTargetPosition(0);
                     southTower.setTargetPosition(0);
                     northTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -146,7 +136,8 @@ public class TestAuto extends LinearOpMode {
                     northTower.setPower(1);
                     southTower.setPower(1);
                 })
-                .splineToConstantHeading(new Vector2d(62, -80), Math.toRadians(180))
+                .lineTo(new Vector2d(35, 64))
+                .splineToConstantHeading(new Vector2d(62, 80), Math.toRadians(180))
                 .build();
 
         pickup.setPosition(0.1);

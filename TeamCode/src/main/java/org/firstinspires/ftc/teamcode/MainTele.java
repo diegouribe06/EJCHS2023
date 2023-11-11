@@ -20,9 +20,15 @@ public class MainTele extends RobotCore {
     double rr;
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
-    public void init(){super.init();}
+    public void init(){
+        super.init();
+        extender.setPosition(0);
+    }
 
     public void loop(){
+
+        telemetry.addData("North Tower", northTower.getCurrentPosition());
+        telemetry.addData("South Tower", southTower.getCurrentPosition());
         /**
          * Driving Stuff
          */
@@ -75,7 +81,7 @@ public class MainTele extends RobotCore {
 
         //Chicken Controls
         //Setting the Chicken up
-        if (gamepad1.dpad_left){
+        /*if (gamepad1.dpad_left){
             chicken.setPosition(0.5);
         }
         //Putting the Chicken down
@@ -86,6 +92,7 @@ public class MainTele extends RobotCore {
         if (gamepad1.dpad_right){
             chicken.setPosition(0);
         }
+         */
 
         //Beak Controls
         //Close the beak
@@ -99,7 +106,7 @@ public class MainTele extends RobotCore {
         //Launcher Controls
         //epstein didnt kill himself
         if (gamepad1.dpad_up){
-            launcher.setPower(0.5);
+            launcher.setPower(.5);
         } else {
             launcher.setPower(0);
         }
@@ -125,19 +132,19 @@ public class MainTele extends RobotCore {
 
         //Extender Controls
         telemetry.addData("right stick pos", gamepad2.right_stick_y);
-        if (gamepad2.right_stick_y > 0){
-            extender.setPower(-1);
-        } else if (gamepad2.right_stick_y < 0){
-            extender.setPower(1);
+        if (gamepad2.right_stick_y < -0.3){
+            extender.setPosition(extender.getPosition() + 0.0075);
+        } else if (gamepad2.right_stick_y > 0.3){
+            extender.setPosition(extender.getPosition() - 0.0075);
         } else {
-            extender.setPower(0);
+            extender.setPosition(extender.getPosition());
         }
 
         //Grabber Controls
         if (gamepad2.a){
-            pickup.setPosition(0.3);
+            pickup.setPosition(0.1);
         } else if (gamepad2.b){
-            pickup.setPosition(0.8);
+            pickup.setPosition(0.6);
         }
 
         //Grabber Pivot Controls
@@ -145,7 +152,7 @@ public class MainTele extends RobotCore {
             clawPivot.setPosition(0);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.22);
+            clawPivot.setPosition(0.32);
         }
     }
 }
