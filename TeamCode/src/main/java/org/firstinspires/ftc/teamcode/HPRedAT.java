@@ -8,18 +8,19 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "HPRed", group = "17421 Autonomous")
 public class HPRedAT extends LinearOpMode {
-
     SampleMecanumDrive drive;
     @Override
     public void runOpMode(){
         drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+                .waitSeconds(12)
                 .strafeLeft(72)
                 .turn(Math.toRadians(35))
                 .back(110)
                 .build();
+
         waitForStart();
-        drive.followTrajectorySequence(trajectory);
+
         drive.followTrajectorySequence(trajectory);
 
     }
