@@ -30,10 +30,13 @@ public class RobotCore extends OpMode{
     DcMotor rightFront = null;
     DcMotor intakeMotor = null;
     DcMotor slideMotor = null;
+    DcMotor hookMotor = null;
     Servo autoArm = null;
     Servo autoClaw = null;
     CRServo intakeServo = null;
     Servo droneServo = null;
+    Servo hookLeftServo = null;
+    Servo hookRightServo = null;
     Servo bucketRotate = null;
     Servo bucketDoor = null;
     Servo bucketArm = null;
@@ -56,6 +59,7 @@ public class RobotCore extends OpMode{
         rightRear=hardwareMap.get(DcMotor.class, "rightRear");
         slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
         //Initialize Servos
@@ -67,6 +71,10 @@ public class RobotCore extends OpMode{
         intakeServo.setDirection(CRServo.Direction.FORWARD);
         droneServo = hardwareMap.get(Servo.class, "droneServo");
         droneServo.setDirection(Servo.Direction.FORWARD);
+        hookLeftServo = hardwareMap.get(Servo.class, "hookLeft");
+        hookLeftServo.setDirection(Servo.Direction.REVERSE);
+        hookRightServo = hardwareMap.get(Servo.class, "hookRight");
+        hookRightServo.setDirection(Servo.Direction.REVERSE);
         bucketRotate = hardwareMap.get(Servo.class, "bucketRotate");
         bucketRotate.setDirection(Servo.Direction.FORWARD);
         bucketDoor = hardwareMap.get(Servo.class, "bucketDoor");

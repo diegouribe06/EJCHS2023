@@ -27,12 +27,14 @@ public class MainTele extends RobotCore {
     boolean firstDoor = false;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
-        super.init();;
+        super.init();
+        hookLeftServo.setPosition(0);
+        hookRightServo.setPosition(0);
     }
 
     public void loop() {
         printDebugData();
-        /**
+        /*
          * Equations for robot movement
          */
         //equations to set the power
@@ -143,6 +145,27 @@ public class MainTele extends RobotCore {
 
             }
 
+            //Hook logic
+            //Power Hook Slide
+            if(gamepad2.right_trigger > 0.1){
+                hookMotor.setPower(1);
+            }
+            else if(gamepad2.left_trigger > 0.1){
+                hookMotor.setPower(-1);
+            }
+            else{
+                hookMotor.setPower(0);
+            }
+            //Power Hook Servos
+            if(gamepad2.x){
+                hookLeftServo.setPosition(0.5);
+                hookRightServo.setPosition(0.4);
+            }
+            else{
+                hookLeftServo.setPosition(0);
+                hookRightServo.setPosition(0.85);
+            }
+
     }
 
     public void stop(){
@@ -159,6 +182,8 @@ public class MainTele extends RobotCore {
         bucketRotate.setPosition(0);
         bucketDoor.setPosition(0);
         bucketArm.setPosition(0);
+        hookLeftServo.setPosition(0);
+        hookRightServo.setPosition(0);
         if(slideMotor.getCurrentPosition() < 0){
             slideMotor.setPower(0.5);
         }
@@ -177,6 +202,8 @@ public class MainTele extends RobotCore {
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Power", intakeServo.getPower());
         telemetry.addData(" drone Servo Position", droneServo.getPosition());
+        telemetry.addData(" leftHook Servo Position", hookLeftServo.getPosition());
+        telemetry.addData(" rightHook Servo Position", hookRightServo.getPosition());
         telemetry.addData(" bucketRotator Servo Position", bucketArm.getPosition());
         telemetry.addData(" bucketArm Servo Position", bucketRotate.getPosition());
         telemetry.addData(" bucketDoor Servo Position", bucketDoor.getPosition());
