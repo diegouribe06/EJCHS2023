@@ -24,12 +24,25 @@ public class MainTele extends RobotCore {
     boolean bucketDoorClosed;
     boolean isExtending;
     boolean isRetracting;
+    boolean hookClear = false;
     boolean firstDoor = false;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
-        hookLeftServo.setPosition(0);
-        hookRightServo.setPosition(0);
+
+        //Straight Out is 0.7
+        //Straight up is 0.35
+        if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
+           hookClear = true;
+        }
+        else
+        {
+            hookClear = false;
+        }
+        if(!hookClear){
+            hookLeftServo.setPosition(0.7);
+            hookRightServo.setPosition(0.7);
+        }
     }
 
     public void loop() {
@@ -78,10 +91,10 @@ public class MainTele extends RobotCore {
                 slideMotor.setPower(-0.5);
             }
 
-            if(slideMotor.getCurrentPosition() < -1000){
+/*            if(slideMotor.getCurrentPosition() < -1000){
                 bucketArm.setPosition(0.5);
                 bucketRotate.setPosition(0);
-            }
+            }*/
         }
         //Retracts the slide
         if (!isExtending && isRetracting) {
@@ -91,9 +104,9 @@ public class MainTele extends RobotCore {
             else{
                 slideMotor.setPower(0);
             }
-
+/*
             bucketRotate.setPosition(0.15);
-            bucketArm.setPosition(0.07);
+            bucketArm.setPosition(0.07);*/
         }
 
         //Basic robot functions
@@ -158,14 +171,15 @@ public class MainTele extends RobotCore {
             }
             //Power Hook Servos
             if(gamepad2.x){
-                hookLeftServo.setPosition(0.5);
-                hookRightServo.setPosition(0.4);
+                hookLeftServo.setPosition(0.35);
+                hookRightServo.setPosition(0.35);
             }
+        /*
             else{
                 hookLeftServo.setPosition(0);
-                hookRightServo.setPosition(0.85);
-            }
-
+                hookRightServo.setPosition(0);
+                }
+*/
     }
 
     public void stop(){
