@@ -25,6 +25,7 @@ public class MainTele extends RobotCore {
     boolean isExtending;
     boolean isRetracting;
     boolean hookClear = false;
+    boolean hookUp = false;
     boolean firstDoor = false;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -87,22 +88,17 @@ public class MainTele extends RobotCore {
         }
 
         if(isExtending && !isRetracting){
-
-
             if(slideMotor.getCurrentPosition() > -1900) {
                 slideMotor.setPower(-0.5);
             }
 
-
-
             if(slideMotor.getCurrentPosition() < -1000){
-                bucketArm.setPosition(0.25);
-                bucketRotate.setPosition(0.45);
+                bucketArm.setPosition(0.5);
+                bucketRotate.setPosition(0);
             }
         }
         //Retracts the slide
         if (!isExtending && isRetracting) {
-
             if(slideMotor.getCurrentPosition() < -50){
                 slideMotor.setPower(0.5);
             }
@@ -153,7 +149,7 @@ public class MainTele extends RobotCore {
             }
 
             //launches drone
-            if (gamepad2.y) {
+            if (gamepad1.y) {
                 if(droneServo.getPosition() == 0){
                     droneServo.setPosition(0.5);
                 }
@@ -176,9 +172,21 @@ public class MainTele extends RobotCore {
                 hookMotor.setPower(0);
             }
             //Power Hook Servos
-            if(gamepad2.x){
+            if(hookLeftServo.getPosition() == 0.35 || hookRightServo.getPosition() == 0.35) {
+                hookUp = true;
+            }
+            else {
+                if (hookLeftServo.getPosition() == 0.7 || hookRightServo.getPosition() == 0.7) {
+                    hookUp = false;
+                }
+            }
+            if(gamepad2.right_bumper){
                 hookLeftServo.setPosition(0.35);
                 hookRightServo.setPosition(0.35);
+            }
+            else if(gamepad2.left_bumper) {
+                hookLeftServo.setPosition(0.7);
+                hookRightServo.setPosition(0.7);
             }
     }
 
