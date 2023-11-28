@@ -87,26 +87,32 @@ public class MainTele extends RobotCore {
         }
 
         if(isExtending && !isRetracting){
+
+
             if(slideMotor.getCurrentPosition() > -1900) {
                 slideMotor.setPower(-0.5);
             }
 
-/*            if(slideMotor.getCurrentPosition() < -1000){
-                bucketArm.setPosition(0.5);
-                bucketRotate.setPosition(0);
-            }*/
+
+
+            if(slideMotor.getCurrentPosition() < -1000){
+                bucketArm.setPosition(0.25);
+                bucketRotate.setPosition(0.45);
+            }
         }
         //Retracts the slide
         if (!isExtending && isRetracting) {
+
             if(slideMotor.getCurrentPosition() < -50){
                 slideMotor.setPower(0.5);
             }
             else{
                 slideMotor.setPower(0);
             }
-/*
-            bucketRotate.setPosition(0.15);
-            bucketArm.setPosition(0.07);*/
+
+
+            bucketRotate.setPosition(0.14);
+            bucketArm.setPosition(0);
         }
 
         //Basic robot functions
@@ -174,12 +180,6 @@ public class MainTele extends RobotCore {
                 hookLeftServo.setPosition(0.35);
                 hookRightServo.setPosition(0.35);
             }
-        /*
-            else{
-                hookLeftServo.setPosition(0);
-                hookRightServo.setPosition(0);
-                }
-*/
     }
 
     public void stop(){
