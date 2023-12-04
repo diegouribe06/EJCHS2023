@@ -26,21 +26,21 @@ import java.util.List;
  *
  */
 @Config
-public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
-    public static double TICKS_PER_REV = 8192;
-    public static double WHEEL_RADIUS = 1.181; // in
+public class StandardTrackingWheelLocalize extends ThreeTrackingWheelLocalizer {
+    public static double TICKS_PER_REV = 2000;
+    public static double WHEEL_RADIUS = 0.944882; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double LATERAL_DISTANCE = 9.863091462137316; // in; distance between the left and right wheels
-    public static double FORWARD_OFFSET = -7.75; // in; offset of the lateral wheel
+    public static double LATERAL_DISTANCE = 13.4; // in; distance between the left and right wheels
+    public static double FORWARD_OFFSET = 8.5; // in; offset of the lateral wheel
 
     private Encoder leftEncoder, rightEncoder, frontEncoder;
-    public static double X_MULTIPLIER = 60/59.73235834673891; // Multiplier in the X direction
-    public static double Y_MULTIPLIER = 60/59.5649717; // Multiplier in the Y direction
+    public static double X_MULTIPLIER = 96.0/269.0; // Multiplier in the X direction
+    public static double Y_MULTIPLIER = 96/2.07; // Multiplier in the Y direction
 
     private List<Integer> lastEncPositions, lastEncVels;
 
-    public StandardTrackingWheelLocalizer(HardwareMap hardwareMap, List<Integer> lastTrackingEncPositions, List<Integer> lastTrackingEncVels) {
+    public StandardTrackingWheelLocalize(HardwareMap hardwareMap, List<Integer> lastTrackingEncPositions, List<Integer> lastTrackingEncVels) {
         super(Arrays.asList(
                 new Pose2d(0, LATERAL_DISTANCE / 2, 0), // left
                 new Pose2d(0, -LATERAL_DISTANCE / 2, 0), // right
