@@ -64,10 +64,24 @@ public class MainTele extends RobotCore {
 
         //sets the power of the drive motors
         if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1){
-            leftFront.setPower(lf * 0.5);
-            rightFront.setPower(rf * 0.5);
-            leftRear.setPower(lr * 0.5);
-            rightRear.setPower(rr * 0.5);
+            if(gamepad1.left_trigger > 0.1) {
+                leftFront.setPower(lf * 0.4);
+                rightFront.setPower(rf * 0.4);
+                leftRear.setPower(lr * 0.4);
+                rightRear.setPower(rr * 0.4);
+            }
+            else if(gamepad1.right_trigger > 0.1) {
+                leftFront.setPower(lf * 1);
+                rightFront.setPower(rf * 1);
+                leftRear.setPower(lr * 1);
+                rightRear.setPower(rr * 1);
+            }
+            else{
+                leftFront.setPower(lf * 0.65);
+                rightFront.setPower(rf * 0.65);
+                leftRear.setPower(lr * 0.65);
+                rightRear.setPower(rr * 0.65);
+            }
         }
         else{
             leftFront.setPower(0);
@@ -88,7 +102,7 @@ public class MainTele extends RobotCore {
         }
 
         if(isExtending && !isRetracting){
-            if(slideMotor.getCurrentPosition() > -1900) {
+            if(slideMotor.getCurrentPosition() > -1300) {
                 slideMotor.setPower(-0.5);
             }
 
@@ -99,7 +113,7 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < -50){
+            if(slideMotor.getCurrentPosition() < 890){
                 slideMotor.setPower(0.5);
             }
             else{
