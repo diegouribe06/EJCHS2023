@@ -102,18 +102,18 @@ public class MainTele extends RobotCore {
         }
 
         if(isExtending && !isRetracting){
-            if(slideMotor.getCurrentPosition() > -1300) {
+            if(slideMotor.getCurrentPosition() > -2120) {
                 slideMotor.setPower(-0.5);
             }
 
-            if(slideMotor.getCurrentPosition() < -1000){
+            if(slideMotor.getCurrentPosition() < -1820){
                 bucketArm.setPosition(0.5);
                 bucketRotate.setPosition(0);
             }
         }
-        //Retracts the slide
+        //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < 890){
+            if(slideMotor.getCurrentPosition() < -100){
                 slideMotor.setPower(0.5);
             }
             else{
