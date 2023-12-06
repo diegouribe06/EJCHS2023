@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
@@ -27,10 +28,20 @@ public class MainTele extends RobotCore {
     boolean hookClear = false;
     boolean hookUp = false;
     boolean firstDoor = false;
-    //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
+    //This is a public subclass of RobotCore, so th
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    // e robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
-
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
@@ -169,14 +180,10 @@ public class MainTele extends RobotCore {
 
             //launches drone
             if (gamepad1.y) {
-                if(droneServo.getPosition() == 0){
-                    droneServo.setPosition(1);
-                }
-
-                if(droneServo.getPosition() == 1){
-                    droneServo.setPosition(0);
-                }
-
+                droneServo.setPower(1);
+            }
+            else{
+                droneServo.setPower(-0.1);
             }
 
             //Hook logic
@@ -209,9 +216,6 @@ public class MainTele extends RobotCore {
             }
     }
 
-    public void stop(){
-        fullStop();
-    }
 
     //Sets the power or position of all motors and servos to 0
     private void fullStop(){
@@ -219,7 +223,6 @@ public class MainTele extends RobotCore {
         leftRear.setPower(0);
         rightFront.setPower(0);
         rightRear.setPower(0);
-        droneServo.setPosition(0);
         bucketRotate.setPosition(0);
         bucketDoor.setPosition(0);
         bucketArm.setPosition(0);
@@ -242,7 +245,7 @@ public class MainTele extends RobotCore {
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Power", intakeServo.getPower());
-        telemetry.addData(" drone Servo Position", droneServo.getPosition());
+        telemetry.addData(" droneServo Power", droneServo.getPower());
         telemetry.addData(" leftHook Servo Position", hookLeftServo.getPosition());
         telemetry.addData(" rightHook Servo Position", hookRightServo.getPosition());
         telemetry.addData(" bucketRotator Servo Position", bucketArm.getPosition());
