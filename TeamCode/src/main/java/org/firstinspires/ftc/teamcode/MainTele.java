@@ -103,7 +103,7 @@ public class MainTele extends RobotCore {
 
         if(isExtending && !isRetracting){
             if(slideMotor.getCurrentPosition() > -2120) {
-                slideMotor.setPower(-0.5);
+                slideMotor.setPower(-1);
             }
 
             if(slideMotor.getCurrentPosition() < -1820){
@@ -113,8 +113,13 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < -100){
-                slideMotor.setPower(0.5);
+            if(slideMotor.getCurrentPosition() < -55){
+                if(slideMotor.getCurrentPosition() < -300) {
+                    slideMotor.setPower(1);
+                }
+                else{
+                    slideMotor.setPower(0.25);
+                }
             }
             else{
                 slideMotor.setPower(0);
