@@ -170,10 +170,10 @@ public class MainTele extends RobotCore {
             //launches drone
             if (gamepad1.y) {
                 if(droneServo.getPosition() == 0){
-                    droneServo.setPosition(0.5);
+                    droneServo.setPosition(1);
                 }
 
-                if(droneServo.getPosition() == 0.5){
+                if(droneServo.getPosition() == 1){
                     droneServo.setPosition(0);
                 }
 
