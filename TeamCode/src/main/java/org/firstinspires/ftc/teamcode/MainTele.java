@@ -27,7 +27,8 @@ public class MainTele extends RobotCore {
     boolean isRetracting;
     boolean hookClear = false;
     boolean hookUp = false;
-    boolean firstDoor = false;
+    boolean droneLaunched = false;
+    boolean droneRetract = false;
     //This is a public subclass of RobotCore, so th
     //
     //
@@ -42,6 +43,7 @@ public class MainTele extends RobotCore {
     // e robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
+        droneServo.setPosition(0);
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
@@ -180,10 +182,19 @@ public class MainTele extends RobotCore {
 
             //launches drone
             if (gamepad1.y) {
-                droneServo.setPower(1);
+                droneServo.setPosition(0.5);
             }
-            else{
-                droneServo.setPower(-0.1);
+            else if (droneLaunched == false){
+                droneServo.setPosition(0);
+            }
+            if (droneServo.getPosition() == 0.5 && !droneRetract){
+                droneLaunched = true;
+            }
+            //Potential Substitute if(droneLaunched && robotMoving){
+            if (droneLaunched){
+                droneRetract = true;
+                droneLaunched = false;
+                droneServo.setPosition(0);
             }
 
             //Hook logic
@@ -245,7 +256,7 @@ public class MainTele extends RobotCore {
         telemetry.addData(" autoArm Servo Position", autoArm.getPosition());
         telemetry.addData(" autoClaw Servo Position", autoClaw.getPosition());
         telemetry.addData(" intake Servo Power", intakeServo.getPower());
-        telemetry.addData(" droneServo Power", droneServo.getPower());
+        telemetry.addData(" droneServo Power", droneServo.getPosition());
         telemetry.addData(" leftHook Servo Position", hookLeftServo.getPosition());
         telemetry.addData(" rightHook Servo Position", hookRightServo.getPosition());
         telemetry.addData(" bucketRotator Servo Position", bucketArm.getPosition());

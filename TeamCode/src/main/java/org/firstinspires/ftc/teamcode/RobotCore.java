@@ -34,7 +34,7 @@ public class RobotCore extends OpMode{
     Servo autoArm = null;
     Servo autoClaw = null;
     CRServo intakeServo = null;
-    CRServo droneServo = null;
+    Servo droneServo = null;
     Servo hookLeftServo = null;
     Servo hookRightServo = null;
     Servo bucketRotate = null;
@@ -69,8 +69,8 @@ public class RobotCore extends OpMode{
         autoClaw.setDirection(Servo.Direction.FORWARD);
         intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
         intakeServo.setDirection(CRServo.Direction.FORWARD);
-        droneServo = hardwareMap.get(CRServo.class, "droneServo");
-        droneServo.setDirection(CRServo.Direction.REVERSE);
+        droneServo = hardwareMap.get(Servo.class, "droneServo");
+        droneServo.setDirection(Servo.Direction.REVERSE);
         hookLeftServo = hardwareMap.get(Servo.class, "hookLeft");
         hookLeftServo.setDirection(Servo.Direction.FORWARD);
         hookRightServo = hardwareMap.get(Servo.class, "hookRight");
