@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Disabled
 @TeleOp(name="RobotCore", group="Core")
 
-public class RobotCore extends OpMode{
+public abstract class RobotCore extends OpMode{
 
     //variables for motors and servos
     DcMotor northTower = null;

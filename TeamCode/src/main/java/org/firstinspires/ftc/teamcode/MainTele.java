@@ -45,7 +45,7 @@ public class MainTele extends RobotCore {
 
         //sets the power of the drive motors
 
-        if (gamepad1.b && Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
+        if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
             leftFront.setPower(lf * 0.75);
             rightFront.setPower(rf * 0.75);
             leftRear.setPower(lr * 0.75);
@@ -149,10 +149,10 @@ public class MainTele extends RobotCore {
 
         //Grabber Pivot Controls
         if (gamepad2.x){
-            clawPivot.setPosition(0);
+            clawPivot.setPosition(0.1);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.32);
+            clawPivot.setPosition(0.31);
         }
     }
 }

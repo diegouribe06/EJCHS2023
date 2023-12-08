@@ -29,9 +29,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.util.Size;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -50,6 +54,8 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
+import org.firstinspires.ftc.teamcode.AutoMethods;
+
 /*
  * This OpMode illustrates the basics of TensorFlow Object Detection,
  * including Java Builder structures for specifying Vision parameters.
@@ -57,8 +63,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
+@Autonomous(name = "Object Detection Near Red", group = "Autonomous")
+
 public class ObjectDetectionAuto extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
@@ -68,10 +74,10 @@ public class ObjectDetectionAuto extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "MyModelStoredAsAsset.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
-    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
+    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/MayhemModel2.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-       "Pixel",
+       "Element",
     };
 
     /**
@@ -84,14 +90,60 @@ public class ObjectDetectionAuto extends LinearOpMode {
      */
     private VisionPortal visionPortal;
 
-    public String ElementPosition = "";
+    public String ElementPosition = "left";
 
-    DcMotor northTower = null;
-    DcMotor southTower = null;
-    Servo extender = null;
-    Servo clawPivot = null;
-    Servo pickup = null;
+    public DcMotor northTower = null;
+    public DcMotor southTower = null;
+    public Servo extender = null;
+    public Servo clawPivot = null;
+    public Servo pickup = null;
 
+    public DcMotor intake;
+    public CRServo intake2;
+
+    public void setHeight(int height){
+        northTower.setTargetPosition(-height);
+        southTower.setTargetPosition(-height);
+        northTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        northTower.setPower(1);
+        southTower.setPower(1);
+    }
+
+    public void closeHand(){
+        pickup.setPosition(0.2);
+    }
+
+    public void openHand(){
+        pickup.setPosition(0.6);
+    }
+
+    public void tiltUp(){
+        clawPivot.setPosition(0.31);
+    }
+
+    public void tiltDown(){
+        clawPivot.setPosition(0.1);
+    }
+
+    public void extendTo(int position){
+        extender.setPosition(position);
+    }
+
+    public void intakeOn(double power){
+        intake.setPower(power);
+        intake2.setPower(power);
+    }
+
+    public void reverseIntake(double power){
+        intake.setPower(power);
+        intake2.setPower(power);
+    }
+
+    public void intakeOff(){
+        intake.setPower(0);
+        intake2.setPower(0);
+    }
     @Override
     public void runOpMode() {
         northTower = hardwareMap.get(DcMotor.class, "northTower");
@@ -99,6 +151,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
         extender = hardwareMap.get(Servo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
         pickup = hardwareMap.get(Servo.class, "pickup");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        intake2 = hardwareMap.get(CRServo.class, "intake2");
 
         northTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -109,15 +163,29 @@ public class ObjectDetectionAuto extends LinearOpMode {
         Pose2d endPose;
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-
+                .splineTo(new Vector2d(5.5, -48), Math.toRadians(150))
+                .addTemporalMarker(() -> {
+                    reverseIntake(-0.4);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    intakeOff();
+                    setHeight(1000);
+                })
+                .lineTo(new Vector2d(20, -48))
+                .setReversed(true)
+                .splineTo(new Vector2d(50, -37), 0)
+                .setReversed(false)
+                .lineTo(new Vector2d(25, -65))
+                .lineTo(new Vector2d(65, -82))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
-
+                .forward(10)
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-
+                .turn(Math.toRadians(180))
                 .build();
 
         initTfod();
@@ -156,7 +224,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
             endPose = Right.end();
         }
         TrajectorySequence park = drive.trajectorySequenceBuilder(endPose)
-
+                .forward(1)
                 .build();
 
         waitForStart();
@@ -164,12 +232,15 @@ public class ObjectDetectionAuto extends LinearOpMode {
         visionPortal.close();
 
         if (ElementPosition.equals("left")){
+            telemetry.addLine("Located left");
             drive.followTrajectorySequence(Left);
         }
         else if (ElementPosition.equals("Right")){
+            telemetry.addLine("Located right");
             drive.followTrajectorySequence(Right);
         }
         else{
+            telemetry.addLine("Located Middle");
             drive.followTrajectorySequence(Middle);
         }
 
@@ -190,16 +261,16 @@ public class ObjectDetectionAuto extends LinearOpMode {
             // choose one of the following:
             //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
             //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
-            //.setModelAssetName(TFOD_MODEL_ASSET)
-            //.setModelFileName(TFOD_MODEL_FILE)
+            .setModelAssetName("MayhemModel2.tflite")
+            //.setModelFileName("MayhemModel2.tflite")
 
             // The following default settings are available to un-comment and edit as needed to 
             // set parameters for custom models.
-            //.setModelLabels(LABELS)
+            .setModelLabels(new String[]{"Element"})
             //.setIsModelTensorFlow2(true)
             //.setIsModelQuantized(true)
             //.setModelInputSize(300)
-            //.setModelAspectRatio(16.0 / 9.0)
+            .setModelAspectRatio(16.0 / 9.0)
 
             .build();
 
@@ -214,10 +285,10 @@ public class ObjectDetectionAuto extends LinearOpMode {
         }
 
         // Choose a camera resolution. Not all cameras support all resolutions.
-        //builder.setCameraResolution(new Size(640, 480));
+        builder.setCameraResolution(new Size(1920, 1080));
 
         // Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
-        //builder.enableLiveView(true);
+        builder.enableLiveView(true);
 
         // Set the stream format; MJPEG uses less bandwidth than default YUY2.
         //builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);
@@ -234,7 +305,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
         visionPortal = builder.build();
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        //tfod.setMinResultConfidence(0.75f);
+        tfod.setMinResultConfidence(0.2f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
@@ -259,17 +330,21 @@ public class ObjectDetectionAuto extends LinearOpMode {
             telemetry.addData("- Position", "%.0f / %.0f", x, y);
             telemetry.addData("- Size", "%.0f x %.0f", recognition.getWidth(), recognition.getHeight());
 
-            if (x < 2){
+
+            //uncomment this once the model preforms correctly
+            /*if (x < 640){
                 ElementPosition = "left";
             }
-            else if (x < 5){
+            else if (x < 1280){
                 ElementPosition = "middle";
             }
             else {
                 ElementPosition = "right";
             }
+             */
         }   // end for() loop
+    }
 
-    }   // end method telemetryTfod()
+    // end method telemetryTfod()
 
 }   // end class
