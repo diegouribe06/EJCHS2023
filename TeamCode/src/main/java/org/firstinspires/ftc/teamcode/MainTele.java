@@ -9,15 +9,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name="MainTele", group = "Linear Opmode")
 public class MainTele extends RobotCore {
     //Controller Inputs
-    double x1;
-    double x2;
-    double y;
+    double y = 0; // Remember, Y stick value is reversed
+    double x = 0; // Counteract imperfect strafing
+    double rx = 0;
 
-    //total power to the motors
-    double lf;
-    double rf;
-    double lr;
-    double rr;
+    // Denominator is the largest motor power (absolute value) or 1
+    // This ensures all the powers maintain the same ratio,
+    // but only if at least one is out of the range [-1, 1]
+    double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+    double frontLeftPower = (y + x + rx) / denominator;
+    double backLeftPower = (y - x + rx) / denominator;
+    double frontRightPower = (y - x - rx) / denominator;
+    double backRightPower = (y + x - rx) / denominator;
 
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
@@ -26,35 +29,36 @@ public class MainTele extends RobotCore {
     }
 
     public void loop(){
+        y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+        x = gamepad1.left_stick_x; // Counteract imperfect strafing
+        rx = gamepad1.right_stick_x;
+
+        // Denominator is the largest motor power (absolute value) or 1
+        // This ensures all the powers maintain the same ratio,
+        // but only if at least one is out of the range [-1, 1]
+        denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        frontLeftPower = (y + x + rx);
+        backLeftPower = (y - x + rx);
+        frontRightPower = (y - x - rx);
+        backRightPower = (y + x - rx);
 
         telemetry.addData("North Tower", northTower.getCurrentPosition());
         telemetry.addData("South Tower", southTower.getCurrentPosition());
         /**
          * Driving Stuff
          */
-        //Sets the x and y vars to controller inputs
-        x1 = gamepad1.left_stick_x;
-        x2 = gamepad1.right_stick_x;
-        y = -gamepad1.left_stick_y;
-
-        //equations to set the power
-        lf = y + x1 + x2;
-        rf = y - x1 - x2;
-        lr = y - x1 + x2;
-        rr = y + x1 - x2;
-
         //sets the power of the drive motors
 
         if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
-            leftFront.setPower(lf * 0.75);
-            rightFront.setPower(rf * 0.75);
-            leftRear.setPower(lr * 0.75);
-            rightRear.setPower(rr * 0.75);
+            leftFront.setPower(frontLeftPower * 0.5);
+            rightFront.setPower(frontRightPower * 0.5);
+            leftRear.setPower(backLeftPower * 0.5);
+            rightRear.setPower(backRightPower * 0.5);
         } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-            leftFront.setPower(lf * 0.25);
-            rightFront.setPower(rf * 0.25);
-            leftRear.setPower(lr * 0.25);
-            rightRear.setPower(rr * 0.25);
+            leftFront.setPower(frontLeftPower);
+            rightFront.setPower(frontRightPower);
+            leftRear.setPower(backLeftPower);
+            rightRear.setPower(backRightPower);
         } else {
             leftFront.setPower(0);
             rightFront.setPower(0);

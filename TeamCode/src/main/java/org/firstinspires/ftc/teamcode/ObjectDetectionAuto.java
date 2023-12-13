@@ -71,10 +71,10 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "MyModelStoredAsAsset.tflite";
+    private static final String TFOD_MODEL_ASSET = "Mayhem4.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
-    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/MayhemModel2.tflite";
+    private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/Mayhem4.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
        "Element",
@@ -90,7 +90,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
      */
     private VisionPortal visionPortal;
 
-    public String ElementPosition = "left";
+    public String ElementPosition = "middle";
 
     public DcMotor northTower = null;
     public DcMotor southTower = null;
@@ -111,7 +111,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
     }
 
     public void closeHand(){
-        pickup.setPosition(0.2);
+        pickup.setPosition(0.1);
     }
 
     public void openHand(){
@@ -126,7 +126,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
         clawPivot.setPosition(0.1);
     }
 
-    public void extendTo(int position){
+    public void extendTo(double position){
         extender.setPosition(position);
     }
 
@@ -137,7 +137,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
     public void reverseIntake(double power){
         intake.setPower(power);
-        intake2.setPower(power);
+        intake2.setPower(-power);//changed this
     }
 
     public void intakeOff(){
@@ -165,23 +165,72 @@ public class ObjectDetectionAuto extends LinearOpMode {
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
                 .splineTo(new Vector2d(5.5, -48), Math.toRadians(150))
                 .addTemporalMarker(() -> {
-                    reverseIntake(-0.4);
+                    reverseIntake(0.2);
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     intakeOff();
                     setHeight(1000);
                 })
+                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                    tiltUp();
+                    extendTo(0.4);
+                })
                 .lineTo(new Vector2d(20, -48))
                 .setReversed(true)
                 .splineTo(new Vector2d(50, -37), 0)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
+                    extender.setPosition(0);
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    tiltDown();
+                    setHeight(0);
+                })
                 .setReversed(false)
                 .lineTo(new Vector2d(25, -65))
                 .lineTo(new Vector2d(65, -82))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
-                .forward(10)
+                //.lineTo(new Vector2d(11.6, -34))
+                .lineTo(new Vector2d(11.6, -42))
+                .addTemporalMarker(() -> {
+                    reverseIntake(1);
+                })
+                .waitSeconds(4)
+                .addTemporalMarker(() -> {
+                    intakeOff();
+                    setHeight(1000);
+                })
+                //start lifting the slide and hand
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                    tiltUp();
+                    extendTo(0.5);
+                })
+                .setReversed(true)
+                .lineToSplineHeading(new Pose2d(41, -47, Math.toRadians(180)))
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    extendTo(0);
+                })
+                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                    tiltDown();
+                    setHeight(50);
+                })
+                .lineTo(new Vector2d(15, -70))
+                .lineTo(new Vector2d(55, -80))
+                //release pixel
+                //line to halfway park
+                //start closing lift and hand
+                //line to park
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
@@ -212,6 +261,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
             // Share the CPU.
             sleep(20);
+
         }
         //end of scanning
         if (ElementPosition.equals("left")){
@@ -227,7 +277,9 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .forward(1)
                 .build();
 
+
         waitForStart();
+        closeHand();
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
 
@@ -261,7 +313,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
             // choose one of the following:
             //   Use setModelAssetName() if the custom TF Model is built in as an asset (AS only).
             //   Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
-            .setModelAssetName("MayhemModel2.tflite")
+            .setModelAssetName("Mayhem4.tflite")
             //.setModelFileName("MayhemModel2.tflite")
 
             // The following default settings are available to un-comment and edit as needed to 
