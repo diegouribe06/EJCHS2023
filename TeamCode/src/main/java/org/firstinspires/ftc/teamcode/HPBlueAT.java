@@ -7,20 +7,30 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "HPBlue", group = "17421 Autonomous")
-public class HPBlueAT extends LinearOpMode {
-
-    SampleMecanumDrive drive;
+public class HPBlueAT extends ATCore {
     @Override
     public void runOpMode(){
-        drive = new SampleMecanumDrive(hardwareMap);
+        super.runOpMode();
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
-                .waitSeconds(12)
-                .strafeRight(90)
-                .turn(Math.toRadians(-70))
-                .back(120)
+                .back(positionCorrect(27))
+                .turn(Math.toRadians(-90))
+                .back(positionCorrect(70))
+                .addDisplacementMarker(() -> {
+                    if(started){
+                        hookMotor.setPower(0.3);
+                    }
+                })
+                .waitSeconds(0.3)
+                .addDisplacementMarker(() -> {
+                    if(started){
+                        hookMotor.setPower(0);
+                    }
+                })
                 .build();
         waitForStart();
         drive.followTrajectorySequence(trajectory);
 
     }
+
+
 }

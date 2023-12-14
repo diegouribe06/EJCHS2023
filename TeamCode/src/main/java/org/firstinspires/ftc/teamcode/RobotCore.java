@@ -20,9 +20,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Disabled
 @TeleOp(name="RobotCore", group="Core")
-
 public class RobotCore extends OpMode{
-
     //variables for motors and servos
     DcMotor leftFront = null;
     DcMotor leftRear = null;

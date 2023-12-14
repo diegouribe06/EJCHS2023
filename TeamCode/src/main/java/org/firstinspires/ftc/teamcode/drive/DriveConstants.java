@@ -21,7 +21,7 @@ public class DriveConstants {
     /*
      * These are motor constants that should be listed online for your motors.
      */
-    public static final double TICKS_PER_REV = 2000;
+    public static final double TICKS_PER_REV = 537.6;
     public static final double MAX_RPM = 312;
 
     /*
@@ -45,7 +45,7 @@ public class DriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 1.8898; // in
-    public static double GEAR_RATIO = 1; // output (wheel) speed / input (motor) speed
+    public static double GEAR_RATIO = 1; //43.67486;  output (wheel) speed / input (motor) speed
     public static double TRACK_WIDTH = 14; // in
 
     /*
@@ -54,9 +54,12 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
-    public static double kV = 2.15 / rpmToVelocity(MAX_RPM);
-    public static double kA = 0.005703;
-    public static double kStatic = 0.01;
+
+    //public static double kV = 2.15 / 1.2 / rpmToVelocity(MAX_RPM);
+    //kV 1.145
+    public static double kV = 0.98 / rpmToVelocity(MAX_RPM);    // kA 0.005703 OG
+    public static double kA = 0.005;
+    public static double kStatic = 0.001;
 
     /*
      * These values are used to generate the trajectories for you robot. To ensure proper operation,
@@ -65,7 +68,7 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 50.76256790887617 * 0.5;
+    public static double MAX_VEL = 50.76256790887617 * 0.75;
     public static double MAX_ACCEL = MAX_VEL * 0.6;
     public static double MAX_ANG_VEL = Math.toRadians(180);
     public static double MAX_ANG_ACCEL = Math.toRadians(180);
