@@ -90,7 +90,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
      */
     private VisionPortal visionPortal;
 
-    public String ElementPosition = "middle";
+    public String ElementPosition = "";
 
     public DcMotor northTower = null;
     public DcMotor southTower = null;
@@ -115,7 +115,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
     }
 
     public void openHand(){
-        pickup.setPosition(0.6);
+        pickup.setPosition(0.5);
     }
 
     public void tiltUp(){
@@ -158,83 +158,132 @@ public class ObjectDetectionAuto extends LinearOpMode {
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(11.6, -70, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(11.6, -70, Math.toRadians(270));
         drive.setPoseEstimate(startPose);
         Pose2d endPose;
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .splineTo(new Vector2d(5.5, -48), Math.toRadians(150))
                 .addTemporalMarker(() -> {
-                    reverseIntake(0.2);
+                    setHeight(550);
+                    tiltDown();
+                })
+                .setReversed(true)
+                .lineToLinearHeading(new Pose2d(11.6, -62, Math.toRadians(296)))
+                .addTemporalMarker(() -> {
+                    extendTo(1);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
+                    setHeight(200);
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(()-> {
+                    openHand();
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
-                    intakeOff();
-                    setHeight(1000);
+                    setHeight(550);
+                    extendTo(0);
                 })
                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
-                    tiltUp();
-                    extendTo(0.4);
-                })
-                .lineTo(new Vector2d(20, -48))
-                .setReversed(true)
-                .splineTo(new Vector2d(50, -37), 0)
-                .addTemporalMarker(() -> {
-                    openHand();
-                })
-                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
-                    extender.setPosition(0);
-                })
-                .waitSeconds(3)
-                .addTemporalMarker(() -> {
-                    tiltDown();
                     setHeight(0);
                 })
-                .setReversed(false)
-                .lineTo(new Vector2d(25, -65))
-                .lineTo(new Vector2d(65, -82))
-                .build();
-
-        TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
-                //.lineTo(new Vector2d(11.6, -34))
-                .lineTo(new Vector2d(11.6, -42))
+                .lineToLinearHeading(new Pose2d(35, -34, Math.toRadians(180)))
                 .addTemporalMarker(() -> {
-                    reverseIntake(1);
+                    intakeOn(-1);
                 })
-                .waitSeconds(4)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     intakeOff();
+                    closeHand();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
-                //start lifting the slide and hand
-                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
                     tiltUp();
-                    extendTo(0.5);
+                    extendTo(0.85);
                 })
-                .setReversed(true)
-                .lineToSplineHeading(new Pose2d(41, -47, Math.toRadians(180)))
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     openHand();
                 })
-                .waitSeconds(2)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     extendTo(0);
                 })
-                .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
+                .UNSTABLE_addDisplacementMarkerOffset(11, () -> {
                     tiltDown();
-                    setHeight(50);
+                    setHeight(0);
                 })
-                .lineTo(new Vector2d(15, -70))
-                .lineTo(new Vector2d(55, -80))
-                //release pixel
-                //line to halfway park
-                //start closing lift and hand
-                //line to park
+                .lineTo(new Vector2d(25,-53))
+                .lineTo(new Vector2d(51, -44))
+                .build();
+
+        TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
+                .addTemporalMarker(() -> {
+                    setHeight(600);
+                    tiltDown();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
+                    extendTo(1);
+                })
+                .lineToLinearHeading(new Pose2d(11.6, -54, Math.toRadians(280)))
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    setHeight(200);
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    extendTo(0);
+                    setHeight(600);
+                })
+                .waitSeconds(1)
+                .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
+                    setHeight(0);
+                })
+                .lineToSplineHeading(new Pose2d(36, -38, Math.toRadians(180)))
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    intakeOn(-1);
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    intakeOff();
+                    closeHand();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    setHeight(1000);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                    extendTo(0.55);
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    extendTo(0);
+                    tiltDown();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, ()  -> {
+                    setHeight(0);
+                })
+                .lineToConstantHeading(new Vector2d(24, -48))
+                .lineToConstantHeading(new Vector2d(50, -56))
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-                .turn(Math.toRadians(180))
+                .turn(1)
                 .build();
 
         initTfod();
@@ -246,7 +295,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
         //Moved scanning stuff to during init
         while (opModeInInit()) {
-
+            telemetry.addData("Element position:", ElementPosition);
             telemetryTfod();
 
             // Push telemetry to the Driver Station.
@@ -277,9 +326,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .forward(1)
                 .build();
 
-
-        waitForStart();
         closeHand();
+        waitForStart();
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
 
@@ -357,7 +405,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
         visionPortal = builder.build();
 
         // Set confidence threshold for TFOD recognitions, at any time.
-        tfod.setMinResultConfidence(0.2f);
+        tfod.setMinResultConfidence(0.35f);
 
         // Disable or re-enable the TFOD processor at any time.
         //visionPortal.setProcessorEnabled(tfod, true);
@@ -384,7 +432,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
 
             //uncomment this once the model preforms correctly
-            /*if (x < 640){
+            if (x < 640){
                 ElementPosition = "left";
             }
             else if (x < 1280){
@@ -393,7 +441,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
             else {
                 ElementPosition = "right";
             }
-             */
+
         }   // end for() loop
     }
 

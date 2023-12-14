@@ -148,7 +148,7 @@ public class MainTele extends RobotCore {
         if (gamepad2.a){
             pickup.setPosition(0.1);
         } else if (gamepad2.b){
-            pickup.setPosition(0.6);
+            pickup.setPosition(0.5);
         }
 
         //Grabber Pivot Controls
