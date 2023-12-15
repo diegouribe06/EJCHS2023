@@ -132,7 +132,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
 
     public void intakeOn(double power){
         intake.setPower(power);
-        intake2.setPower(power);
+        intake2.setPower(-power);
     }
 
     public void reverseIntake(double power){
@@ -254,17 +254,17 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 })
                 .waitSeconds(3)
                 .addTemporalMarker(() -> {
-                    intakeOff();
                     closeHand();
+                    intakeOff();
                 })
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     tiltUp();
-                    extendTo(0.55);
+                    extendTo(0.65);
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
@@ -279,11 +279,68 @@ public class ObjectDetectionAuto extends LinearOpMode {
                     setHeight(0);
                 })
                 .lineToConstantHeading(new Vector2d(24, -48))
-                .lineToConstantHeading(new Vector2d(50, -56))
+                .lineToConstantHeading(new Vector2d(48, -48))
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-                .turn(1)
+                .addTemporalMarker(() -> {
+                    setHeight(550);
+                    tiltDown();
+                })
+                .setReversed(true)
+                .lineToLinearHeading(new Pose2d(11.6, -62, Math.toRadians(245)))
+                .addTemporalMarker(() -> {
+                    extendTo(1);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    setHeight(200);
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    setHeight(600);
+                    extendTo(0);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                    setHeight(0);
+                })
+                .lineToConstantHeading(new Vector2d(25, -62))
+                .lineToSplineHeading(new Pose2d(30, -39, Math.toRadians(180)))
+                .addTemporalMarker(() -> {
+                    intakeOn(-1);
+                })
+                .waitSeconds(3)
+                .addTemporalMarker(() -> {
+                    closeHand();
+                    intakeOff();
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    setHeight(1000);
+                    tiltUp();
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    extendTo(0.75);
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    extendTo(0);
+                    tiltDown();
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1.5, ()  -> {
+                    setHeight(0);
+                })
+                .lineToConstantHeading(new Vector2d(24, -54))
+                .lineToConstantHeading(new Vector2d(48, -58))
                 .build();
 
         initTfod();
@@ -335,7 +392,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
             telemetry.addLine("Located left");
             drive.followTrajectorySequence(Left);
         }
-        else if (ElementPosition.equals("Right")){
+        else if (ElementPosition.equals("right")){
             telemetry.addLine("Located right");
             drive.followTrajectorySequence(Right);
         }
