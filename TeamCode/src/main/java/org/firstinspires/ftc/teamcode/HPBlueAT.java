@@ -12,20 +12,36 @@ public class HPBlueAT extends ATCore {
     public void runOpMode(){
         super.runOpMode();
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
-                .back(positionCorrect(27))
-                .turn(Math.toRadians(-90))
-                .back(positionCorrect(70))
-                .addDisplacementMarker(() -> {
-                    if(started){
-                        hookMotor.setPower(0.3);
-                    }
+                .strafeRight(strafeCorrect(4))
+                .addTemporalMarker(() -> {
+                    hookLeftServo.setPosition(0.7);
+                    hookRightServo.setPosition(0.7);
                 })
-                .waitSeconds(0.3)
-                .addDisplacementMarker(() -> {
-                    if(started){
-                        hookMotor.setPower(0);
-                    }
+                .waitSeconds(1)
+                .back(positionCorrect(77))
+                .strafeRight(strafeCorrect(23))
+                .turn(Math.toRadians(-6))
+                .addTemporalMarker(() -> {
+                    extendSlide();
+                    bucketDoor.setPosition(0.925);
                 })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    bucketRotate.setPosition(0.5);
+                    bucketArm.setPosition(0.5);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    bucketDoor.setPosition(0.75);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    retractSlide();
+                })
+                .waitSeconds(3)
+                .strafeRight(strafeCorrect(23))
+                .turn(Math.toRadians(-12))
+                .back(20)
                 .build();
         waitForStart();
         drive.followTrajectorySequence(trajectory);
