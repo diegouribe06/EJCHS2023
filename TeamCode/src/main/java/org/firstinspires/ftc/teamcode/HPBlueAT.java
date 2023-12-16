@@ -18,9 +18,9 @@ public class HPBlueAT extends ATCore {
                     hookRightServo.setPosition(0.7);
                 })
                 .waitSeconds(1)
-                .back(positionCorrect(77))
+                .back(positionCorrect(74))
                 .strafeRight(strafeCorrect(23))
-                .turn(Math.toRadians(-6))
+                .turn(Math.toRadians(-8))
                 .addTemporalMarker(() -> {
                     extendSlide();
                     bucketDoor.setPosition(0.925);
@@ -39,9 +39,12 @@ public class HPBlueAT extends ATCore {
                     retractSlide();
                 })
                 .waitSeconds(3)
-                .strafeRight(strafeCorrect(23))
-                .turn(Math.toRadians(-12))
-                .back(20)
+                .strafeRight(strafeCorrect(21))
+                .turn(Math.toRadians(-13))
+                .back(positionCorrect(14))
+                .addTemporalMarker(() -> {
+                    bucketArm.setPosition(0);
+                })
                 .build();
         waitForStart();
         drive.followTrajectorySequence(trajectory);

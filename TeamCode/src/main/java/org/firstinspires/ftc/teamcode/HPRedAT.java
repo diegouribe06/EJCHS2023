@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "HPRed", group = "17421 Autonomous")
 public class HPRedAT extends ATCore{
-    SampleMecanumDrive drive;
     public void runOpMode(){
         super.runOpMode();
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
@@ -19,9 +18,9 @@ public class HPRedAT extends ATCore{
                     hookRightServo.setPosition(0.7);
                 })
                 .waitSeconds(1)
-                .back(positionCorrect(77))
+                .back(positionCorrect(70))
                 .strafeLeft(strafeCorrect(23))
-                .turn(Math.toRadians(6))
+                .turn(Math.toRadians(8))
                 .addTemporalMarker(() -> {
                     extendSlide();
                     bucketDoor.setPosition(0.925);
@@ -40,9 +39,9 @@ public class HPRedAT extends ATCore{
                     retractSlide();
                 })
                 .waitSeconds(3)
-                .strafeLeft(strafeCorrect(23))
-                .turn(Math.toRadians(12))
-                .back(positionCorrect(20))
+                .strafeLeft(strafeCorrect(18))
+                .turn(Math.toRadians(13))
+                .back(positionCorrect(12))
                 .build();
         waitForStart();
 

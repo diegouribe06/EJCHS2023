@@ -9,10 +9,9 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 @Autonomous(name = "TopRed", group = "17421 Autonomous")
 public class TopRedAT extends ATCore{
 
-    SampleMecanumDrive drive;
     @Override
     public void runOpMode(){
-        drive = new SampleMecanumDrive(hardwareMap);
+        super.runOpMode();
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
                 .back(positionCorrect(25))
                 .addTemporalMarker(() -> {
@@ -41,7 +40,7 @@ public class TopRedAT extends ATCore{
                     retractSlide();
                 })
                 .waitSeconds(3)
-                .strafeLeft(strafeCorrect(23))
+                .strafeLeft(strafeCorrect(22))
                 .turn(Math.toRadians(10))
                 .back(20)
                 .build();
