@@ -31,30 +31,23 @@ package org.firstinspires.ftc.teamcode;
 
 import android.util.Size;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
-
-import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-
-import org.firstinspires.ftc.teamcode.AutoMethods;
 
 /*
  * This OpMode illustrates the basics of TensorFlow Object Detection,
@@ -63,9 +56,9 @@ import org.firstinspires.ftc.teamcode.AutoMethods;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "Object Detection Near Red", group = "Autonomous")
+@Autonomous(name = "Object Detection Near Blue", group = "Autonomous")
 
-public class ObjectDetectionAuto extends LinearOpMode {
+public class ObjectDetectionAutoBlue extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -158,7 +151,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(11.6, -70, Math.toRadians(270));
+        Pose2d startPose = new Pose2d(11.6,70, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
         Pose2d endPose;
 
@@ -168,7 +161,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
                     tiltDown();
                 })
                 .setReversed(true)
-                .lineToLinearHeading(new Pose2d(11.6, -62, Math.toRadians(296)))
+                .lineToLinearHeading(new Pose2d(11.6, 60, Math.toRadians(116)))
                 .addTemporalMarker(() -> {
                     extendTo(1);
                 })
@@ -187,7 +180,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                     setHeight(0);
                 })
-                .lineToLinearHeading(new Pose2d(44, -38, Math.toRadians(180)))
+                .lineToConstantHeading(new Vector2d(35, 60))
+                .lineToLinearHeading(new Pose2d(45, 34, Math.toRadians(180)))
                 .addTemporalMarker(() -> {
                     intakeOn(-1);
                 })
@@ -217,8 +211,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                     tiltDown();
                     setHeight(0);
                 })
-                .lineTo(new Vector2d(35,-65))
-                .lineTo(new Vector2d(65, -85))
+                .lineTo(new Vector2d(35,65))
+                .lineTo(new Vector2d(60, 75))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
@@ -229,7 +223,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
                     extendTo(1);
                 })
-                .lineToLinearHeading(new Pose2d(11.6, -54, Math.toRadians(280)))
+                .lineToLinearHeading(new Pose2d(11.6, 54, Math.toRadians(100)))
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     setHeight(200);
@@ -247,7 +241,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(1.5, () -> {
                     setHeight(0);
                 })
-                .lineToSplineHeading(new Pose2d(48, -45, Math.toRadians(180)))
+                .lineToSplineHeading(new Pose2d(45, 38, Math.toRadians(180)))
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     intakeOn(-1);
@@ -278,8 +272,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(1.5, ()  -> {
                     setHeight(0);
                 })
-                .lineToConstantHeading(new Vector2d(35, -75))
-                .lineToConstantHeading(new Vector2d(85, -80))
+                .lineToConstantHeading(new Vector2d(35, 70))
+                .lineToConstantHeading(new Vector2d(65, 70))
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
@@ -288,7 +282,7 @@ public class ObjectDetectionAuto extends LinearOpMode {
                     tiltDown();
                 })
                 .setReversed(true)
-                .lineToLinearHeading(new Pose2d(11.6, -62, Math.toRadians(245)))
+                .lineToLinearHeading(new Pose2d(11.6, 62, Math.toRadians(65)))
                 .addTemporalMarker(() -> {
                     extendTo(1);
                 })
@@ -308,8 +302,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(2, () -> {
                     setHeight(0);
                 })
-                .lineToConstantHeading(new Vector2d(35, -62))
-                .lineToSplineHeading(new Pose2d(45, -48, Math.toRadians(180)))
+                .lineToConstantHeading(new Vector2d(40, 62))
+                .lineToSplineHeading(new Pose2d(48, 37, Math.toRadians(180)))
                 .addTemporalMarker(() -> {
                     intakeOn(-1);
                 })
@@ -339,8 +333,8 @@ public class ObjectDetectionAuto extends LinearOpMode {
                 .UNSTABLE_addTemporalMarkerOffset(1.5, ()  -> {
                     setHeight(0);
                 })
-                .lineToConstantHeading(new Vector2d(35, -75))
-                .lineToConstantHeading(new Vector2d(65, -80))
+                .lineToConstantHeading(new Vector2d(35, 54))
+                .lineToConstantHeading(new Vector2d(60, 75))
                 .build();
 
         initTfod();

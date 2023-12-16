@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -51,6 +52,7 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
+@Disabled
 @Autonomous(name = "BlueAuto", group = "Concept", preselectTeleOp = "MainTele")
 //@Disabled
 public class BlueAuto extends LinearOpMode {
