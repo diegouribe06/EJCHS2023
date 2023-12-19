@@ -54,26 +54,17 @@ public class ATCore extends LinearOpMode {
         if(slideMotor.getCurrentPosition() > -2120) {
             slideMotor.setPower(-1);
         }
-
-        if(slideMotor.getCurrentPosition() < -1820){
-            bucketArm.setPosition(0.5);
-            bucketRotate.setPosition(0.5);
-        }
     }
 
     void retractSlide(){
-        if(slideMotor.getCurrentPosition() < -55){
-            if(slideMotor.getCurrentPosition() < -300) {
-                slideMotor.setPower(1);
-            }
-            else{
-                slideMotor.setPower(0.25);
-            }
+        if(slideMotor.getCurrentPosition() < -205){
+            slideMotor.setPower(1);
         }
         else{
             slideMotor.setPower(0);
         }
-        bucketRotate.setPosition(0.14);
-        bucketArm.setPosition(0);
+
+        bucketRotate.setPosition(0.128);
+        bucketArm.setPosition(0.69);
     }
 }

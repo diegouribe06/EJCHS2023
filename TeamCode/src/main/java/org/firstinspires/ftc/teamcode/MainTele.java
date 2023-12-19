@@ -43,7 +43,6 @@ public class MainTele extends RobotCore {
     // e robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
-        droneServo.setPosition(0);
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
@@ -118,11 +117,6 @@ public class MainTele extends RobotCore {
             if(slideMotor.getCurrentPosition() > -2120) {
                 slideMotor.setPower(-1);
             }
-
-            if(slideMotor.getCurrentPosition() < -1820){
-                bucketArm.setPosition(0.5);
-                bucketRotate.setPosition(0);
-            }
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
@@ -134,8 +128,8 @@ public class MainTele extends RobotCore {
             }
 
 
-            bucketRotate.setPosition(0.14);
-            bucketArm.setPosition(0);
+            bucketRotate.setPosition(0.128);
+            bucketArm.setPosition(0.69);
         }
 
         //Basic robot functions
@@ -143,12 +137,13 @@ public class MainTele extends RobotCore {
         if (gamepad2.a) {
             bucketDoor.setPosition(0.925);
         } else if (gamepad2.b) {
+
             bucketDoor.setPosition(0.75);
         }
 
             //Rotates the bucket itself
             if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0.5);
+                bucketRotate.setPosition(0.46);
             }
 
             if (gamepad2.dpad_left) {
@@ -177,7 +172,7 @@ public class MainTele extends RobotCore {
 
             //launches drone
             if (gamepad1.y) {
-                droneServo.setPosition(0.5);
+                droneServo.setPosition(1);
             }
             else if (droneLaunched == false){
                 droneServo.setPosition(0);

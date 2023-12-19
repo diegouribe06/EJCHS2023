@@ -22,7 +22,7 @@ public class TopBlueAT extends ATCore {
                 })
                 .waitSeconds(1)
                 .turn(Math.toRadians(-91))
-                .back(positionCorrect(30))
+                .back(positionCorrect(28))
                 .turn(Math.toRadians(-6))
                 .addTemporalMarker(() -> {
                     bucketDoor.setPosition(0.925);
@@ -30,7 +30,7 @@ public class TopBlueAT extends ATCore {
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.5);
+                    bucketRotate.setPosition(0.47);
                     bucketArm.setPosition(0.5);
                 })
                 .waitSeconds(1)
