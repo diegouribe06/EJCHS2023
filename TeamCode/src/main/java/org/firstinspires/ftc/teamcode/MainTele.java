@@ -29,18 +29,7 @@ public class MainTele extends RobotCore {
     boolean hookUp = false;
     boolean droneLaunched = false;
     boolean droneRetract = false;
-    //This is a public subclass of RobotCore, so th
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    // e robot's wheel motors are initialized in RobotCore
+    //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
         //Straight Out is 0.7
@@ -52,7 +41,7 @@ public class MainTele extends RobotCore {
         {
             hookClear = false;
         }
-        if(!hookClear){
+        if(!hookClear) {
             hookLeftServo.setPosition(0.7);
             hookRightServo.setPosition(0.7);
         }
@@ -106,6 +95,7 @@ public class MainTele extends RobotCore {
         if (gamepad2.dpad_up) {
             isExtending = true;
             isRetracting = false;
+            bucketArm.setPosition(0.69);
         }
 
         if(gamepad2.dpad_down){
@@ -129,7 +119,7 @@ public class MainTele extends RobotCore {
             }
 
 
-            bucketRotate.setPosition(0.128);
+            bucketRotate.setPosition(0.47);
             bucketArm.setPosition(0.69);
         }
 
@@ -144,12 +134,12 @@ public class MainTele extends RobotCore {
 
             //Rotates the bucket itself
             if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0.46);
+                bucketRotate.setPosition(0);
                 bucketArm.setPosition(1);
             }
 
             if (gamepad2.dpad_left) {
-                bucketRotate.setPosition(0);
+                bucketRotate.setPosition(0.85);
 
             }
 
