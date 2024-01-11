@@ -159,21 +159,21 @@ public class LeftPusherRed extends LinearOpMode {
                 .setReversed(true)
                 .lineTo((new Vector2d(-42, -45)))
                 .forward(10)
-                .lineToLinearHeading(new Pose2d(-23.2, -68, Math.toRadians(177)))
+                .lineToLinearHeading(new Pose2d(-23.2, -68, Math.toRadians(175)))
                 .back(48)
-                .lineToLinearHeading(new Pose2d(71, -35, Math.toRadians(177)))
+                .lineToLinearHeading(new Pose2d(75.5, -33.8, Math.toRadians(171)))
                 .addTemporalMarker(() -> {
-                    setHeight(1100);
+                    setHeight(1000);
                 })
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     tiltUp();
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.6)
                 .addTemporalMarker(() -> {
-                    extendTo(0.6);
+                    extendTo(0.5);
                 })
-                .waitSeconds(1)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     openHand();
                 })
