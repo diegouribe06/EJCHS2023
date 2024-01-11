@@ -156,7 +156,44 @@ public class LeftPusherRed extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .forward(1)
+                .setReversed(true)
+                .lineTo((new Vector2d(-42, -45)))
+                .forward(10)
+                .lineToLinearHeading(new Pose2d(-23.2, -68, Math.toRadians(177)))
+                .back(48)
+                .lineToLinearHeading(new Pose2d(71, -35, Math.toRadians(177)))
+                .addTemporalMarker(() -> {
+                    setHeight(1100);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    extendTo(0.6);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    openHand();
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    tiltDown();
+                    closeHand();
+                })
+                .waitSeconds(0.2)
+                .addTemporalMarker(() -> {
+                    extendTo(0);
+                })
+                .waitSeconds(0.8)
+                .addTemporalMarker(() -> {
+                    setHeight(0);
+                })
+                .waitSeconds(0.2)
+                .lineTo(new Vector2d(52, -80))
+                .waitSeconds(0.2)
+                .lineTo(new Vector2d(74,-75))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
