@@ -63,6 +63,7 @@ import org.firstinspires.ftc.teamcode.AutoMethods;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
+@Disabled
 @Autonomous(name = "Object Detection Near Red", group = "Autonomous")
 
 public class ObjectDetectionAuto extends LinearOpMode {

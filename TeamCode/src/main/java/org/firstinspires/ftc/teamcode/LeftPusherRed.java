@@ -156,32 +156,7 @@ public class LeftPusherRed extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .setReversed(true)
-                .lineTo(new Vector2d(13, -50))
-                .splineToLinearHeading(new Pose2d(10.5, -42), Math.toRadians(285))
-                .addTemporalMarker(() -> {
-                    setHeight(1000);
-                })
-                .lineTo(new Vector2d(14, -42))
-                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
-                    extendTo(0.5);
-                    tiltUp();
-                })
-                .lineToLinearHeading(new Pose2d(52, -32, Math.toRadians(180)))
-                .waitSeconds(2)
-                .addTemporalMarker(() -> {
-                    openHand();
-                })
-                .waitSeconds(2)
-                .addTemporalMarker(() -> {
-                    extendTo(0);
-                    tiltDown();
-                })
-                .lineTo(new Vector2d(24, -65))
-                .addTemporalMarker(() -> {
-                    setHeight(0);
-                })
-                .lineTo(new Vector2d(60, -80))
+                .forward(1)
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
@@ -189,87 +164,34 @@ public class LeftPusherRed extends LinearOpMode {
                 .lineTo((new Vector2d(-23.2, -42)))
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(-23.2, -68, Math.toRadians(177)))
-                .back(48)
-                .lineToLinearHeading(new Pose2d(52, -48, Math.toRadians(0)))
-                //.lineTo((new Vector2d(52,-48)))
-               /* .forward(5)
-                .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(52, -48, Math.toRadians(177)))
+                .lineToConstantHeading(new Vector2d(24.8, -68))
                 .addTemporalMarker(() -> {
-                    setHeight(1100);
-
+                    setHeight(1000);
                 })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    extendTo(0.5);
                     tiltUp();
                 })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    extendTo(0.55);
-                })
-                .waitSeconds(1)
+                .lineToLinearHeading(new Pose2d(71, -40, Math.toRadians(177)))
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     openHand();
                 })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    tiltDown();
-                    closeHand();
-                })
-                .waitSeconds(0.2)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     extendTo(0);
+                    tiltDown();
                 })
-                .waitSeconds(0.8)
-                .addTemporalMarker(() -> {
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
                     setHeight(0);
                 })
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -75))
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(60,-75))*/
+                .lineTo(new Vector2d(50, -65))
+                .lineTo(new Vector2d(83, -88))
+
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-                .setReversed(true)
-                .lineTo(new Vector2d(23.5, -50))
-                .waitSeconds(0.5)
-                .forward(7)
-                .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(52, -50, Math.toRadians(177)))
-                .addTemporalMarker(() -> {
-                    setHeight(1100);
-
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    tiltUp();
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    extendTo(0.48);
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    openHand();
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    tiltDown();
-                    closeHand();
-                })
-                .waitSeconds(0.2)
-                .addTemporalMarker(() -> {
-                    extendTo(0);
-                })
-                .waitSeconds(0.8)
-                .addTemporalMarker(() -> {
-                    setHeight(0);
-                })
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(52, -75))
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(60,-75))
+                .forward(1)
                 .build();
 
         initTfod();
