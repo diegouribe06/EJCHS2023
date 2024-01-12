@@ -24,6 +24,10 @@ public class AutoMethods extends RobotCore{
     DcMotor launcher;
     CRServo intake2;
 
+    DcMotor leftFront;
+    DcMotor leftRear;
+    DcMotor rightFront;
+    DcMotor rightRear;
     public void runOpMode(){
         extender = hardwareMap.get(Servo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
@@ -37,6 +41,11 @@ public class AutoMethods extends RobotCore{
         intake2 = hardwareMap.get(CRServo.class, "intake2");
         beak = hardwareMap.get(Servo.class, "beak");
         chicken = hardwareMap.get(Servo.class, "chicken");
+
+        leftFront = hardwareMap.get(DcMotor.class, "leftFront");
+        leftRear = hardwareMap.get(DcMotor.class, "leftFront");
+        rightFront = hardwareMap.get(DcMotor.class, "leftFront");
+        rightRear = hardwareMap.get(DcMotor.class, "leftFront");
     }
     public void setHeight(int height){
         northTower.setTargetPosition(-height);
@@ -45,6 +54,13 @@ public class AutoMethods extends RobotCore{
         southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         northTower.setPower(1);
         southTower.setPower(1);
+    }
+
+    public void setSpeed(double power){
+        leftFront.setPower(power);
+        leftRear.setPower(power);
+        rightFront.setPower(power);
+        rightRear.setPower(power);
     }
 
     public void closeHand(){
