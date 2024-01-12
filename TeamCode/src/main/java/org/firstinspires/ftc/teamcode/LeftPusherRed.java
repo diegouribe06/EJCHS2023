@@ -228,7 +228,8 @@ public class LeftPusherRed extends LinearOpMode {
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-                .forward(1)
+                .lineToLinearHeading(new Pose2d(-21, -36, Math.toRadians(180)))
+                .lineTo(new Vector2d(-19, -36))
                 .build();
 
         initTfod();
