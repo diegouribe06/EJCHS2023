@@ -56,9 +56,9 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "Blue Right", group = "Autonomous")
+@Autonomous(name = "Blue Left ", group = "Autonomous")
 
-public class RightPusherBlue extends LinearOpMode {
+public class LeftPusherBlue extends LinearOpMode {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
 
@@ -151,20 +151,17 @@ public class RightPusherBlue extends LinearOpMode {
         southTower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Pose2d startPose = new Pose2d(-36, 51, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(14, 62, Math.toRadians(90));
         drive.setPoseEstimate(startPose);
 
+
+
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-40, 49 ))
-                .lineToLinearHeading(new Pose2d(-36, 23, Math.toRadians(178)))
-                .lineToLinearHeading(new Pose2d(-32, 23, Math.toRadians(178)))
-                .forward(1)
-                .lineToLinearHeading(new Pose2d(-40, 23, Math.toRadians(178)))
-                .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
-                .waitSeconds(0.1)
-                .lineToLinearHeading(new Pose2d (25, 51, Math.toRadians(178)))
-                .lineTo(new Vector2d(30, 20))
-                .lineToLinearHeading(new Pose2d(50.75, 21, Math.toRadians(178)))
+                .strafeRight(10)
+                .lineTo(new Vector2d(33, 39))
+                .forward(8)
+                .lineToLinearHeading( new Pose2d(53, 40, Math.toRadians(180)))
+
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
@@ -194,18 +191,15 @@ public class RightPusherBlue extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -10))
-                .lineTo(new Vector2d(60, -10))
+                .lineTo(new Vector2d(48, 9))
+                .lineTo(new Vector2d(60, 9))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-40, 23))
-                .forward(8)
-                .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
-                .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d (10, 51, Math.toRadians(178)))
-                .lineTo(new Vector2d(30, 40))
-                .lineToLinearHeading(new Pose2d(51.5, 15, Math.toRadians(178)))
+                .lineTo(new Vector2d( 14, 34))
+                .forward(4)
+                .lineToLinearHeading( new Pose2d(53, 34.5, Math.toRadians(180)))
+
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
@@ -217,7 +211,7 @@ public class RightPusherBlue extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     extendTo(0.4);
                 })
-                .waitSeconds(2)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     openHand();
                 })
@@ -230,24 +224,20 @@ public class RightPusherBlue extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     extendTo(0);
                 })
-                .waitSeconds(0.8)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -10))
-                .lineTo(new Vector2d(60, -10))
+                .lineToLinearHeading(new Pose2d(48, 5, Math.toRadians(180)))
+                .lineTo(new Vector2d(60, 5))
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-49, 30))
+                .lineTo(new Vector2d(14, 39))
+                .lineToLinearHeading(new Pose2d(25, 39, Math.toRadians(0)))
                 .forward(4)
-                .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
-                .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d (10, 51, Math.toRadians(178)))
-                .lineTo(new Vector2d(30, 40))
-                .lineToLinearHeading(new Pose2d(51.5, 7, Math.toRadians(178)))
-                //.lineTo(new Vector2d (51.5, 9.5))
+                .lineToLinearHeading(new Pose2d(53, 25, Math.toRadians(180)))
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
@@ -261,7 +251,7 @@ public class RightPusherBlue extends LinearOpMode {
                 })
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
-                    openHand();
+                    //openHand();
                 })
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
@@ -277,8 +267,8 @@ public class RightPusherBlue extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -15))
-                .lineTo(new Vector2d(60, -15))
+                .lineToLinearHeading(new Pose2d(48, 5, Math.toRadians(180)))
+                .lineTo(new Vector2d(60, 5))
                 .build();
 
         initTfod();
