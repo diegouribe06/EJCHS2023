@@ -155,20 +155,19 @@ public class RightPusherBlue extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-40, 49 ))
-                .lineToLinearHeading(new Pose2d(-36, 23, Math.toRadians(178)))
-                .lineToLinearHeading(new Pose2d(-32, 23, Math.toRadians(178)))
-                .forward(1)
+                .lineToLinearHeading(new Pose2d(-41, 23, Math.toRadians(180)))
+                //.lineToLinearHeading(new Pose2d(-30, 23, Math.toRadians(178)))
+                .back(9)
+                .forward(9)
                 .lineToLinearHeading(new Pose2d(-40, 23, Math.toRadians(178)))
                 .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
                 .waitSeconds(0.1)
-                .lineToLinearHeading(new Pose2d (25, 51, Math.toRadians(178)))
-                .lineTo(new Vector2d(30, 20))
-                .lineToLinearHeading(new Pose2d(50.75, 21, Math.toRadians(178)))
+                .lineToLinearHeading(new Pose2d (33, 50.5, Math.toRadians(178)))
+                .lineTo(new Vector2d(35, 20))
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
-                .waitSeconds(0.5)
+                .lineToLinearHeading(new Pose2d(49.5, 24.5, Math.toRadians(178)))
                 .addTemporalMarker(() -> {
                     tiltUp();
                 })
@@ -194,14 +193,15 @@ public class RightPusherBlue extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -10))
-                .lineTo(new Vector2d(60, -10))
+                .lineToLinearHeading(new Pose2d(48,-8, Math.toRadians(180)))
+                //.lineTo(new Vector2d(48, -10))
+                .lineTo(new Vector2d(60, -8))
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
-                .lineTo(new Vector2d(-40, 23))
+                .lineTo(new Vector2d(-37, 23))
                 .forward(8)
-                .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
+                .lineToLinearHeading(new Pose2d(-50, 51, Math.toRadians(178)))
                 .waitSeconds(0.2)
                 .lineToLinearHeading(new Pose2d (10, 51, Math.toRadians(178)))
                 .lineTo(new Vector2d(30, 40))
@@ -217,7 +217,7 @@ public class RightPusherBlue extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     extendTo(0.4);
                 })
-                .waitSeconds(2)
+                .waitSeconds(1)
                 .addTemporalMarker(() -> {
                     openHand();
                 })
@@ -277,8 +277,8 @@ public class RightPusherBlue extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(48, -15))
-                .lineTo(new Vector2d(60, -15))
+                .lineTo(new Vector2d(48, -12))
+                .lineTo(new Vector2d(60, -12))
                 .build();
 
         initTfod();

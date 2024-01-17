@@ -247,12 +247,11 @@ public class LeftPusherRed extends LinearOpMode {
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
                 .lineTo(new Vector2d(-35, -50))
                 .lineToLinearHeading(new Pose2d(-21, -36, Math.toRadians(180)))
-                //.lineTo(new Vector2d(-19, -36))
                 .forward(4)
                 .lineToLinearHeading(new Pose2d(-23.2, -69.5, Math.toRadians(175)))
                 .waitSeconds(0.6)
                 .lineToLinearHeading(new Pose2d((24.8), -69.5, Math.toRadians(175)))
-                .lineToLinearHeading(new Pose2d(70, -54, Math.toRadians(167.5)))
+                .lineToLinearHeading(new Pose2d(69, -54, Math.toRadians(175)))
                 .addTemporalMarker(() -> {
                     setHeight(1000);
                 })
@@ -272,9 +271,6 @@ public class LeftPusherRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     tiltDown();
                     closeHand();
-                })
-                .waitSeconds(0.2)
-                .addTemporalMarker(() -> {
                     extendTo(0);
                 })
                 .waitSeconds(0.8)
@@ -282,9 +278,9 @@ public class LeftPusherRed extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(52, -83, Math.toRadians(167.5)))
+                .lineToLinearHeading(new Pose2d(60, -25, Math.toRadians(175)))
                 .waitSeconds(0.2)
-                .lineTo(new Vector2d(74,-83))
+                .lineToLinearHeading(new Pose2d(75.5,-25, Math.toRadians(175)))
                 .build();
 
         initTfod();
