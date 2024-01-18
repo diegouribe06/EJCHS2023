@@ -32,6 +32,9 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
+        autoClaw.setPosition(0.35);
+        autoArm.setPosition(0.7);
+        telemetry.addData("Auto Arm", autoArm.getPosition());
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
@@ -118,13 +121,12 @@ public class MainTele extends RobotCore {
                 slideMotor.setPower(0);
             }
 
-
             bucketRotate.setPosition(0.47);
-            bucketArm.setPosition(0.69);
+            bucketArm.setPosition(0.8479);
         }
 
         //Basic robot functions
-
+ bucketArm.setPosition(0.69);
         if (gamepad2.a) {
             bucketDoor.setPosition(0.925);
         } else if (gamepad2.b) {
@@ -133,12 +135,12 @@ public class MainTele extends RobotCore {
         }
 
             //Rotates the bucket itself
-            if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0);
-                bucketArm.setPosition(1);
+            if (gamepad2.dpad_left) {
+                bucketRotate.setPosition(0.185);
+                bucketArm.setPosition(0.9);
             }
 
-            if (gamepad2.dpad_left) {
+            if (gamepad2.dpad_right) {
                 bucketRotate.setPosition(0.85);
 
             }

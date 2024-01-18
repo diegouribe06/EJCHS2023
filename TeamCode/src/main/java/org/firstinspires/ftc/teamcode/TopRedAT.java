@@ -11,41 +11,28 @@ public class TopRedAT extends ATCore{
 
     @Override
     public void runOpMode(){
-        super.runOpMode();
-        TrajectorySequence trajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
-                .back(positionCorrect(25))
-                .addTemporalMarker(() -> {
-                    hookLeftServo.setPosition(0.7);
-                    hookRightServo.setPosition(0.7);
-                })
-                .waitSeconds(1)
-                .turn(Math.toRadians(91))
-                .back(positionCorrect(30))
-                .turn(Math.toRadians(6))
-                .addTemporalMarker(() -> {
-                    bucketDoor.setPosition(0.925);
-                    extendSlide();
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.5);
-                    bucketArm.setPosition(0.5);
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    bucketDoor.setPosition(0.75);
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    retractSlide();
-                })
-                .waitSeconds(3)
-                .strafeLeft(strafeCorrect(22))
-                .turn(Math.toRadians(10))
-                .back(20)
-                .build();
-        waitForStart();
-        drive.followTrajectorySequence(trajectory);
+        TrajectorySequence middleTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
 
+                .build();
+        TrajectorySequence leftTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+                .build();
+        TrajectorySequence rightTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+                .build();
+
+        waitForStart();
+        super.runOpMode();
+
+        if(elementSide == "middle"){
+            drive.followTrajectorySequence(middleTrajectory);
+        }
+        else if(elementSide == "left"){
+            drive.followTrajectorySequence(leftTrajectory);
+        }
+        else if(elementSide == "right"){
+            drive.followTrajectorySequence(rightTrajectory);
+        }
+        else{
+            telemetry.addLine("Can't run autonomous");
+        }
     }
 }

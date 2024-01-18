@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.util.Size;
+import android.view.ViewDebug;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -100,6 +101,23 @@ public class Auto extends LinearOpMode {
                     visionPortal.stopStreaming();
                 } else if (gamepad1.dpad_up) {
                     visionPortal.resumeStreaming();
+                }
+
+                List<Recognition> elements = tfod.getRecognitions();
+
+                if (elements.size() > 0) {
+                    double x = (elements.get(0).getLeft() + elements.get(0).getRight()) / 2;
+                    double y = (elements.get(0).getTop() + elements.get(0).getBottom()) / 2;
+
+                    if (x >= 1120 && x <= 1200) {
+                        telemetry.addLine("Element is on the middle line");
+                    } else if (x >= 580 && x <= 650) {
+                        telemetry.addLine("Element is on the left line");
+                    } else if (x >= 1700 && x <= 1800) {
+                        telemetry.addLine("Element is on the right line");
+                    } else {
+                        telemetry.addLine("No element found " + String.valueOf(x));
+                    }
                 }
 
                 // Share the CPU.
