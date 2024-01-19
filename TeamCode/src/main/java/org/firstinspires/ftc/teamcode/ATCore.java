@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
@@ -126,21 +127,18 @@ public class ATCore extends LinearOpMode {
         return distance * 2.4;
     }
 
-    void extendSlide(){
-        if(slideMotor.getCurrentPosition() > -2120) {
-            slideMotor.setPower(-1);
-        }
+    void extendSlide(int slidepos){
+        slideMotor.setTargetPosition(slidepos);
+        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor.setPower(-1);
     }
-
-    void retractSlide(){
-        if(slideMotor.getCurrentPosition() < -205){
-            slideMotor.setPower(1);
-        }
-        else{
-            slideMotor.setPower(0);
-        }
+    void retractSlide(int slidepos){
         bucketRotate.setPosition(0.45);
         bucketArm.setPosition(0.8479);
+        slideMotor.setTargetPosition(slidepos);
+        slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor.setPower(1);
     }
 
     private void initTfod() {
