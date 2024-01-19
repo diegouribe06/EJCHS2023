@@ -56,11 +56,10 @@ public class ATCore extends LinearOpMode {
     private VisionPortal visionPortal;
     List<Recognition> elements;
     String elementSide;
-    boolean scanning = true;
     boolean started = false;
     public int middleMin = 850;
     public int middleMax = 1300;
-    public int leftMin = 530;
+    public int leftMin = 200;
     public int leftMax = 670;
     public int rightMin = 1740;
     int rightMax = 1870;
@@ -88,9 +87,7 @@ public class ATCore extends LinearOpMode {
             autoClaw.setDirection(Servo.Direction.FORWARD);
             initTfod();
         }
-        waitForStart();
-        started = true;
-        while (scanning && !isStopRequested()){
+        while (opModeInInit() && !isStopRequested()){
             elements = tfod.getRecognitions();
             telemetryTfod();
             telemetry.addLine("Scanning...");
@@ -103,21 +100,20 @@ public class ATCore extends LinearOpMode {
                 if (x >= middleMin && x <= middleMax) {
                     telemetry.addLine("Element is on the middle line");
                     elementSide = "middle";
-                    scanning = false;
                 } else if (x >= leftMin && x <= leftMax) {
                     telemetry.addLine("Element is on the left line");
                     elementSide = "left";
-                    scanning = false;
                 } else if (x >= rightMin && x <= rightMax) {
                     telemetry.addLine("Element is on the right line");
                     elementSide = "right";
-                    scanning = false;
                 } else {
                     telemetry.addLine("No element found " + String.valueOf(x));
                 }
             }
-        } //End of while(scanning)
-
+        }
+        //End of while(scanning)
+        //waitForStart();
+        started = true;
     }
 
     double positionCorrect(float distance){
