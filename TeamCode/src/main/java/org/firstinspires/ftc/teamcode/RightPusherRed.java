@@ -203,7 +203,7 @@ public class RightPusherRed extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     extendTo(0.48);
                 })
-                .waitSeconds(1)
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     openHand();
                 })

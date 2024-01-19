@@ -108,9 +108,8 @@ public class MainTele extends RobotCore {
         }
 
         //Launcher Controls
-        //epstein didnt kill himself
         if (gamepad1.dpad_up){
-            launcher.setPower(.43);
+            launcher.setPower(-0.33);
         } else {
             launcher.setPower(0);
         }
@@ -122,14 +121,23 @@ public class MainTele extends RobotCore {
             northTower.setPower(0.7);
             southTower.setPower(0.7);
         } else if (gamepad2.dpad_up){
-            northTower.setPower(-0.7);
+            northTower.setPower(-0.72);
+            southTower.setPower(-0.7);
+        } else if ((northTower.getCurrentPosition()  > -2325) && (southTower.getCurrentPosition() > -2325) && gamepad2.dpad_right) {
+            northTower.setPower(-0.72);
             southTower.setPower(-0.7);
         } else {
             // Constant powers
-            northTower.setPower(-0.005);
-            southTower.setPower(-0.005);
+            northTower.setPower(-0.003);
+            southTower.setPower(-0.003);
 
         }
+
+//        if(/*(northTower.getCurrentPosition()  > -3000) (&& (southTower.getCurrentPosition() > -3000) && */gamepad2.dpad_right)
+//        {
+//            northTower.setPower(-0.7);
+//            southTower.setPower(-0.7);
+//        }
 //        southTower.setTargetPosition(northTower.getCurrentPosition());
 //        southTower.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        southTower.setPower(1);
@@ -144,14 +152,15 @@ public class MainTele extends RobotCore {
             extender.setPosition(extender.getPosition());
         }
 
+
         //Grabber Controls
         if (gamepad2.a){
-            pickup.setPosition(0.1);
+            pickup.setPosition(0.05);
         } else if (gamepad2.b){
             pickup.setPosition(0.55);
-        } else if (gamepad2.right_bumper){
+        } /*else if (gamepad2.right_bumper){
             pickup.setPosition(1);
-        }
+        }*/
 
         //Grabber Pivot Controls
         if (gamepad2.x){
