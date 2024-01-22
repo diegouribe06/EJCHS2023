@@ -61,7 +61,7 @@ public class ATCore extends LinearOpMode {
     public int middleMax = 1300;
     public int leftMin = 200;
     public int leftMax = 670;
-    public int rightMin = 1400;
+    public int rightMin = 1350;
     int rightMax = 1870;
     @Override
     public void runOpMode() {
