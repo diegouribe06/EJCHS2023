@@ -31,7 +31,7 @@ public class TopRedAT extends ATCore {
                     autoArm.setPosition(0.7);
                 })
                 //Positive X is towards red side positive y is towards backboard
-                .lineToLinearHeading(new Pose2d(41,122, Math.toRadians(-100)))
+                .lineToLinearHeading(new Pose2d(41,124.5, Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
@@ -66,11 +66,11 @@ public class TopRedAT extends ATCore {
 
 
          */
-        TrajectorySequence leftTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
+        TrajectorySequence rightTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
-                .lineToLinearHeading(new Pose2d(100,24.5,Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(65,108,Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     autoClaw.setPosition(0);
                 })
@@ -80,7 +80,7 @@ public class TopRedAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 //Positive X is towards red side positive y is away from backboard
-                .lineToLinearHeading(new Pose2d(59,-5,Math.toRadians(120)))
+                .lineToLinearHeading(new Pose2d(23,116.5, Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
@@ -97,7 +97,7 @@ public class TopRedAT extends ATCore {
                     bucketDoor.setPosition(0.75);
                 })
                 .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(0,7,Math.toRadians(123)))
+                .lineToLinearHeading(new Pose2d(-31,100,Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     bucketRotate.setPosition(0.45);
                     bucketArm.setPosition(0.8479);
@@ -115,11 +115,11 @@ public class TopRedAT extends ATCore {
 
 
          */
-        TrajectorySequence rightTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
+        TrajectorySequence leftTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
-                .lineToLinearHeading(new Pose2d(65,57,Math.toRadians(103.5)))
+                .lineToLinearHeading(new Pose2d(55,67,Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     autoClaw.setPosition(0);
                 })
@@ -128,13 +128,13 @@ public class TopRedAT extends ATCore {
                     autoArm.setPosition(0.7);
                     autoClaw.setPosition(0.35);
                 })
-                //Positive X is towards red side positive y is towards backboard
-                .back(37)
+                //Positive X is towards red side positive y is away from backboard
+                .lineToLinearHeading(new Pose2d(65.5,103, Math.toRadians(-93)))
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
                     bucketDoor.setPosition(0.925);
-                    extendSlide(-1375);
+                    extendSlide(-1475);
                 })
                 .waitSeconds(0.75)
                 .addTemporalMarker(() -> {
@@ -146,7 +146,7 @@ public class TopRedAT extends ATCore {
                     bucketDoor.setPosition(0.75);
                 })
                 .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(6,30,Math.toRadians(107)))
+                .lineToLinearHeading(new Pose2d(-11,90,Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
                     bucketRotate.setPosition(0.45);
                     bucketArm.setPosition(0.8479);
@@ -157,7 +157,7 @@ public class TopRedAT extends ATCore {
                     slideMotor.setPower(1);
                 })
                 .waitSeconds(0.25)
-                .back(positionCorrect(33))
+                .back(positionCorrect(20))
                 .build();
 
         waitForStart();
