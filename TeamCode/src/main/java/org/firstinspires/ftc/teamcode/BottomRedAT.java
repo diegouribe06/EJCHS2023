@@ -30,6 +30,8 @@ public class BottomRedAT extends ATCore {
                     autoClaw.setPosition(0.35);
                     autoArm.setPosition(0.7);
                 })
+
+                /*
                 //Negative X is towards red side positive y is towards backboard
                 .lineToLinearHeading(new Pose2d(3,55, Math.toRadians(straight)))
                 .addTemporalMarker(() -> {
@@ -70,6 +72,8 @@ public class BottomRedAT extends ATCore {
                 })
                 .waitSeconds(2)
                 .back(positionCorrect(11))
+
+                 */
                 .build();
         /*
 
@@ -89,6 +93,7 @@ public class BottomRedAT extends ATCore {
                     autoArm.setPosition(0.7);
                     autoClaw.setPosition(0.35);
                 })
+                /*
                 //Negative X is towards red side positive y is towards the backboard
                 .lineToLinearHeading(new Pose2d(34,118, Math.toRadians(-97)))
                 .addTemporalMarker(() -> {
@@ -119,6 +124,7 @@ public class BottomRedAT extends ATCore {
                 })
                 .waitSeconds(0.25)
                 .back(positionCorrect(30))
+                    */
                 .build();
         /*
 
@@ -138,6 +144,7 @@ public class BottomRedAT extends ATCore {
                     autoArm.setPosition(0.7);
                     autoClaw.setPosition(0.35);
                 })
+                /*
                 //Positive X is towards red side positive y is away from backboard
                 .lineToLinearHeading(new Pose2d(65.5,103, Math.toRadians(-93)))
                 .addTemporalMarker(() -> {
@@ -168,6 +175,7 @@ public class BottomRedAT extends ATCore {
                 })
                 .waitSeconds(0.25)
                 .back(positionCorrect(20))
+                */
                 .build();
 
         waitForStart();
