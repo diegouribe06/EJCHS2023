@@ -54,7 +54,7 @@ public class TopRedAT extends ATCore {
                     bucketArm.setPosition(0.8479);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
-                    slideMotor.setTargetPosition(-100);
+                    slideMotor.setTargetPosition(1100);
                     slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     slideMotor.setPower(1);
                 })
@@ -103,7 +103,7 @@ public class TopRedAT extends ATCore {
                     bucketArm.setPosition(0.8479);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
-                    slideMotor.setTargetPosition(-100);
+                    slideMotor.setTargetPosition(1100);
                     slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     slideMotor.setPower(1);
                 })
@@ -152,7 +152,7 @@ public class TopRedAT extends ATCore {
                     bucketArm.setPosition(0.8479);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
-                    slideMotor.setTargetPosition(-100);
+                    slideMotor.setTargetPosition(1100);
                     slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     slideMotor.setPower(1);
                 })
