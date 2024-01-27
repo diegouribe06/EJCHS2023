@@ -37,7 +37,6 @@ public class SlideDebug extends RobotCore {
     public void init() {
         super.init();
     }
-
     public void loop() {
         printDebugData();
         /*

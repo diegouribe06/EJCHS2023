@@ -84,6 +84,12 @@ public class RobotCore extends OpMode{
 
         leftRear.setDirection((DcMotor.Direction.REVERSE));
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    }
+    void extendSlide(int slidepos) {
+        slideMotor.setTargetPosition(slidepos);
+        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor.setPower(-1);
     }
 
     //These methods are to be overridden in the classes

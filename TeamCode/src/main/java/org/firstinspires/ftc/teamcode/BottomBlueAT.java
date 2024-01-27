@@ -12,7 +12,7 @@ public class BottomBlueAT extends ATCore {
     @Override
     public void runOpMode(){
         super.runOpMode();
-        TrajectorySequence middleTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+        TrajectorySequence middleTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
@@ -26,11 +26,11 @@ public class BottomBlueAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 .build();
-        TrajectorySequence leftTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+        TrajectorySequence leftTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
-                .lineToLinearHeading(new Pose2d(100,18.5,Math.toRadians(105)))
+                .lineToLinearHeading(new Pose2d(100,18.5,Math.toRadians(-255)))
                 .addTemporalMarker(() -> {
                     autoClaw.setPosition(0);
                 })
@@ -40,7 +40,7 @@ public class BottomBlueAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 .build();
-        TrajectorySequence rightTrajectory = drive.trajectorySequenceBuilder(new Pose2d(0,0,0))
+        TrajectorySequence rightTrajectory = drive.trajectorySequenceBuilder(new Pose2d(11,60,0))
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })

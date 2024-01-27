@@ -32,6 +32,7 @@ public class MainTele extends RobotCore {
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
+
         autoClaw.setPosition(0.35);
         autoArm.setPosition(0.7);
         telemetry.addData("Auto Arm", autoArm.getPosition());
@@ -114,15 +115,15 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < -205) {
+            if(slideMotor.getCurrentPosition() < 1100) {
                 slideMotor.setPower(1);
             }
             else{
                 slideMotor.setPower(0);
             }
-
-            bucketRotate.setPosition(0.47);
-            bucketArm.setPosition(0.8479);
+            //Rotate Positive is Down Arm Negative is Down
+            bucketArm.setPosition(0.6779);
+            bucketRotate.setPosition(0.475);
         }
 
         //Basic robot functions

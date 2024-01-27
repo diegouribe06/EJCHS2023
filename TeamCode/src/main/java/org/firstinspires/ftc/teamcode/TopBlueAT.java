@@ -21,7 +21,7 @@ public class TopBlueAT extends ATCore {
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
-                .lineToLinearHeading(new Pose2d(39.5,66,Math.toRadians(10)))
+                .lineToLinearHeading(new Pose2d(42,66,Math.toRadians(10)))
                 .addTemporalMarker(() -> {
                     autoClaw.setPosition(0);
                 })
@@ -31,12 +31,12 @@ public class TopBlueAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 //Positive X is towards red side positive y is towards backboard
-                .lineToLinearHeading(new Pose2d(75.5,18.5,Math.toRadians(100)))
+                .lineToLinearHeading(new Pose2d(71.5,20.5,Math.toRadians(96)))
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
                     bucketDoor.setPosition(0.925);
-                    extendSlide(-1235);
+                    extendSlide(slideHeight);
                 })
                 .waitSeconds(0.75)
                 .addTemporalMarker(() -> {
@@ -48,10 +48,10 @@ public class TopBlueAT extends ATCore {
                     bucketDoor.setPosition(0.75);
                 })
                 .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(7,30,Math.toRadians(100)))
+                .lineToLinearHeading(new Pose2d(7,30,Math.toRadians(96)))
                 .addTemporalMarker(() -> {
                     bucketRotate.setPosition(0.47);
-                    bucketArm.setPosition(0.7179);
+                    bucketArm.setPosition(0.6979);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -70,7 +70,7 @@ public class TopBlueAT extends ATCore {
                 .addTemporalMarker(() -> {
                     autoArm.setPosition(0.3);
                 })
-                .lineToLinearHeading(new Pose2d(100,18.5,Math.toRadians(105)))
+                .lineToLinearHeading(new Pose2d(98,22.5,Math.toRadians(105)))
                 .addTemporalMarker(() -> {
                     autoClaw.setPosition(0);
                 })
@@ -80,12 +80,12 @@ public class TopBlueAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 //Positive X is towards red side positive y is away from backboard
-                .lineToLinearHeading(new Pose2d(58,-8,Math.toRadians(106)))
+                .lineToLinearHeading(new Pose2d(63,-1,Math.toRadians(108)))
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
                     bucketDoor.setPosition(0.925);
-                    extendSlide(-1475);
+                    extendSlide(slideHeight);
                 })
                 .waitSeconds(0.75)
                 .addTemporalMarker(() -> {
@@ -97,10 +97,10 @@ public class TopBlueAT extends ATCore {
                     bucketDoor.setPosition(0.75);
                 })
                 .waitSeconds(0.5)
-                .lineToLinearHeading(new Pose2d(0,7,Math.toRadians(123)))
+                .lineToLinearHeading(new Pose2d(0,5,Math.toRadians(123)))
                 .addTemporalMarker(() -> {
                     bucketRotate.setPosition(0.47);
-                    bucketArm.setPosition(0.7179);
+                    bucketArm.setPosition(0.6979);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -108,7 +108,7 @@ public class TopBlueAT extends ATCore {
                     slideMotor.setPower(1);
                 })
                 .waitSeconds(0.25)
-                .back(positionCorrect(34))
+                .back(positionCorrect(32))
                 .build();
         /*
 
@@ -129,12 +129,12 @@ public class TopBlueAT extends ATCore {
                     autoClaw.setPosition(0.35);
                 })
                 //Positive X is towards red side positive y is towards backboard
-                .back(37)
+                .back(33)
                 .addTemporalMarker(() -> {
                     hookLeftServo.setPosition(0.7);
                     hookRightServo.setPosition(0.7);
                     bucketDoor.setPosition(0.925);
-                    extendSlide(-1375);
+                    extendSlide(slideHeight);
                 })
                 .waitSeconds(0.75)
                 .addTemporalMarker(() -> {
@@ -149,7 +149,7 @@ public class TopBlueAT extends ATCore {
                 .lineToLinearHeading(new Pose2d(6,30,Math.toRadians(107)))
                 .addTemporalMarker(() -> {
                     bucketRotate.setPosition(0.47);
-                    bucketArm.setPosition(0.7179);
+                    bucketArm.setPosition(0.6979);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -157,7 +157,7 @@ public class TopBlueAT extends ATCore {
                     slideMotor.setPower(1);
                 })
                 .waitSeconds(0.25)
-                .back(positionCorrect(33))
+                .back(positionCorrect(21))
                 .build();
 
         waitForStart();

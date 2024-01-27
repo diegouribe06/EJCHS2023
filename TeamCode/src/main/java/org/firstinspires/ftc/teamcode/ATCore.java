@@ -63,6 +63,7 @@ public class ATCore extends LinearOpMode {
     public int leftMax = 670;
     public int rightMin = 1350;
     int rightMax = 1870;
+
     @Override
     public void runOpMode() {
         if(!started) {
@@ -122,6 +123,7 @@ public class ATCore extends LinearOpMode {
     double strafeCorrect(float distance){
         return distance * 2.4;
     }
+    int slideHeight = -1250;
 
     void extendSlide(int slidepos){
         slideMotor.setTargetPosition(slidepos);
