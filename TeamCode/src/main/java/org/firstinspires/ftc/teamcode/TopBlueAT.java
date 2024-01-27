@@ -50,8 +50,8 @@ public class TopBlueAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(7,30,Math.toRadians(100)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -99,8 +99,8 @@ public class TopBlueAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(0,7,Math.toRadians(123)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -148,8 +148,8 @@ public class TopBlueAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(6,30,Math.toRadians(107)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);

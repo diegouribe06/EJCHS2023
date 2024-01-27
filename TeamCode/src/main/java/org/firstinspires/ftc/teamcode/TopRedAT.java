@@ -50,8 +50,8 @@ public class TopRedAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(-20,105,Math.toRadians(-98)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -99,8 +99,8 @@ public class TopRedAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(-31,100,Math.toRadians(-97)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
@@ -148,8 +148,8 @@ public class TopRedAT extends ATCore {
                 .waitSeconds(0.5)
                 .lineToLinearHeading(new Pose2d(-11,90,Math.toRadians(-100)))
                 .addTemporalMarker(() -> {
-                    bucketRotate.setPosition(0.45);
-                    bucketArm.setPosition(0.8479);
+                    bucketRotate.setPosition(0.47);
+                    bucketArm.setPosition(0.7179);
                 })
                 .UNSTABLE_addDisplacementMarkerOffset(2, () -> {
                     slideMotor.setTargetPosition(1100);
