@@ -48,6 +48,7 @@ public class MainTele extends RobotCore {
     double frontRightPower = (y - x - rx) / denominator;
     double backRightPower = (y + x - rx) / denominator;
 
+    boolean isReversed = false;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
@@ -73,23 +74,50 @@ public class MainTele extends RobotCore {
         /**
          * Driving Stuff
          */
-        //sets the power of the drive motors
 
-        if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
-            leftFront.setPower(frontLeftPower * 0.5);
-            rightFront.setPower(frontRightPower * 0.5);
-            leftRear.setPower(backLeftPower * 0.5);
-            rightRear.setPower(backRightPower * 0.5);
-        } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-            leftFront.setPower(frontLeftPower);
-            rightFront.setPower(frontRightPower);
-            leftRear.setPower(backLeftPower);
-            rightRear.setPower(backRightPower);
+        //code to mirror controls
+        if (gamepad1.a){
+            isReversed = true;
+        }
+        else if(gamepad1.dpad_down){
+            isReversed = false;
+        }
+
+        //sets the power of the drive motors
+        if (isReversed){
+            if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
+                leftFront.setPower(-frontLeftPower * 0.5);
+                rightFront.setPower(-frontRightPower * 0.5);
+                leftRear.setPower(-backLeftPower * 0.5);
+                rightRear.setPower(-backRightPower * 0.5);
+            } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
+                leftFront.setPower(-frontLeftPower);
+                rightFront.setPower(-frontRightPower);
+                leftRear.setPower(-backLeftPower);
+                rightRear.setPower(-backRightPower);
+            } else {
+                leftFront.setPower(0);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0);
+            }
         } else {
-            leftFront.setPower(0);
-            rightFront.setPower(0);
-            leftRear.setPower(0);
-            rightRear.setPower(0);
+            if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
+                leftFront.setPower(frontLeftPower * 0.5);
+                rightFront.setPower(frontRightPower * 0.5);
+                leftRear.setPower(backLeftPower * 0.5);
+                rightRear.setPower(backRightPower * 0.5);
+            } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
+                leftFront.setPower(frontLeftPower);
+                rightFront.setPower(frontRightPower);
+                leftRear.setPower(backLeftPower);
+                rightRear.setPower(backRightPower);
+            } else {
+                leftFront.setPower(0);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0);
+            }
         }
         /**
          * Accessory Controls
