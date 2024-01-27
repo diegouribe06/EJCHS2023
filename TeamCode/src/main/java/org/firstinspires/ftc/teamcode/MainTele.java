@@ -126,7 +126,6 @@ public class MainTele extends RobotCore {
         }
 
         //Basic robot functions
- bucketArm.setPosition(0.69);
         if (gamepad2.a) {
             bucketDoor.setPosition(0.925);
         } else if (gamepad2.b) {
@@ -141,7 +140,7 @@ public class MainTele extends RobotCore {
             }
 
             if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0.85);
+                bucketRotate.setPosition(0.80);
 
             }
 
