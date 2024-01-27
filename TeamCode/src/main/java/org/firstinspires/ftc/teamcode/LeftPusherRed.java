@@ -209,6 +209,9 @@ public class LeftPusherRed extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(60, -22.5, Math.toRadians(174)))
                 .waitSeconds(0.2)
                 .lineToLinearHeading(new Pose2d(75.5,-22.5, Math.toRadians(174)))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
 
@@ -245,7 +248,9 @@ public class LeftPusherRed extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(60, -19, Math.toRadians(174)))
                 .waitSeconds(0.2)
                 .lineToLinearHeading(new Pose2d(80,-21, Math.toRadians(174)))
-
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
 
@@ -290,6 +295,9 @@ public class LeftPusherRed extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(60, -24, Math.toRadians(174)))
                 .waitSeconds(0.2)
                 .lineToLinearHeading(new Pose2d(75.5,-24, Math.toRadians(174)))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
         initTfod();

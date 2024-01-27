@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * THIS IS JAMES'S CODE
+ * THIS IS JAMES' CODE
  */
 
 //This code initializes the motors and servos. If you make your TeleOp class inherit from this class, all of your stuff will be initiated.
@@ -24,6 +24,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public abstract class RobotCore extends OpMode{
 
     //variables for motors and servos
+
+
     DcMotor northTower = null;
     DcMotor southTower = null;
     DcMotor leftFront=null; //Currently Slide

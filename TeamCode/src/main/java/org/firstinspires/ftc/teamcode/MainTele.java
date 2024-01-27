@@ -1,6 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.robot.Robot;
+
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
+
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
 /**
  * Use this file to make your TeleOP. Modify the controls to suite your drivers.
@@ -8,10 +21,23 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="MainTele", group = "Linear Opmode")
 public class MainTele extends RobotCore {
+
+//    public void runOpMode() throws InterruptedException {
+//
+//        Robot robot = new Robot(hardwareMap);
+//
+//        StandardTrackingWheelLocalizer myLocalizer = new StandardTrackingWheelLocalizer(hardwareMap);
+//
+//
+//        myLocalizer.setPoseEstimate(PoseStorage.currentPose);
+//    }
+
+
     //Controller Inputs
     double y = 0; // Remember, Y stick value is reversed
     double x = 0; // Counteract imperfect strafing
     double rx = 0;
+
 
     // Denominator is the largest motor power (absolute value) or 1
     // This ensures all the powers maintain the same ratio,
@@ -109,9 +135,13 @@ public class MainTele extends RobotCore {
 
         //Launcher Controls
         if (gamepad1.dpad_up){
-            launcher.setPower(-0.33);
+            launcher.setPower(-0.42);
         } else {
             launcher.setPower(0);
+        }
+
+        if(gamepad1.a){
+
         }
 
 
@@ -121,10 +151,10 @@ public class MainTele extends RobotCore {
             northTower.setPower(0.7);
             southTower.setPower(0.7);
         } else if (gamepad2.dpad_up){
-            northTower.setPower(-0.72);
+            northTower.setPower(-0.7);
             southTower.setPower(-0.7);
         } else if ((northTower.getCurrentPosition()  > -2325) && (southTower.getCurrentPosition() > -2325) && gamepad2.dpad_right) {
-            northTower.setPower(-0.72);
+            northTower.setPower(-0.7);
             southTower.setPower(-0.7);
         } else {
             // Constant powers

@@ -196,6 +196,9 @@ public class RightPusherBlue extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(48,-8, Math.toRadians(180)))
                 //.lineTo(new Vector2d(48, -10))
                 .lineTo(new Vector2d(60, -8))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(startPose)
@@ -237,6 +240,9 @@ public class RightPusherBlue extends LinearOpMode {
                 .waitSeconds(0.2)
                 .lineTo(new Vector2d(48, -10))
                 .lineTo(new Vector2d(60, -10))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
         TrajectorySequence Right = drive.trajectorySequenceBuilder(startPose)
@@ -279,6 +285,9 @@ public class RightPusherBlue extends LinearOpMode {
                 .waitSeconds(0.2)
                 .lineTo(new Vector2d(48, -12))
                 .lineTo(new Vector2d(60, -12))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
         initTfod();
