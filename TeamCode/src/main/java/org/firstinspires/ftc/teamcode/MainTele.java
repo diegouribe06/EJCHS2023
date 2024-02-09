@@ -30,10 +30,16 @@ public class MainTele extends RobotCore {
     }
 
     public void loop(){
-        y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        x = gamepad1.left_stick_x; // Counteract imperfect strafing
-        rx = gamepad1.right_stick_x;
-
+        if (isReversed){
+            y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = -gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        }
+        else{
+            y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        }
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
         // but only if at least one is out of the range [-1, 1]
@@ -58,24 +64,7 @@ public class MainTele extends RobotCore {
         }
 
         //sets the power of the drive motors
-        if (isReversed){
-            if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
-                leftFront.setPower(-frontLeftPower * 0.5);
-                rightFront.setPower(-frontRightPower * 0.5);
-                leftRear.setPower(-backLeftPower * 0.5);
-                rightRear.setPower(-backRightPower * 0.5);
-            } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-                leftFront.setPower(-frontLeftPower);
-                rightFront.setPower(-frontRightPower);
-                leftRear.setPower(-backLeftPower);
-                rightRear.setPower(-backRightPower);
-            } else {
-                leftFront.setPower(0);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(0);
-            }
-        } else {
+
             if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
                 leftFront.setPower(frontLeftPower * 0.5);
                 rightFront.setPower(frontRightPower * 0.5);
@@ -92,7 +81,7 @@ public class MainTele extends RobotCore {
                 leftRear.setPower(0);
                 rightRear.setPower(0);
             }
-        }
+
         /**
          * Accessory Controls
          */
@@ -185,7 +174,7 @@ public class MainTele extends RobotCore {
         if (gamepad2.a){
             pickup.setPosition(0.05);
         } else if (gamepad2.b){
-            pickup.setPosition(0.55);
+            pickup.setPosition(0.62);
         } /*else if (gamepad2.right_bumper){
             pickup.setPosition(1);
         }*/
@@ -195,7 +184,7 @@ public class MainTele extends RobotCore {
             clawPivot.setPosition(0.1);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.31);
+            clawPivot.setPosition(0.38);
         }
     }
 }
