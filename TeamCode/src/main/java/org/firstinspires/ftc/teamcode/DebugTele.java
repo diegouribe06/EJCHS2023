@@ -46,9 +46,9 @@ public class DebugTele extends RobotCore {
         if (gamepad1.b){
             extender.setPosition(extender.getPosition() - 0.001);
         }
-        if (gamepad1.x){
-            pickup.setPosition(0);
-        }
+//        if (gamepad1.x){
+//            pickup.setPosition(0);
+//        }
     }
 
     public void slideSetter(int targetPos){

@@ -31,14 +31,14 @@ public abstract class RobotCore extends OpMode{
     DcMotor leftRear=null;
     DcMotor rightRear=null;
     DcMotor intake = null;
-    Servo beak;
+
     Servo chicken;
 
     CRServo plane;
     Servo extender;
     Servo clawPivot;
-    Servo pickup;
-    DcMotor launcher;
+    CRServo pickup;
+    Servo launcher;
     CRServo intake2;
     //IMU variables
     BNO055IMU inertiaMeasure;
@@ -60,15 +60,15 @@ public abstract class RobotCore extends OpMode{
         //Control Hub Devices
         extender = hardwareMap.get(Servo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
-        pickup = hardwareMap.get(Servo.class, "pickup");
+        pickup = hardwareMap.get(CRServo.class, "pickup");
 
         //Expansion Hub Devices
         northTower = hardwareMap.get(DcMotor.class, "northTower");
         southTower = hardwareMap.get(DcMotor.class, "southTower");
         intake = hardwareMap.get(DcMotor.class, "intake");
-        launcher = hardwareMap.get(DcMotor.class, "launcher");
+        launcher = hardwareMap.get(Servo.class, "launcher");
         intake2 = hardwareMap.get(CRServo.class, "intake2");
-        beak = hardwareMap.get(Servo.class, "beak");
+
         chicken = hardwareMap.get(Servo.class, "chicken");
 
         //TODO: Reverse or set specific motor behaviors here after you initialize them.
