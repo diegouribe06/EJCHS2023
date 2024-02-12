@@ -53,12 +53,21 @@ public class MainTele extends RobotCore {
     public void init(){
         super.init();
         extender.setPosition(0);
+        launcher.setPosition(0);
     }
 
     public void loop(){
-        y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        x = gamepad1.left_stick_x; // Counteract imperfect strafing
-        rx = gamepad1.right_stick_x;
+        if (isReversed){
+            y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = -gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        }
+        else{
+            y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        }
+
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
@@ -84,24 +93,6 @@ public class MainTele extends RobotCore {
         }
 
         //sets the power of the drive motors
-        if (isReversed){
-            if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
-                leftFront.setPower(-frontLeftPower * 0.5);
-                rightFront.setPower(-frontRightPower * 0.5);
-                leftRear.setPower(-backLeftPower * 0.5);
-                rightRear.setPower(-backRightPower * 0.5);
-            } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-                leftFront.setPower(-frontLeftPower);
-                rightFront.setPower(-frontRightPower);
-                leftRear.setPower(-backLeftPower);
-                rightRear.setPower(-backRightPower);
-            } else {
-                leftFront.setPower(0);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(0);
-            }
-        } else {
             if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
                 leftFront.setPower(frontLeftPower * 0.5);
                 rightFront.setPower(frontRightPower * 0.5);
@@ -117,7 +108,6 @@ public class MainTele extends RobotCore {
                 rightFront.setPower(0);
                 leftRear.setPower(0);
                 rightRear.setPower(0);
-            }
         }
         /**
          * Accessory Controls
@@ -127,51 +117,28 @@ public class MainTele extends RobotCore {
         if (gamepad1.left_bumper){
             intake.setPower(-1);
             intake2.setPower(1);
+            pickup.setPower(-1);
         }
         else if (gamepad1.right_bumper){
             intake.setPower(1);
             intake2.setPower(-1);
+            pickup.setPower(1);
         }
         else {
             intake.setPower(0);
             intake2.setPower(0);
+            pickup.setPower(0);
         }
 
-        //Chicken Controls
-        //Setting the Chicken up
-        /*if (gamepad1.dpad_left){
-            chicken.setPosition(0.5);
-        }
-        //Putting the Chicken down
-        if (gamepad1.dpad_down){
-            chicken.setPosition(1);
-        }
-        //Using the Chicken to lock the slide
-        if (gamepad1.dpad_right){
-            chicken.setPosition(0);
-        }
-         */
 
-        //Beak Controls
-        //Close the beak
+        //launcher Controls
+        //Close the launcher
         if (gamepad1.x){
-            beak.setPosition(0);
+            launcher.setPosition(0);
         }
         if (gamepad1.y){
-            beak.setPosition(0.25);
+            launcher.setPosition(0.10);
         }
-
-        //Launcher Controls
-        if (gamepad1.dpad_up){
-            launcher.setPower(-0.42);
-        } else {
-            launcher.setPower(0);
-        }
-
-        if(gamepad1.a){
-
-        }
-
 
         //Player 2
         //Tower Controls
@@ -212,20 +179,18 @@ public class MainTele extends RobotCore {
 
 
         //Grabber Controls
-        if (gamepad2.a){
-            pickup.setPosition(0.05);
-        } else if (gamepad2.b){
-            pickup.setPosition(0.55);
-        } /*else if (gamepad2.right_bumper){
-            pickup.setPosition(1);
-        }*/
+        if (gamepad2.left_bumper){
+            pickup.setPower(-1);
+        } else if (gamepad2.right_bumper){
+            pickup.setPower(1);
+        }
 
         //Grabber Pivot Controls
         if (gamepad2.x){
-            clawPivot.setPosition(0.1);
+            clawPivot.setPosition(0.12);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.31);
+            clawPivot.setPosition(0.37);
         }
     }
 }

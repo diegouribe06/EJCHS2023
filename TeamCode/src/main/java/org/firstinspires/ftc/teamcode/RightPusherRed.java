@@ -155,8 +155,7 @@ public class RightPusherRed extends LinearOpMode {
         drive.setPoseEstimate(startPose);
 
         TrajectorySequence Left = drive.trajectorySequenceBuilder(startPose)
-                .setReversed(true)
-                .lineTo(new Vector2d(13, -50))
+                .splineToLinearHeading(new Pose2d(13, -42), Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(10.5, -42), Math.toRadians(285))
                 .back(2)
                 .forward(2)

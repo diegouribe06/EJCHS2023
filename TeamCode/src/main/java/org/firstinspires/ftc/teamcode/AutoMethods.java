@@ -15,13 +15,13 @@ public class AutoMethods extends RobotCore{
     DcMotor northTower = null;
     DcMotor southTower = null;
     DcMotor intake = null;
-    Servo beak;
+    Servo launcher;
     Servo chicken;
     CRServo plane;
     Servo extender;
     Servo clawPivot;
     Servo pickup;
-    DcMotor launcher;
+   // DcMotor launcher;
     CRServo intake2;
 
     DcMotor leftFront;
@@ -37,9 +37,9 @@ public class AutoMethods extends RobotCore{
         northTower = hardwareMap.get(DcMotor.class, "northTower");
         southTower = hardwareMap.get(DcMotor.class, "southTower");
         intake = hardwareMap.get(DcMotor.class, "intake");
-        launcher = hardwareMap.get(DcMotor.class, "launcher");
+        //launcher = hardwareMap.get(DcMotor.class, "launcher");
         intake2 = hardwareMap.get(CRServo.class, "intake2");
-        beak = hardwareMap.get(Servo.class, "beak");
+        launcher = hardwareMap.get(Servo.class, "launcher");
         chicken = hardwareMap.get(Servo.class, "chicken");
 
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
