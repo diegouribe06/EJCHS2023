@@ -101,14 +101,17 @@ public class MainTele extends RobotCore {
         if (gamepad1.left_bumper){
             intake.setPower(-1);
             intake2.setPower(1);
+            pickup.setPower(-1);
         }
         else if (gamepad1.right_bumper){
             intake.setPower(1);
             intake2.setPower(-1);
+            pickup.setPower(1);
         }
         else {
             intake.setPower(0);
             intake2.setPower(0);
+            pickup.setPower(0);
         }
 
         //Chicken Controls
@@ -128,19 +131,19 @@ public class MainTele extends RobotCore {
 
         //Beak Controls
         //Close the beak
-        if (gamepad1.x){
-            beak.setPosition(0);
-        }
-        if (gamepad1.y){
-            beak.setPosition(0.25);
-        }
+//        if (gamepad1.x){
+//            beak.setPosition(0);
+//        }
+//        if (gamepad1.y){
+//            beak.setPosition(0.25);
+//        }
 
         //Launcher Controls
-        if (gamepad1.dpad_up){
-            launcher.setPower(-0.33);
-        } else {
-            launcher.setPower(0);
-        }
+//        if (gamepad1.dpad_up){
+//            launcher.setPower(-0.33);
+//        } else {
+//            launcher.setPower(0);
+//        }
 
 
         //Player 2
@@ -182,13 +185,13 @@ public class MainTele extends RobotCore {
 
 
         //Grabber Controls
-        if (gamepad2.a){
-            pickup.setPosition(0.05);
-        } else if (gamepad2.b){
-            pickup.setPosition(0.55);
-        } /*else if (gamepad2.right_bumper){
-            pickup.setPosition(1);
-        }*/
+
+        if (gamepad2.left_bumper){
+            pickup.setPower(-1);
+        } else if (gamepad2.right_bumper){
+            pickup.setPower(1);
+        }
+
 
         //Grabber Pivot Controls
         if (gamepad2.x){
