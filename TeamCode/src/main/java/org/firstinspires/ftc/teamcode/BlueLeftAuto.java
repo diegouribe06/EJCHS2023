@@ -32,8 +32,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -64,8 +67,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@TeleOp(name = "Sensor: HuskyLens", group = "Sensor")
-public class HuskyLensTests extends LinearOpMode {
+@Autonomous(name = "Blue Left", group = "Autonomous")
+public class BlueLeftAuto extends LinearOpMode {
 
     private final int READ_PERIOD = 1;
 
@@ -76,7 +79,7 @@ public class HuskyLensTests extends LinearOpMode {
     public DcMotor southTower = null;
     public Servo extender = null;
     public Servo clawPivot = null;
-    public Servo pickup = null;
+    public CRServo pickup = null;
 
     public DcMotor intake;
     public CRServo intake2;
@@ -90,16 +93,20 @@ public class HuskyLensTests extends LinearOpMode {
         southTower.setPower(1);
     }
 
-    public void closeHand(){
-        pickup.setPosition(0.1);
+    public void inHand(){
+        pickup.setPower(-1);
     }
 
-    public void openHand(){
-        pickup.setPosition(0.5);
+    public void outHand(){
+        pickup.setPower(0.6);
+    }
+
+    public void offHand(){
+        pickup.setPower(0);
     }
 
     public void tiltUp(){
-        clawPivot.setPosition(0.31);
+        clawPivot.setPosition(0.4);
     }
 
     public void tiltDown(){
@@ -131,7 +138,7 @@ public class HuskyLensTests extends LinearOpMode {
         southTower = hardwareMap.get(DcMotor.class, "southTower");
         extender = hardwareMap.get(Servo.class, "extender");
         clawPivot = hardwareMap.get(Servo.class, "clawPivot");
-        pickup = hardwareMap.get(Servo.class, "pickup");
+        pickup = hardwareMap.get(CRServo.class, "pickup");
         intake = hardwareMap.get(DcMotor.class, "intake");
         intake2 = hardwareMap.get(CRServo.class, "intake2");
 
@@ -178,9 +185,135 @@ public class HuskyLensTests extends LinearOpMode {
          * within the OpMode by calling selectAlgorithm() and passing it one of the values
          * found in the enumeration HuskyLens.Algorithm.
          */
-        huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
+        huskyLens.selectAlgorithm(HuskyLens.Algorithm.OBJECT_TRACKING);
 
         telemetry.update();
+        Pose2d start = new Pose2d(12, 63, Math.toRadians(90));
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        drive.setPoseEstimate(start);
+
+        TrajectorySequence left = drive.trajectorySequenceBuilder(start)
+                .setReversed(true)
+                .lineToConstantHeading(new Vector2d(34, 36))
+                .waitSeconds(0.5)
+                .setReversed(false)
+                .lineTo(new Vector2d(34, 50))
+                .lineToLinearHeading(new Pose2d(34, 55, Math.toRadians(180)))
+                .addTemporalMarker(() -> {
+                    setHeight(1300);
+                })
+                .splineToConstantHeading(new Vector2d(51, 36), Math.toRadians(180))
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    extendTo(0.5);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    outHand();
+                })
+                .waitSeconds(1.5)
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    offHand();
+                    tiltDown();
+                    extendTo(0);
+                })
+                .setReversed(false)
+                .setVelConstraint(new TrajectoryVelocityConstraint() {
+                    @Override
+                    public double get(double v, @NonNull Pose2d pose2d, @NonNull Pose2d pose2d1, @NonNull Pose2d pose2d2) {
+                        return (72.33807887929626) * 0.4;
+                    }
+                })
+                .splineToConstantHeading(new Vector2d(28, 60), Math.toRadians(180))
+                .addTemporalMarker(() -> {
+                    setHeight(0);
+                })
+                .splineToConstantHeading(new Vector2d(62, 70), Math.toRadians(180))
+                .waitSeconds(3)
+                .build();
+
+
+
+
+        TrajectorySequence Middle = drive.trajectorySequenceBuilder(start)
+                .lineTo(new Vector2d( 12, 31))
+                .forward(15)
+                .lineToLinearHeading( new Pose2d(53, 40, Math.toRadians(180)))
+
+                .addTemporalMarker(() -> {
+                    setHeight(1000);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                })
+                .waitSeconds(0.6)
+                .addTemporalMarker(() -> {
+                    extendTo(0.4);
+                })
+                .waitSeconds(1)
+                .addTemporalMarker(() -> {
+                    //outHand();
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    offHand();
+                    tiltDown();
+                    extendTo(0);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    setHeight(0);
+                })
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(48, 73, Math.toRadians(180)))
+                .lineTo(new Vector2d(62, 73))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
+                .build();
+
+
+        TrajectorySequence Right = drive.trajectorySequenceBuilder(start)
+                .lineToLinearHeading(new Pose2d(17, 36, Math.toRadians(-320)))
+                .back(10)
+                .forward(12)
+                .lineToLinearHeading(new Pose2d(54, 28, Math.toRadians(180)))
+                .addTemporalMarker(() -> {
+                    setHeight(1100);
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                })
+                .waitSeconds(0.6)
+                .addTemporalMarker(() -> {
+                    extendTo(0.4);
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    outHand();
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    offHand();
+                    tiltDown();
+                    extendTo(0);
+                })
+                .waitSeconds(0.8)
+                .addTemporalMarker(() -> {
+                    setHeight(0);
+                })
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(48, 71, Math.toRadians(180)))
+                .lineTo(new Vector2d(63, 71))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
+                .build();
 
 
         /*
@@ -189,7 +322,7 @@ public class HuskyLensTests extends LinearOpMode {
          *
          * Note again that the device only recognizes the 36h11 family of tags out of the box.
          */
-        while(!opModeIsActive()) {
+        while(opModeInInit()) {
             if (!rateLimit.hasExpired()) {
                 continue;
             }
@@ -209,61 +342,32 @@ public class HuskyLensTests extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("X pos", blocks[i].x);
-                if (blocks[i].x > 216){
-                    side = "right";
-                    telemetry.addLine("Detected Right");
+                if (blocks[i].x < 90){
+                    side = "left";
+                    telemetry.addLine("Detected Left");
                 }
-                else if (blocks[i].x > 122){
+                else if (blocks[i].x > 100 && blocks[i].x < 230){
                     side = "middle";
                     telemetry.addLine("Detected Middle");
                 }
                 else{
-                    side = "left";
-                    telemetry.addLine("Detected Left");
+                    side = "right";
+                    telemetry.addLine("Detected Right");
                 }
             }
 
             telemetry.update();
         }
-        Pose2d start = new Pose2d(12, 63, Math.toRadians(270));
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        drive.setPoseEstimate(start);
-
-        TrajectorySequence left = drive.trajectorySequenceBuilder(start)
-                .setReversed(true)
-                .lineToConstantHeading(new Vector2d(30, 36))
-                .waitSeconds(0.5)
-                .setReversed(false)
-                .lineTo(new Vector2d(33, 55))
-                .addTemporalMarker(() -> {
-                    setHeight(1000);
-                })
-                .setReversed(true)
-                .splineToLinearHeading(new Pose2d(46, 36), Math.toRadians(180))
-                .addTemporalMarker(() -> {
-                    tiltUp();
-                })
-                .waitSeconds(2)
-                .addTemporalMarker(() -> {
-                    extendTo(0.5);
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    openHand();
-                })
-                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
-                    tiltDown();
-                    extendTo(0);
-                })
-                .splineToConstantHeading(new Vector2d(36, 51), Math.toRadians(180))
-                .addTemporalMarker(() -> {
-                    setHeight(0);
-                })
-                .waitSeconds(3)
-                .build();
         waitForStart();
-        if (side.equals("left")){
+        if (side.equals("left"))
+        {
             drive.followTrajectorySequence(left);
+        } else if(side.equals("middle"))
+        {
+            drive.followTrajectorySequence(Middle);
+        } else
+        {
+            drive.followTrajectorySequence(Right);
         }
     }
 }
