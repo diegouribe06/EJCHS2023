@@ -352,7 +352,7 @@ public class RedRightAuto extends LinearOpMode {
         waitForStart();
         if (side.equals("right"))
         {
-            drive.followTrajectorySequence(left);
+            drive.followTrajectorySequence(Right);
         }
         else if(side.equals("middle"))
         {
@@ -360,7 +360,7 @@ public class RedRightAuto extends LinearOpMode {
         }
         else
         {
-            drive.followTrajectorySequence(Right);
+            drive.followTrajectorySequence(left);
         }
-    }
+    }t
 }
