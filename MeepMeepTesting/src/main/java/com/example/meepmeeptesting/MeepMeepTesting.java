@@ -14,40 +14,37 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 14)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(12, 63, Math.toRadians(90)))
-                                .setReversed(true)
-                                .lineToConstantHeading(new Vector2d(34, 36))
-                                .waitSeconds(0.5)
-                                .setReversed(false)
-                                .lineToLinearHeading(new Pose2d(33, 55, Math.toRadians(180)))
-                                .addTemporalMarker(() -> {
-                                    //setHeight(1000);
-                                })
-                                //.setReversed(true)
-                                .splineToConstantHeading(new Vector2d(50, 36), Math.toRadians(180))
-                                .addTemporalMarker(() -> {
-                                    //tiltUp();
-                                })
-                                .waitSeconds(1)
-                                .addTemporalMarker(() -> {
-                                    //extendTo(0.5);
-                                })
-                                .waitSeconds(1)
-                                .addTemporalMarker(() -> {
-                                    //outHand();
-                                })
-                                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
-                                    //offHand();
-                                    //tiltDown();
-                                    //extendTo(0);
-                                })
-                                .setReversed(false)
-                                .splineToConstantHeading(new Vector2d(34, 60), Math.toRadians(180))
-                                .addTemporalMarker(() -> {
-                                    //setHeight(0);
-                                })
-                                .splineToConstantHeading(new Vector2d(66, 63), Math.toRadians(180))
-                                .waitSeconds(3)
+                        drive.trajectorySequenceBuilder(new Pose2d(11.5, -61.5, Math.toRadians(270)))
+                                .splineToLinearHeading(new Pose2d(11.5, -59), Math.toRadians(360))
+                        .splineToLinearHeading(new Pose2d(8.5, -57), Math.toRadians(375))
+                        .back(8)
+                        .forward(8)
+                        .addTemporalMarker(() -> {
+                            //setHeight(1100);
+                        })
+                        .lineTo(new Vector2d(14, -42))
+                        .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                            //extendTo(0.5);
+                            //tiltUp();
+                        })
+                        .lineToLinearHeading(new Pose2d(52, -32, Math.toRadians(180)))
+                        .waitSeconds(2)
+                        .addTemporalMarker(() -> {
+                            //outHand();
+                        })
+                        .waitSeconds(1.5)
+                        .addTemporalMarker(() -> {
+                            //extendTo(0);
+                            //tiltDown();
+                        })
+                        .lineTo(new Vector2d(24, -65))
+                        .addTemporalMarker(() -> {
+                            //setHeight(0);
+                        })
+                        .lineTo(new Vector2d(63, -80))
+                        .addTemporalMarker(() -> {
+                            //PoseStorage.currentPose = drive.getPoseEstimate();
+                        })
                                 .build()
                 );
 
