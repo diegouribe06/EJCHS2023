@@ -332,21 +332,18 @@ public class RedRightAuto extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("X pos", blocks[i].x);
-                if (blocks[i].x > 200)
-                {
-
-                    side = "right";
-                    telemetry.addLine("Detected Right");
-                }
-                else if (blocks[i].x > 130 && blocks[i].x <= 200)
+                if (blocks[i].x > 130 && blocks[i].x <= 200)
                 {
                     side = "middle";
                     telemetry.addLine("Detected Middle");
                 }
-                else
+                else if (blocks[i].x <= 130)
                 {
-                    side = "left";
+                    side = "right";
                     telemetry.addLine("Detected Left");
+                }
+                else {
+                    side = "left";
                 }
             }
 
