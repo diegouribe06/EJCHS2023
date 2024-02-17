@@ -22,18 +22,24 @@ public class MainTele extends RobotCore {
     double frontRightPower = (y - x - rx) / denominator;
     double backRightPower = (y + x - rx) / denominator;
 
-    boolean isReversed = false;
+    boolean isReversed = true;
     //This is a public subclass of RobotCore, so the robot's wheel motors are initialized in RobotCore
     public void init(){
         super.init();
         extender.setPosition(0);
+        launcher.setPosition(-0.1);
     }
 
     public void loop(){
-        y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        x = gamepad1.left_stick_x; // Counteract imperfect strafing
-        rx = gamepad1.right_stick_x;
-
+        if (!isReversed) {
+            y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        } else {
+            y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            x = -gamepad1.left_stick_x; // Counteract imperfect strafing
+            rx = gamepad1.right_stick_x;
+        }
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio,
         // but only if at least one is out of the range [-1, 1]
@@ -50,32 +56,14 @@ public class MainTele extends RobotCore {
          */
 
         //code to mirror controls
-        if (gamepad1.a){
-            isReversed = true;
-        }
-        else if(gamepad1.dpad_down){
-            isReversed = false;
-        }
+//        if (gamepad1.a){
+//            isReversed = true;
+//        }
+//        else if(gamepad1.dpad_down){
+//            isReversed = false;
+//        }
 
         //sets the power of the drive motors
-        if (isReversed){
-            if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
-                leftFront.setPower(-frontLeftPower * 0.5);
-                rightFront.setPower(-frontRightPower * 0.5);
-                leftRear.setPower(-backLeftPower * 0.5);
-                rightRear.setPower(-backRightPower * 0.5);
-            } else if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-                leftFront.setPower(-frontLeftPower);
-                rightFront.setPower(-frontRightPower);
-                leftRear.setPower(-backLeftPower);
-                rightRear.setPower(-backRightPower);
-            } else {
-                leftFront.setPower(0);
-                rightFront.setPower(0);
-                leftRear.setPower(0);
-                rightRear.setPower(0);
-            }
-        } else {
             if (gamepad1.b && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
                 leftFront.setPower(frontLeftPower * 0.5);
                 rightFront.setPower(frontRightPower * 0.5);
@@ -91,8 +79,8 @@ public class MainTele extends RobotCore {
                 rightFront.setPower(0);
                 leftRear.setPower(0);
                 rightRear.setPower(0);
+
             }
-        }
         /**
          * Accessory Controls
          */
@@ -139,18 +127,26 @@ public class MainTele extends RobotCore {
 //        }
 
         //Launcher Controls
-//        if (gamepad1.dpad_up){
-//            launcher.setPower(-0.33);
-//        } else {
-//            launcher.setPower(0);
-//        }
+        if (gamepad1.dpad_down){
+            launcher.setPosition(-0.1);
+        }
+        if(gamepad1.dpad_up){
+            launcher.setPosition(0.1);
+        }
 
 
         //Player 2
         //Tower Controls
+        telemetry.addData("North height", northTower.getCurrentPosition());
+        telemetry.addData("South height", southTower.getCurrentPosition());
         if (gamepad2.dpad_down){
-            northTower.setPower(0.7);
-            southTower.setPower(0.7);
+            if (northTower.getCurrentPosition() > -300 && southTower.getCurrentPosition() > -300){
+                northTower.setPower(0.30);
+                southTower.setPower(0.30);
+            } else if (northTower.getCurrentPosition() < -300 && southTower.getCurrentPosition() < -300) {
+                northTower.setPower(0.7);
+                southTower.setPower(0.7);
+            }
         } else if (gamepad2.dpad_up){
             northTower.setPower(-0.72);
             southTower.setPower(-0.7);
@@ -198,7 +194,7 @@ public class MainTele extends RobotCore {
             clawPivot.setPosition(0.1);
         }
         if (gamepad2.y){
-            clawPivot.setPosition(0.31);
+            clawPivot.setPosition(0.4);
         }
     }
 }

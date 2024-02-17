@@ -67,8 +67,8 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name = "Red Right", group = "Autonomous")
-public class RedRightAuto extends LinearOpMode {
+@Autonomous(name = "Red Left", group = "Autonomous")
+public class RedLeftAuto extends LinearOpMode {
 
     private final int READ_PERIOD = 1;
 
@@ -188,39 +188,47 @@ public class RedRightAuto extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.OBJECT_TRACKING);
 
         telemetry.update();
-        Pose2d start = new Pose2d(11.5, -61.5, Math.toRadians(270));
+        Pose2d start = new Pose2d(-35, -61.5, Math.toRadians(270));
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(start);
 
         TrajectorySequence left = drive.trajectorySequenceBuilder(start)
-                .lineToLinearHeading(new Pose2d(16.5, -25, Math.toRadians(360)))
-                .lineToLinearHeading(new Pose2d(13.5, -25, Math.toRadians(360)))
-                .back(10)
-                .forward(8)
+                .setReversed(true)
+                .lineTo((new Vector2d(-60, -40)))
+                .forward(10)
+                .waitSeconds(0.5)
+                .lineToLinearHeading(new Pose2d(-30, -65, Math.toRadians(180)))
+                .lineToConstantHeading(new Vector2d(28, -65))
+                //.lineTo(new Vector2d(30 , -50))
                 .addTemporalMarker(() -> {
                     setHeight(1100);
                 })
-                .lineTo(new Vector2d(14, -42))
-                .UNSTABLE_addTemporalMarkerOffset(2, () -> {
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
                     extendTo(0.5);
                     tiltUp();
                 })
-                .lineToLinearHeading(new Pose2d(52, -25.3, Math.toRadians(180)))
-                .waitSeconds(2)
+                .lineToLinearHeading(new Pose2d(30, -23, Math.toRadians(174)))
+                .lineToLinearHeading(new Pose2d(55, -23, Math.toRadians(174)))
+                .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     outHand();
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
                     offHand();
-                    extendTo(0);
                     tiltDown();
+                    extendTo(0);
+
                 })
-                .lineTo(new Vector2d(24, -65))
-                .addTemporalMarker(() -> {
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
                     setHeight(0);
                 })
-                .lineTo(new Vector2d(63, -65))
+                .lineToLinearHeading(new Pose2d(48, -2, Math.toRadians(174)))
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(65,-2, Math.toRadians(174)))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
                 .build();
 
 
@@ -228,23 +236,65 @@ public class RedRightAuto extends LinearOpMode {
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(start)
                 .setReversed(true)
-                .lineTo((new Vector2d(11.6, -30)))
+                .lineTo((new Vector2d(-35, -33)))
                 .waitSeconds(0.5)
-                .forward(20)
-                .waitSeconds(0.5)
+                .lineToLinearHeading(new Pose2d(-45, -65, Math.toRadians(180)))
+                .lineToConstantHeading(new Vector2d(28, -65))
+                //.lineTo(new Vector2d(30 , -50))
                 .addTemporalMarker(() -> {
                     setHeight(1100);
+                })
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    extendTo(0.5);
+                    tiltUp();
+                })
+                .lineToLinearHeading(new Pose2d(30, -26, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(55, -26, Math.toRadians(180)))
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    outHand();
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    offHand();
+                    tiltDown();
+                    extendTo(0);
 
                 })
-                .lineToLinearHeading(new Pose2d(53, -35, Math.toRadians(177)))
+                .UNSTABLE_addTemporalMarkerOffset(1, () -> {
+                    setHeight(0);
+                })
+                .lineToLinearHeading(new Pose2d(48, -3, Math.toRadians(174)))
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(65,-3, Math.toRadians(174)))
+                .addTemporalMarker(() -> {
+                    PoseStorage.currentPose = drive.getPoseEstimate();
+                })
+                .build();
+
+
+        TrajectorySequence Right = drive.trajectorySequenceBuilder(start)
+                .setReversed(true)
+                .lineTo(new Vector2d(-48, -37))
+                .lineToLinearHeading(new Pose2d(-33, -37, Math.toRadians(215)))
+                .forward(20)
+                .lineToLinearHeading(new Pose2d(-45, -66, Math.toRadians(180)))
+                .waitSeconds(0.6)
+                .lineToConstantHeading(new Vector2d(28, -66))
+                .lineToConstantHeading(new Vector2d(33, -36))
+                .lineToLinearHeading(new Pose2d(55, -33, Math.toRadians(174)))
+                .addTemporalMarker(() -> {
+                    setHeight(1100);
+                })
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     tiltUp();
                 })
-                .waitSeconds(0.5)
+                .waitSeconds(0.6)
                 .addTemporalMarker(() -> {
-                    extendTo(0.48);
+                    extendTo(0.4);
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(2)
                 .addTemporalMarker(() -> {
                     outHand();
                 })
@@ -259,51 +309,13 @@ public class RedRightAuto extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(48, -70, Math.toRadians(179)))
+                .lineToLinearHeading(new Pose2d(48, -5, Math.toRadians(180)))
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(70,-70, Math.toRadians(179)))
+                .lineToLinearHeading(new Pose2d(65,-5, Math.toRadians(180)))
                 .addTemporalMarker(() -> {
                     PoseStorage.currentPose = drive.getPoseEstimate();
                 })
-                .build();
 
-
-        TrajectorySequence Right = drive.trajectorySequenceBuilder(start)
-                .lineTo(new Vector2d(27.5, -35))
-                .waitSeconds(0.5)
-                .forward(14)
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    setHeight(1100);
-                })
-                .lineToLinearHeading(new Pose2d(57, -40, Math.toRadians(177)))
-                .addTemporalMarker(() -> {
-                    tiltUp();
-                })
-                .addTemporalMarker(() -> {
-                    extendTo(0.48);
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    outHand();
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(() -> {
-                    offHand();
-                    tiltDown();
-                    extendTo(0);
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    setHeight(0);
-                })
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(49, -70))
-                .waitSeconds(0.2)
-                .lineTo(new Vector2d(69,-70))
-                .addTemporalMarker(() -> {
-                    PoseStorage.currentPose = drive.getPoseEstimate();
-                })
                 .build();
 
 
@@ -333,6 +345,7 @@ public class RedRightAuto extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("X pos", blocks[i].x);
+                telemetry.addData("Y pos", blocks[i].y);
                 if (blocks[i].y < 220 && blocks[i].y > 20) {
                     if (blocks[i].x >= 200) {
                         side = "right";

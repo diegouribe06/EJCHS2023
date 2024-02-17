@@ -188,29 +188,29 @@ public class BlueRightAuto extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.OBJECT_TRACKING);
 
         telemetry.update();
-        Pose2d start = new Pose2d(12, 63, Math.toRadians(90));
+        Pose2d start = new Pose2d(-35, 63, Math.toRadians(90));
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         drive.setPoseEstimate(start);
 
         TrajectorySequence left = drive.trajectorySequenceBuilder(start)
-                .lineToLinearHeading(new Pose2d(-41, 23, Math.toRadians(180)))
-                .back(9)
-                .forward(9)
-                .lineToLinearHeading(new Pose2d(-40, 23, Math.toRadians(178)))
-                .lineToLinearHeading(new Pose2d(-36, 51, Math.toRadians(178)))
+                .lineToLinearHeading(new Pose2d(-40, 25, Math.toRadians(180)))
+                .lineTo(new Vector2d(-30,25))
+                .lineTo(new Vector2d(-40,25))
+                .lineToLinearHeading(new Pose2d(-45, 67, Math.toRadians(176)))
+                .waitSeconds(0.3)
+                .lineToLinearHeading(new Pose2d(28, 65, Math.toRadians(176)))
                 .waitSeconds(0.1)
-                .lineToLinearHeading(new Pose2d (33, 50.5, Math.toRadians(178)))
-                .lineTo(new Vector2d(35, 20))
+                .lineToLinearHeading(new Pose2d (28, 30, Math.toRadians(176)))
                 .addTemporalMarker(() -> {
-                    setHeight(1000);
+                    setHeight(1150);
                 })
-                .lineToLinearHeading(new Pose2d(49.5, 24.5, Math.toRadians(178)))
+                .lineToLinearHeading(new Pose2d(45, 28, Math.toRadians(179)))
                 .addTemporalMarker(() -> {
                     tiltUp();
                 })
                 .waitSeconds(0.6)
                 .addTemporalMarker(() -> {
-                    extendTo(0.4);
+                    extendTo(1);
                 })
                 .waitSeconds(2)
                 .addTemporalMarker(() -> {
@@ -218,69 +218,32 @@ public class BlueRightAuto extends LinearOpMode {
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
+                    offHand();
+                    tiltDown();
                     extendTo(0);
                 })
-                .waitSeconds(0.8)
+                .waitSeconds(1.2)
                 .addTemporalMarker(() -> {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(48,-8, Math.toRadians(180)))
-                .lineTo(new Vector2d(60, -8))
-                .addTemporalMarker(() -> {
-                    PoseStorage.currentPose = drive.getPoseEstimate();
-                })
+                .lineToLinearHeading(new Pose2d(48,-3, Math.toRadians(180)))
+                .lineTo(new Vector2d(65, -3))
                 .build();
 
 
 
 
         TrajectorySequence Middle = drive.trajectorySequenceBuilder(start)
-                .lineTo(new Vector2d( 12, 31))
-                .forward(15)
-                .lineToLinearHeading( new Pose2d(53, 40, Math.toRadians(180)))
-
-                .addTemporalMarker(() -> {
-                    setHeight(1000);
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    tiltUp();
-                })
-                .waitSeconds(0.6)
-                .addTemporalMarker(() -> {
-                    extendTo(0.4);
-                })
-                .waitSeconds(1)
-                .addTemporalMarker(() -> {
-                    //outHand();
-                })
-                .waitSeconds(1.5)
-                .addTemporalMarker(() -> {
-                    offHand();
-                    tiltDown();
-                    extendTo(0);
-                })
-                .waitSeconds(0.5)
-                .addTemporalMarker(() -> {
-                    setHeight(0);
-                })
+                .lineTo(new Vector2d(-38, 33))
+                .forward(8)
+                .lineToLinearHeading(new Pose2d(-45, 67, Math.toRadians(176)))
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(48, 73, Math.toRadians(180)))
-                .lineTo(new Vector2d(62, 73))
+                .lineToLinearHeading(new Pose2d(28, 65, Math.toRadians(176)))
+                .lineTo(new Vector2d(28, 20))
+                .lineToLinearHeading(new Pose2d(52, 20, Math.toRadians(179)))
                 .addTemporalMarker(() -> {
-                    PoseStorage.currentPose = drive.getPoseEstimate();
-                })
-                .build();
-
-
-        TrajectorySequence Right = drive.trajectorySequenceBuilder(start)
-                .lineToLinearHeading(new Pose2d(17, 36, Math.toRadians(-320)))
-                .back(10)
-                .forward(12)
-                .lineToLinearHeading(new Pose2d(54, 28, Math.toRadians(180)))
-                .addTemporalMarker(() -> {
-                    setHeight(1100);
+                    setHeight(1150);
                 })
                 .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
@@ -294,10 +257,14 @@ public class BlueRightAuto extends LinearOpMode {
                 .addTemporalMarker(() -> {
                     outHand();
                 })
-                .waitSeconds(1.5)
+                .waitSeconds(0.5)
                 .addTemporalMarker(() -> {
                     offHand();
                     tiltDown();
+                    extendTo(0);
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
                     extendTo(0);
                 })
                 .waitSeconds(0.8)
@@ -305,11 +272,47 @@ public class BlueRightAuto extends LinearOpMode {
                     setHeight(0);
                 })
                 .waitSeconds(0.2)
-                .lineToLinearHeading(new Pose2d(48, 71, Math.toRadians(180)))
-                .lineTo(new Vector2d(63, 71))
+                .lineToLinearHeading(new Pose2d(48,-4, Math.toRadians(180)))
+                .lineTo(new Vector2d(65, -4))
+                .build();
+
+
+        TrajectorySequence Right = drive.trajectorySequenceBuilder(start)
+                .lineTo(new Vector2d(-53, 40))
+                .forward(10)
+                .lineToLinearHeading(new Pose2d(-45, 67, Math.toRadians(176)))
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d (28, 65, Math.toRadians(176)))
+                .lineTo(new Vector2d(28, 20))
+                .lineToLinearHeading(new Pose2d(52, 12, Math.toRadians(179)))
                 .addTemporalMarker(() -> {
-                    PoseStorage.currentPose = drive.getPoseEstimate();
+                    setHeight(1200);
                 })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    tiltUp();
+                })
+                .waitSeconds(0.6)
+                .addTemporalMarker(() -> {
+                    extendTo(0.5);
+                })
+                .waitSeconds(2)
+                .addTemporalMarker(() -> {
+                    outHand();
+                })
+                .waitSeconds(0.5)
+                .addTemporalMarker(() -> {
+                    offHand();
+                    tiltDown();
+                    extendTo(0);
+                })
+                .waitSeconds(1.5)
+                .addTemporalMarker(() -> {
+                    setHeight(0);
+                })
+                .waitSeconds(0.2)
+                .lineToLinearHeading(new Pose2d(48,-4, Math.toRadians(180)))
+                .lineTo(new Vector2d(65, -4))
                 .build();
 
 
@@ -339,32 +342,32 @@ public class BlueRightAuto extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("X pos", blocks[i].x);
-                if (blocks[i].x < 90){
-                    side = "left";
-                    telemetry.addLine("Detected Left");
-                }
-                else if (blocks[i].x > 100 && blocks[i].x < 230){
-                    side = "middle";
-                    telemetry.addLine("Detected Middle");
-                }
-                else{
-                    side = "right";
-                    telemetry.addLine("Detected Right");
+                if (blocks[i].y < 220 && blocks[i].y > 20) {
+                    if (blocks[i].x >= 200) {
+                        side = "right";
+                        telemetry.addLine("Detected Right");
+                    } else if (blocks[i].x < 200) {
+                        side = "middle";
+                        telemetry.addLine("Detected Middle");
+                    } else {
+                        side = "left";
+                        telemetry.addLine("Detected Left");
+                    }
                 }
             }
 
             telemetry.update();
         }
         waitForStart();
-        if (side.equals("left"))
+        if (side.equals("right"))
         {
-            drive.followTrajectorySequence(left);
+            drive.followTrajectorySequence(Right);
         } else if(side.equals("middle"))
         {
             drive.followTrajectorySequence(Middle);
         } else
         {
-            drive.followTrajectorySequence(Right);
+            drive.followTrajectorySequence(left);
         }
     }
 }

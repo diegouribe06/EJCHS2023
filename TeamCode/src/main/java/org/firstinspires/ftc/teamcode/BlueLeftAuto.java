@@ -256,7 +256,7 @@ public class BlueLeftAuto extends LinearOpMode {
                 })
                 .waitSeconds(1)
                 .addTemporalMarker(() -> {
-                    //outHand();
+                    outHand();
                 })
                 .waitSeconds(1.5)
                 .addTemporalMarker(() -> {
@@ -271,9 +271,6 @@ public class BlueLeftAuto extends LinearOpMode {
                 .waitSeconds(0.2)
                 .lineToLinearHeading(new Pose2d(48, 73, Math.toRadians(180)))
                 .lineTo(new Vector2d(62, 73))
-                .addTemporalMarker(() -> {
-                    PoseStorage.currentPose = drive.getPoseEstimate();
-                })
                 .build();
 
 
@@ -342,17 +339,17 @@ public class BlueLeftAuto extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
                 telemetry.addData("X pos", blocks[i].x);
-                if (blocks[i].x < 90){
-                    side = "left";
-                    telemetry.addLine("Detected Left");
-                }
-                else if (blocks[i].x > 100 && blocks[i].x < 230){
-                    side = "middle";
-                    telemetry.addLine("Detected Middle");
-                }
-                else{
-                    side = "right";
-                    telemetry.addLine("Detected Right");
+                if (blocks[i].y < 220 && blocks[i].y > 20) {
+                    if (blocks[i].x < 90) {
+                        side = "left";
+                        telemetry.addLine("Detected Left");
+                    } else if (blocks[i].x > 100 && blocks[i].x < 230) {
+                        side = "middle";
+                        telemetry.addLine("Detected Middle");
+                    } else {
+                        side = "right";
+                        telemetry.addLine("Detected Right");
+                    }
                 }
             }
 
