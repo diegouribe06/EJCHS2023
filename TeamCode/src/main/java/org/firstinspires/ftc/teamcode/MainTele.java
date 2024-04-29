@@ -115,14 +115,17 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < 1100) {
+            if(slideMotor.getCurrentPosition() < 1050) {
                 slideMotor.setPower(1);
             }
             else{
                 slideMotor.setPower(0);
             }
-            //Rotate Positive is Down Arm Negative is Down
-            bucketArm.setPosition(0.6779);
+
+            //Arm Negative is Down
+            bucketArm.setPosition(0.677);
+
+            //Rotate Positive is Down
             bucketRotate.setPosition(0.475);
         }
 
@@ -136,12 +139,12 @@ public class MainTele extends RobotCore {
 
             //Rotates the bucket itself
             if (gamepad2.dpad_left) {
-                bucketRotate.setPosition(0.185);
+                bucketRotate.setPosition(0.3);
                 bucketArm.setPosition(0.9);
             }
 
             if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0.80);
+                bucketRotate.setPosition(0.9);
 
             }
 
