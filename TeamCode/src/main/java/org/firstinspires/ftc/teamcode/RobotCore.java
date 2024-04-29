@@ -50,7 +50,7 @@ public class RobotCore extends OpMode{
 
     @Override
     public void init(){
-        //initialize drive motors
+        //initializing drive motors
         leftFront=hardwareMap.get(DcMotor.class, "leftFront");
         rightFront=hardwareMap.get(DcMotor.class, "rightFront");
         leftRear=hardwareMap.get(DcMotor.class, "leftRear");
@@ -60,7 +60,7 @@ public class RobotCore extends OpMode{
         hookMotor = hardwareMap.get(DcMotor.class, "hookMotor");
         intakeMotor = hardwareMap.get(DcMotor.class, "intakeMotor");
 
-        //Initialize Servos
+        //Initializing Servos
         autoArm = hardwareMap.get(Servo.class, "autoArm");
         autoArm.setDirection(Servo.Direction.FORWARD);
         autoClaw = hardwareMap.get(Servo.class, "autoClaw");
