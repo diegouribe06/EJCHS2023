@@ -180,7 +180,7 @@ public class MainTele extends RobotCore {
             if (droneServo.getPosition() == 0.5 && !droneRetract){
                 droneLaunched = true;
             }
-            //Potential Substitute if(droneLaunched && robotMoving){
+            //A Potential Substitute if(droneLaunched && robotMoving){
             if (droneLaunched){
                 droneRetract = true;
                 droneLaunched = false;
