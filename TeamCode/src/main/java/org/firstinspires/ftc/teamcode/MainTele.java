@@ -38,6 +38,8 @@ public class MainTele extends RobotCore {
         telemetry.addData("Auto Arm", autoArm.getPosition());
         //Straight Out is 0.7
         //Straight up is 0.35
+
+        //Hook Logic
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
            hookClear = true;
         }

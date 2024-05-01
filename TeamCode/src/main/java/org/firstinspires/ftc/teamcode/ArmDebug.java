@@ -44,6 +44,7 @@ public class ArmDebug extends RobotCore {
     // e robot's wheel motors are initialized in RobotCore
     public void init() {
         super.init();
+
         //Straight Out is 0.7
         //Straight up is 0.35
         if (hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7) {
@@ -100,6 +101,8 @@ public class ArmDebug extends RobotCore {
         if (slideMotor.getCurrentPosition() > -2120) {
             slideMotor.setPower(-1);
         }
+
+
         if (gamepad1.x) {
             bucketArm.setPosition(0.25);
             bucketRotate.setPosition(0.1);
@@ -133,6 +136,7 @@ public class ArmDebug extends RobotCore {
             bucketRotate.setPosition(0.1);
         }
 
+        //Controls the Box With the Pixels
         if(gamepad1.dpad_up){
             bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
 
@@ -140,6 +144,8 @@ public class ArmDebug extends RobotCore {
         if(gamepad1.dpad_down){
             bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
         }
+
+        //Controls the Arm that Pivots to the Backdrop
         if(gamepad1.dpad_left){
             bucketArm.setPosition(bucketArm.getPosition() - 0.001);
         }
