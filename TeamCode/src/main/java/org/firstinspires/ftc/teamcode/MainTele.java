@@ -39,7 +39,7 @@ public class MainTele extends RobotCore {
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
-           hookClear = true;
+            hookClear = true;
         }
         else
         {
@@ -68,27 +68,24 @@ public class MainTele extends RobotCore {
         rr = moveY + moveX - turnX;
 
         //sets the power of the drive motors
-        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1){
-            if(gamepad1.left_trigger > 0.1) {
+        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
+            if (gamepad1.left_trigger > 0.1) {
                 leftFront.setPower(lf * 0.4);
                 rightFront.setPower(rf * 0.4);
                 leftRear.setPower(lr * 0.4);
                 rightRear.setPower(rr * 0.4);
-            }
-            else if(gamepad1.right_trigger > 0.1) {
+            } else if (gamepad1.right_trigger > 0.1) {
                 leftFront.setPower(lf * 1);
                 rightFront.setPower(rf * 1);
                 leftRear.setPower(lr * 1);
                 rightRear.setPower(rr * 1);
-            }
-            else{
+            } else {
                 leftFront.setPower(lf * 0.65);
                 rightFront.setPower(rf * 0.65);
                 leftRear.setPower(lr * 0.65);
                 rightRear.setPower(rr * 0.65);
             }
-        }
-        else{
+        } else {
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftRear.setPower(0);
@@ -102,29 +99,52 @@ public class MainTele extends RobotCore {
             bucketArm.setPosition(0.69);
         }
 
-        if(gamepad2.dpad_down){
-            isExtending = false;
-            isRetracting = true;
+        if (gamepad2.dpad_down) {
+            if(slideMotor.getCurrentPosition() < -2020) {
+                isExtending = false;
+                isRetracting = true;
+            }else{
+                isExtending = true;
+                isRetracting = true;
+            }
         }
 
-        if(isExtending && !isRetracting){
-            if(slideMotor.getCurrentPosition() > -2120) {
+        if(isExtending && isRetracting){
+            if(slideMotor.getCurrentPosition() < -2100){
+                isExtending = false;
+            }else{
+                slideMotor.setPower(-0.7);
+            }
+
+        }
+
+        if (isExtending && !isRetracting) {
+            if (slideMotor.getCurrentPosition() > -2120) {
                 slideMotor.setPower(-1);
             }
 
         }
-        //Retracts the slide2300
+        //Retracts the slide
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() < 1100) {
+            if (slideMotor.getCurrentPosition() < 1050) {
                 slideMotor.setPower(1);
-            }
-            else{
+            } else {
                 slideMotor.setPower(0);
             }
-            //Rotate Positive is Down Arm Negative is Down
-            bucketArm.setPosition(0.6779);
-            bucketRotate.setPosition(0.475);
+
+            //Arm Negative is Down
+
+            bucketArm.setPosition(0.7);
+
+            //Rotate Positive is Down
+            if (slideMotor.getCurrentPosition() > 850) {
+                bucketRotate.setPosition(0.42);
+            } else {
+                bucketRotate.setPosition(0.475);
+            }
         }
+
+
 
         //Basic robot functions
         if (gamepad2.a) {
@@ -134,82 +154,82 @@ public class MainTele extends RobotCore {
             bucketDoor.setPosition(0.75);
         }
 
-            //Rotates the bucket itself
-            if (gamepad2.dpad_left) {
-                bucketRotate.setPosition(0.185);
-                bucketArm.setPosition(0.9);
-            }
+        //Rotates the bucket itself
+        if (gamepad2.dpad_left) {
+            bucketRotate.setPosition(0.3);
+            bucketArm.setPosition(0.9);
+        }
 
-            if (gamepad2.dpad_right) {
-                bucketRotate.setPosition(0.80);
+        if (gamepad2.dpad_right) {
+            bucketRotate.setPosition(0.9);
 
-            }
+        }
 
-            //Powers the intake
-            if (gamepad2.right_stick_y > 0.2) {
-                bucketArm.setPosition(1);
-            }
-            if (gamepad2.right_stick_y < -0.2) {
-                bucketArm.setPosition(0);
-            }
+        //Powers the intake
+        if (gamepad2.right_stick_y > 0.2) {
+            bucketArm.setPosition(1);
+        }
+        if (gamepad2.right_stick_y < -0.2) {
+            bucketArm.setPosition(0);
+        }
 
-            //Powers the intake but reverses it
-            if (gamepad1.right_bumper) {
-                intakeMotor.setPower(1);
-                intakeServo.setPower(-1);
-            } else if (gamepad1.left_bumper) {
-                intakeMotor.setPower(-1);
-                intakeServo.setPower(-1);
-            } else {
-                intakeMotor.setPower(0);
-                intakeServo.setPower(0);
-            }
+        //Powers the intake but reverses it
+        if (gamepad1.right_bumper) {
+            intakeMotor.setPower(1);
+            intakeServo.setPower(-1);
+        } else if (gamepad1.left_bumper) {
+            intakeMotor.setPower(-1);
+            intakeServo.setPower(-1);
+        } else {
+            intakeMotor.setPower(0);
+            intakeServo.setPower(0);
+        }
 
-            //launches drone
-            if (gamepad1.y) {
-                droneServo.setPosition(1);
-            }
-            else if (droneLaunched == false){
-                droneServo.setPosition(0);
-            }
-            if (droneServo.getPosition() == 0.5 && !droneRetract){
-                droneLaunched = true;
-            }
-            //Potential Substitute if(droneLaunched && robotMoving){
-            if (droneLaunched){
-                droneRetract = true;
-                droneLaunched = false;
-                droneServo.setPosition(0);
-            }
+        //launches drone
+        if (gamepad1.y) {
+            droneServo.setPosition(1);
+        }
+        else if (droneLaunched == false){
+            droneServo.setPosition(0);
+        }
+        if (droneServo.getPosition() == 0.5 && !droneRetract){
+            droneLaunched = true;
+        }
+        //Potential Substitute if(droneLaunched && robotMoving){
+        if (droneLaunched){
+            droneRetract = true;
+            droneLaunched = false;
+            droneServo.setPosition(0);
+        }
 
-            //Hook logic
-            //Power Hook Slide
-            if(gamepad2.right_trigger > 0.1){
-                hookMotor.setPower(1);
+        //Hook logic
+        //Power Hook Slide
+        if(gamepad2.right_trigger > 0.1){
+            hookMotor.setPower(1);
+        }
+        else if(gamepad2.left_trigger > 0.1){
+            hookMotor.setPower(-1);
+        }
+        else{
+            hookMotor.setPower(0);
+        }
+        //Power Hook Servos
+        if(hookLeftServo.getPosition() == 0.35 || hookRightServo.getPosition() == 0.35) {
+            hookUp = true;
+        }
+        else {
+            if (hookLeftServo.getPosition() == 0.7 || hookRightServo.getPosition() == 0.7) {
+                hookUp = false;
             }
-            else if(gamepad2.left_trigger > 0.1){
-                hookMotor.setPower(-1);
-            }
-            else{
-                hookMotor.setPower(0);
-            }
-            //Power Hook Servos
-            if(hookLeftServo.getPosition() == 0.35 || hookRightServo.getPosition() == 0.35) {
-                hookUp = true;
-            }
-            else {
-                if (hookLeftServo.getPosition() == 0.7 || hookRightServo.getPosition() == 0.7) {
-                    hookUp = false;
-                }
-            }
-            if(gamepad2.right_bumper){
-                hookLeftServo.setPosition(0.35);
-                hookRightServo.setPosition(0.35);
-            }
-            else if(gamepad2.left_bumper) {
-                hookLeftServo.setPosition(0.7);
-                hookRightServo.setPosition(0.7);
-            }
+        }
+        if(gamepad2.right_bumper){
+            hookLeftServo.setPosition(0.35);
+            hookRightServo.setPosition(0.35);
+        }
+        else if(gamepad2.left_bumper) {
+            hookLeftServo.setPosition(0.7);
+            hookRightServo.setPosition(0.7);
+        }
     }
 
 

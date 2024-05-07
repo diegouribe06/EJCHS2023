@@ -97,9 +97,7 @@ public class ArmDebug extends RobotCore {
             leftRear.setPower(0);
             rightRear.setPower(0);
         }
-        if (slideMotor.getCurrentPosition() > -2120) {
-            slideMotor.setPower(-1);
-        }
+
         if (gamepad1.x) {
             bucketArm.setPosition(0.25);
             bucketRotate.setPosition(0.1);
@@ -133,19 +131,34 @@ public class ArmDebug extends RobotCore {
             bucketRotate.setPosition(0.1);
         }
 
-        if(gamepad1.dpad_up){
+        if (gamepad1.dpad_up) {
             bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
 
         }
-        if(gamepad1.dpad_down){
+        if (gamepad1.dpad_down) {
             bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
         }
-        if(gamepad1.dpad_left){
+        if (gamepad1.dpad_left) {
             bucketArm.setPosition(bucketArm.getPosition() - 0.001);
         }
-        if(gamepad1.dpad_right){
+        if (gamepad1.dpad_right) {
             bucketArm.setPosition(bucketArm.getPosition() + 0.001);
         }
+
+        if(gamepad2.dpad_up){
+            if (slideMotor.getCurrentPosition() > -2120) {
+                slideMotor.setPower(-1);
+            }
+        }
+        else if(gamepad2.dpad_down){
+            if (slideMotor.getCurrentPosition() < 1050) {
+                slideMotor.setPower(1);
+            }
+        }
+        else{slideMotor.setPower(0);}
+
+
+
     }
         //Prints different info for debugging
         private void printDebugData() {
