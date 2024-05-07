@@ -68,24 +68,27 @@ public class MainTele extends RobotCore {
         rr = moveY + moveX - turnX;
 
         //sets the power of the drive motors
-        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1) {
-            if (gamepad1.left_trigger > 0.1) {
+        if (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1){
+            if(gamepad1.left_trigger > 0.1) {
                 leftFront.setPower(lf * 0.4);
                 rightFront.setPower(rf * 0.4);
                 leftRear.setPower(lr * 0.4);
                 rightRear.setPower(rr * 0.4);
-            } else if (gamepad1.right_trigger > 0.1) {
+            }
+            else if(gamepad1.right_trigger > 0.1) {
                 leftFront.setPower(lf * 1);
                 rightFront.setPower(rf * 1);
                 leftRear.setPower(lr * 1);
                 rightRear.setPower(rr * 1);
-            } else {
+            }
+            else{
                 leftFront.setPower(lf * 0.65);
                 rightFront.setPower(rf * 0.65);
                 leftRear.setPower(lr * 0.65);
                 rightRear.setPower(rr * 0.65);
             }
-        } else {
+        }
+        else{
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftRear.setPower(0);
@@ -99,14 +102,9 @@ public class MainTele extends RobotCore {
             bucketArm.setPosition(0.69);
         }
 
-        if (gamepad2.dpad_down) {
-            if(slideMotor.getCurrentPosition() < -2020) {
-                isExtending = false;
-                isRetracting = true;
-            }else{
-                isExtending = true;
-                isRetracting = true;
-            }
+        if(gamepad2.dpad_down){
+            isExtending = false;
+            isRetracting = true;
         }
 
         if(isExtending && isRetracting){
@@ -118,17 +116,18 @@ public class MainTele extends RobotCore {
 
         }
 
-        if (isExtending && !isRetracting) {
-            if (slideMotor.getCurrentPosition() > -2120) {
+        if(isExtending && !isRetracting){
+            if(slideMotor.getCurrentPosition() > -2120) {
                 slideMotor.setPower(-1);
             }
 
         }
-        //Retracts the slide
+        //Retracts the slide2300
         if (!isExtending && isRetracting) {
             if (slideMotor.getCurrentPosition() < 1050) {
                 slideMotor.setPower(1);
-            } else {
+            }
+            else{
                 slideMotor.setPower(0);
             }
 
@@ -163,27 +162,27 @@ public class MainTele extends RobotCore {
         if (gamepad2.dpad_right) {
             bucketRotate.setPosition(0.9);
 
-        }
+            }
 
-        //Powers the intake
-        if (gamepad2.right_stick_y > 0.2) {
-            bucketArm.setPosition(1);
-        }
-        if (gamepad2.right_stick_y < -0.2) {
-            bucketArm.setPosition(0);
-        }
+            //Powers the intake
+            if (gamepad2.right_stick_y > 0.2) {
+                bucketArm.setPosition(1);
+            }
+            if (gamepad2.right_stick_y < -0.2) {
+                bucketArm.setPosition(0);
+            }
 
-        //Powers the intake but reverses it
-        if (gamepad1.right_bumper) {
-            intakeMotor.setPower(1);
-            intakeServo.setPower(-1);
-        } else if (gamepad1.left_bumper) {
-            intakeMotor.setPower(-1);
-            intakeServo.setPower(-1);
-        } else {
-            intakeMotor.setPower(0);
-            intakeServo.setPower(0);
-        }
+            //Powers the intake but reverses it
+            if (gamepad1.right_bumper) {
+                intakeMotor.setPower(1);
+                intakeServo.setPower(-1);
+            } else if (gamepad1.left_bumper) {
+                intakeMotor.setPower(-1);
+                intakeServo.setPower(-1);
+            } else {
+                intakeMotor.setPower(0);
+                intakeServo.setPower(0);
+            }
 
         //launches drone
         if (gamepad1.y) {
@@ -202,34 +201,34 @@ public class MainTele extends RobotCore {
             droneServo.setPosition(0);
         }
 
-        //Hook logic
-        //Power Hook Slide
-        if(gamepad2.right_trigger > 0.1){
-            hookMotor.setPower(1);
-        }
-        else if(gamepad2.left_trigger > 0.1){
-            hookMotor.setPower(-1);
-        }
-        else{
-            hookMotor.setPower(0);
-        }
-        //Power Hook Servos
-        if(hookLeftServo.getPosition() == 0.35 || hookRightServo.getPosition() == 0.35) {
-            hookUp = true;
-        }
-        else {
-            if (hookLeftServo.getPosition() == 0.7 || hookRightServo.getPosition() == 0.7) {
-                hookUp = false;
+            //Hook logic
+            //Power Hook Slide
+            if(gamepad2.right_trigger > 0.1){
+                hookMotor.setPower(1);
             }
-        }
-        if(gamepad2.right_bumper){
-            hookLeftServo.setPosition(0.35);
-            hookRightServo.setPosition(0.35);
-        }
-        else if(gamepad2.left_bumper) {
-            hookLeftServo.setPosition(0.7);
-            hookRightServo.setPosition(0.7);
-        }
+            else if(gamepad2.left_trigger > 0.1){
+                hookMotor.setPower(-1);
+            }
+            else{
+                hookMotor.setPower(0);
+            }
+            //Power Hook Servos
+            if(hookLeftServo.getPosition() == 0.35 || hookRightServo.getPosition() == 0.35) {
+                hookUp = true;
+            }
+            else {
+                if (hookLeftServo.getPosition() == 0.7 || hookRightServo.getPosition() == 0.7) {
+                    hookUp = false;
+                }
+            }
+            if(gamepad2.right_bumper){
+                hookLeftServo.setPosition(0.35);
+                hookRightServo.setPosition(0.35);
+            }
+            else if(gamepad2.left_bumper) {
+                hookLeftServo.setPosition(0.7);
+                hookRightServo.setPosition(0.7);
+            }
     }
 
 

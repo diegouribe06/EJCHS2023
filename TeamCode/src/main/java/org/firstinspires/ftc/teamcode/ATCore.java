@@ -130,14 +130,6 @@ public class ATCore extends LinearOpMode {
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideMotor.setPower(-1);
     }
-    void retractSlide(int slidepos){
-        bucketRotate.setPosition(0.45);
-        bucketArm.setPosition(0.8479);
-        slideMotor.setTargetPosition(slidepos);
-        slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slideMotor.setPower(1);
-    }
 
     private void initTfod() {
 
@@ -175,7 +167,7 @@ public class ATCore extends LinearOpMode {
         builder.setCameraResolution(new Size(1920, 1080));
 
         // Enable the RC preview (LiveView).  Set "false" to omit camera monitoring.
-        builder.enableLiveView(true);
+        //builder.enableLiveView(true);
 
         // Set the stream format; MJPEG uses less bandwidth than default YUY2.
         //builder.setStreamFormat(VisionPortal.StreamFormat.YUY2);

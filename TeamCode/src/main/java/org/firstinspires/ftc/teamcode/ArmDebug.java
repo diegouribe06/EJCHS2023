@@ -135,13 +135,13 @@ public class ArmDebug extends RobotCore {
             bucketRotate.setPosition(bucketRotate.getPosition() + 0.001);
 
         }
-        if (gamepad1.dpad_down) {
+        if(gamepad1.dpad_down){
             bucketRotate.setPosition(bucketRotate.getPosition() - 0.001);
         }
         if (gamepad1.dpad_left) {
             bucketArm.setPosition(bucketArm.getPosition() - 0.001);
         }
-        if (gamepad1.dpad_right) {
+        if(gamepad1.dpad_right){
             bucketArm.setPosition(bucketArm.getPosition() + 0.001);
         }
 
