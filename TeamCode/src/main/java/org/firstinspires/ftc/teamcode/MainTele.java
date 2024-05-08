@@ -39,7 +39,7 @@ public class MainTele extends RobotCore {
         //Straight Out is 0.7
         //Straight up is 0.35
         if(hookLeftServo.getPosition() == 0.7 && hookRightServo.getPosition() == 0.7){
-            hookClear = true;
+           hookClear = true;
         }
         else
         {
@@ -107,15 +107,6 @@ public class MainTele extends RobotCore {
             isRetracting = true;
         }
 
-        if(isExtending && isRetracting){
-            if(slideMotor.getCurrentPosition() < -2100){
-                isExtending = false;
-            }else{
-                slideMotor.setPower(-0.7);
-            }
-
-        }
-
         if(isExtending && !isRetracting){
             if(slideMotor.getCurrentPosition() > -2120) {
                 slideMotor.setPower(-1);
@@ -124,23 +115,15 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if (slideMotor.getCurrentPosition() < 1050) {
-                slideMotor.setPower(1);
-            }
-            else{
+            if(slideMotor.getCurrentPosition() > 0) {
                 slideMotor.setPower(0);
             }
-
-            //Arm Negative is Down
-
-            bucketArm.setPosition(0.7);
-
-            //Rotate Positive is Down
-            if (slideMotor.getCurrentPosition() > 850) {
-                bucketRotate.setPosition(0.42);
-            } else {
-                bucketRotate.setPosition(0.475);
+            else{
+                slideMotor.setPower(1);
             }
+            //Rotate Positive is Down Arm Negative is Down
+            bucketArm.setPosition(0.6779);
+            bucketRotate.setPosition(0.475);
         }
 
 
@@ -153,14 +136,14 @@ public class MainTele extends RobotCore {
             bucketDoor.setPosition(0.75);
         }
 
-        //Rotates the bucket itself
-        if (gamepad2.dpad_left) {
-            bucketRotate.setPosition(0.3);
-            bucketArm.setPosition(0.9);
-        }
+            //Rotates the bucket itself
+            if (gamepad2.dpad_left) {
+                bucketRotate.setPosition(0.185);
+                bucketArm.setPosition(0.9);
+            }
 
-        if (gamepad2.dpad_right) {
-            bucketRotate.setPosition(0.9);
+            if (gamepad2.dpad_right) {
+                bucketRotate.setPosition(0.80);
 
             }
 
@@ -184,22 +167,22 @@ public class MainTele extends RobotCore {
                 intakeServo.setPower(0);
             }
 
-        //launches drone
-        if (gamepad1.y) {
-            droneServo.setPosition(1);
-        }
-        else if (droneLaunched == false){
-            droneServo.setPosition(0);
-        }
-        if (droneServo.getPosition() == 0.5 && !droneRetract){
-            droneLaunched = true;
-        }
-        //Potential Substitute if(droneLaunched && robotMoving){
-        if (droneLaunched){
-            droneRetract = true;
-            droneLaunched = false;
-            droneServo.setPosition(0);
-        }
+            //launches drone
+            if (gamepad1.y) {
+                droneServo.setPosition(1);
+            }
+            else if (droneLaunched == false){
+                droneServo.setPosition(0);
+            }
+            if (droneServo.getPosition() == 0.5 && !droneRetract){
+                droneLaunched = true;
+            }
+            //Potential Substitute if(droneLaunched && robotMoving){
+            if (droneLaunched){
+                droneRetract = true;
+                droneLaunched = false;
+                droneServo.setPosition(0);
+            }
 
             //Hook logic
             //Power Hook Slide
