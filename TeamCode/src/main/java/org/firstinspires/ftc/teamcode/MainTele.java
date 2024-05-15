@@ -115,7 +115,7 @@ public class MainTele extends RobotCore {
         }
         //Retracts the slide2300
         if (!isExtending && isRetracting) {
-            if(slideMotor.getCurrentPosition() > 0) {
+            if(slideMotor.getCurrentPosition() > -200) {
                 slideMotor.setPower(0);
             }
             else{
